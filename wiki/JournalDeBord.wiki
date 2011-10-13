@@ -1,0 +1,15 @@
+#Journal de bord du projet.
+= Introduction =
+
+Cette page relatera les différentes réunions qu'on fera dans le cadre de notre projet de persistance d'objets, vous y trouverez les détails ainsi que les résumés de nos réunions.
+
+
+= 13 Oct 2011 =
+
+  * Première réunion du groupe "hmabwe" :
+     * Désignation du chef du projet
+     * Création de la page web du projet
+     * Envoi du mail "définitif" de création du groupe 
+ 
+
+= Prochaine Réunion prévue le Mardi 18 Oct à 16h30 à la BU = 
