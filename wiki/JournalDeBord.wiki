@@ -17,10 +17,10 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
 == 18 Oct 2011 ==
   
   * Deuxième réunion : 
-    *Mise en place de la structure du projet
-    *Diagramme de classes
-    *Choix de stratégies de Développement
-    *Répartition des tâches
+    * Mise en place de la structure du projet
+    * Diagramme de classes
+    * Choix de stratégies de Développement
+    * Répartition des tâches
 
 
 = Le projet est sur le SVN faites un checkout après configuration du svn sous eclipse = 
