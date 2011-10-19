@@ -1,0 +1,20 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+  <persistence-unit name="Employes" transaction-type="RESOURCE_LOCAL">
+  <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+  <class>jpa.Departement</class>
+  <properties>
+    <property name="javax.persistence.jdbc.driver"
+       value="oracle.jdbc.driver.OracleDriver"/>
+    <property name="javax.persistence.jdbc.url"
+      value="jdbc:oracle:thin:@localhost:1521:XE"/>
+    <property name="javax.persistence.jdbc.user"  
+      value="*****"/>
+    <property name="javax.persistence.jdbc.password" 
+      value="******"/>
+    <property name="eclipselink.ddl-generation" 
+      value="drop-and-create-tables"/>
+    <property name="eclipselink.logging.level" 
+      value="FINEST"/>
+  </properties>
+  </persistence-unit>
+</persistence>
