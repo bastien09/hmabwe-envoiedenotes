@@ -14,4 +14,13 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
      * Envoi du mail "définitif" de création du groupe 
  
 
-= Prochaine Réunion prévue le Mardi 18 Oct à 16h30 à la BU = 
+== 18 Oct 2011 ==
+  
+  * Deuxième réunion : 
+    *Mise en place de la structure du projet
+    *Diagramme de classes
+    *Choix de stratégies de Développement
+    *Répartition des tâches
+
+
+= Le projet est sur le SVN faites un checkout après configuration du svn sous eclipse = 
