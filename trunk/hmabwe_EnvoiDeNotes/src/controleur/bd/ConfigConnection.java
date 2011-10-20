@@ -1,4 +1,4 @@
-package controleur.bd;
+package fr.unice.hmabwe.controleur.bd;
 
 import java.sql.*;
 import java.io.*;
