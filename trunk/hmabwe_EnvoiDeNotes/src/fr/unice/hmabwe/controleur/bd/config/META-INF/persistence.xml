@@ -1,7 +1,13 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
-  <persistence-unit name="Employes" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="Notes" transaction-type="RESOURCE_LOCAL">
   <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-  <class>jpa.Departement</class>
+  <class>fr.unice.hmabwe.modele.Personne</class>
+  <class>fr.unice.hmabwe.modele.Enseignant</class>
+  <class>fr.unice.hmabwe.modele.Etudiant</class>
+  <class>fr.unice.hmabwe.modele.Filliere</class>
+  <class>fr.unice.hmabwe.modele.Inscription</class>
+  <class>fr.unice.hmabwe.modele.Cours</class>
+  <class>fr.unice.hmabwe.modele.Coefficient</class>
   <properties>
     <property name="javax.persistence.jdbc.driver"
        value="oracle.jdbc.driver.OracleDriver"/>
