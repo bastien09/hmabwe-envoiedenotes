@@ -2,13 +2,14 @@ package fr.unice.hmabwe.modele;
 
 /**@author Anthony Biga
  * 
- * La classe Personne représente la table hmabwe_personne. 
- * La stratégie choisie pour le mapping objet/relationnel étant une seule table par
- * arborescence d'héritage, les classes héritant de Personne ne sont pas représentées par des tables différentes
- * dans la base de données de l'application EnvoieDeNotes.
+ * La classe Personne reprÃ©sente la table hmabwe_personne. 
+ * La stratÃ©gie choisie pour le mapping objet/relationnel Ã©tant une seule table par
+ * arborescence d'hÃ©ritage, les classes hÃ©ritant de Personne ne sont pas reprÃ©sentÃ©es par 
+ * des tables diffÃ©rentes dans la base de donnÃ©es de l'application EnvoieDeNotes.
  * 
  * */
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,9 +17,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="hmabwe_personne")
+@DiscriminatorColumn(name="type")
 public class Personne {
 	
-	/**Identifiant d'une personne (clée primaire de la table hmabwe_personne générée automatiquement)*/
+	/**Identifiant d'une personne (clÃ©e primaire de la table hmabwe_personne gÃ©nÃ©rÃ©e automatiquement)*/
 	@Id
 	@GeneratedValue
 	protected int id;
@@ -26,22 +28,22 @@ public class Personne {
 	/**nom d'une personne*/
 	protected String nom;
 	
-	/**prénom d'une personne*/
+	/**prï¿½nom d'une personne*/
 	protected String prenom;
 	
 	/**adresse e-mail d'une personne. Dans le cadre de l'application EnvoieDe Notes chaque personne
 	 * doit obligatoirement avoir une adresse e-mail.*/
 	protected String mail;
 
-	/**Constructeur par défaut*/
+	/**Constructeur par dï¿½faut*/
 public Personne(){
 	
 }
 
-/**Constructeur associant à une personne un nom, un prénom et une adresse e-mail
- * @param n nom de la personne à créer
- * @param pn prénom de la personne à créer
- * @param m adresse e-mail de la personne à créer*/
+/**Constructeur associant Ã  une personne un nom, un prÃ©nom et une adresse e-mail
+ * @param n nom de la personne Ã  crÃ©er
+ * @param pn prÃ©nom de la personne Ã  crÃ©er
+ * @param m adresse e-mail de la personne Ã  crÃ©er*/
 public Personne(String n, String pn, String m){
 	nom=n;
 	prenom=pn;
@@ -62,10 +64,10 @@ public String getNom(){
 	return nom;
 }
 
-/**Modifie le nom de la personne si celui passé en paramètre est différent de null(retourne vrai si
- * la modification s'est bien passée, faux sinon).
- * @param n nouveau nom à attribuer à la personne
- * @return modification effectuée ou non*/
+/**Modifie le nom de la personne si celui passÃ© en paramÃ¨tre est diffÃ©rent de null(retourne vrai si
+ * la modification s'est bien passÃ©e, faux sinon).
+ * @param n nouveau nom Ã  attribuer Ã  la personne
+ * @return modification effectuÃ©e ou non*/
 public boolean setNom(String n){
 	boolean res = false;
 	
@@ -79,16 +81,16 @@ public boolean setNom(String n){
 
 //Accesseurs pour l'attribut prenom
 
-/**Retourne le prénom de la personne.
- * @return prénom de la personne*/
+/**Retourne le prÃ©nom de la personne.
+ * @return prÃ©nom de la personne*/
 public String getPrenom(){
 	return prenom;
 }
 
-/**Modifie le prénom de la personne si celui passé en paramètre est différent de null(retourne vrai si
- * la modification s'est bien passée, faux sinon).
- * @param pn nouveau prénom à attribuer à la personne
- * @return modification effectuée ou non*/
+/**Modifie le prÃ©nom de la personne si celui passÃ© en paramÃ¨tre est diffÃ©rent de null(retourne vrai si
+ * la modification s'est bien passÃ©e, faux sinon).
+ * @param pn nouveau prÃ©nom Ã  attribuer Ã  la personne
+ * @return modification effectuÃ©e ou non*/
 public boolean setPrenom(String pn){
 	boolean res = false;
 	
@@ -108,10 +110,10 @@ public String getMail(){
 	return mail;
 }
 
-/**Modifie l'adresse e-mail de la personne si celle passée en paramètre est différente de null(retourne vrai si
- * la modification s'est bien passée, faux sinon).
- * @param m nouvelle adresse e-mail à attribuer à la personne
- * @return modification effectuée ou non*/
+/**Modifie l'adresse e-mail de la personne si celle passÃ©e en paramÃ¨tre est diffÃ©rente de null
+ * (retourne vrai si la modification s'est bien passÃ©e, faux sinon).
+ * @param m nouvelle adresse e-mail Ã  attribuer Ã  la personne
+ * @return modification effectuÃ©e ou non*/
 public boolean setMail(String m){
 	boolean res = false;
 	

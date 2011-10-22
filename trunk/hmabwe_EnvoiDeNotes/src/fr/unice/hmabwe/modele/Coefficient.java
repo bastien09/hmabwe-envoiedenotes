@@ -8,8 +8,8 @@ import javax.persistence.Table;
 
 /**@author Anthony Biga
  * 
- * La classe Coefficient représente l'association d'un cours à une fillière avec un certain coefficient.
- * Elle est modélisée par la table hmabwe_coefficient.
+ * La classe Coefficient reprÃ©sente l'association d'un cours Ã  une filliÃ¨re avec un certain coefficient.
+ * Elle est modÃ©lisÃ©e par la table hmabwe_coefficient.
  * 
  * */
 
@@ -17,50 +17,54 @@ import javax.persistence.Table;
 @Table (name="hmabwe_coefficient")
 public class Coefficient {
 	
-	/**Chaque instance de la classe Coefficient à un identifiant unique, c'est la clé primaire(automatique)
-	 * dans la table associée.*/
+	/**Chaque instance de la classe Coefficient a un identifiant unique, c'est la clÃ© primaire(automatique)
+	 * dans la table associÃ©e.*/
 	@Id
 	@GeneratedValue
 	private int id;
 	
-	/**Un coefficient est associé à un cours*/
+	/**Un coefficient est associÃ© Ã  un cours*/
 	@ManyToOne
 	private Cours cours;
 	
-	/**Un coefficient est associé à une fillière*/
+	/**Un coefficient est associÃ© Ã  une filliÃ¨re*/
 	@ManyToOne
 	private Filliere filliere;
 	
-	/**Coefficient pour un cours dans une fillière*/
+	/**Coefficient pour un cours dans une filliÃ¨re*/
 	private Integer coefficient;
 	
-	/**Constructeur par défaut*/
+	/**Constructeur par dÃ©faut*/
 	public Coefficient(){
 	}
 	
-	/**Constructeur associant au coefficient un cours et une fillère*/
+	/**Constructeur associant au coefficient un cours et une fillÃ¨re*/
 	public Coefficient(Cours c, Filliere f, Integer coeff){
 		cours=c;
 		filliere=f;
 		coefficient=coeff;
 	}
 	
-	/**Retourne le cours associé à une instance de la classe Coefficient*/
+	/**Retourne le cours associÃ© Ã  une instance de la classe Coefficient
+	 * @return id de l'instance de Coefficient*/
 	public int getId() {
 		return id;
 	}
 
-	/**Retourne le cours associé à une instance de la classe Coefficient*/
+	/**Retourne le cours associÃ© Ã  une instance de la classe Coefficient
+	 * @return cours de l'instance de Coefficient*/
 	public Cours getCours() {
 		return cours;
 	}
 
-	/**Retourne la fillière associée à une instance de la classe Coefficient*/
+	/**Retourne la filliÃ¨re associÃ©e Ã  une instance de la classe Coefficient
+	 * @return filliÃ¨re de l'instance de Coefficient*/
 	public Filliere getFilliere() {
 		return filliere;
 	}
 	
-	/**Retourne le cours associé à une instance de la classe Coefficient*/
+	/**Retourne le cours associÃ© Ã  une instance de la classe Coefficient
+	 * @return coefficient de l'instance de Coefficient*/
 	public Integer getCoefficient() {
 		return coefficient;
 	}

@@ -3,53 +3,55 @@ package fr.unice.hmabwe.modele;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**@author Anthony Biga
  * 
- * La classe Etudiant représente un étudiant dans la table hmabwe_personne
- * (il n'y a pas de table hmabwe_étudiant).
+ * La classe Etudiant reprÃ©sente un Ã©tudiant dans la table hmabwe_personne
+ * (il n'y a pas de table hmabwe_etudiant).
  * 
  * */
 
 @Entity
+@DiscriminatorValue("etudiant")
 public class Etudiant extends Personne{
 	
-	/**En plus de son id, chaque étudiant dispose d'un numéro unique qui l'identifie au sein de l'université*/
+	/**En plus de son id, chaque Ã©tudiant dispose d'un numÃ©ro unique qui l'identifie au sein de l'universitÃ©*/
 	private String numEtu;
 	
-	/**Un étudiant est associé à une fillière.*/
+	/**Un Ã©tudiant est associÃ© Ã  une filliÃ¨re.*/
 	@ManyToOne
 	private Filliere filliere;
 	
-	/**Un étudiant est inscrit à un ou plusieurs cours.*/
+	/**Un Ã©tudiant est inscrit Ã  un ou plusieurs cours.*/
 	@OneToMany(mappedBy="etudiant")
 	private Collection<Inscription> listeInscriptions;
 	
-	/**Constructeur par défaut*/
+	/**Constructeur par dÃ©faut*/
 	public Etudiant(){
 		
 	}
 
-	/**Constructeur associant à un étudiant un nom, un prénom et une adresse e-mail
-	 * @param num numéro de l'étudiant à créer
-	 * @param n nom de l'étudiant à créer
-	 * @param pn prénom de étudiant à créer
-	 * @param m adresse e-mail de étudiant à créer*/
+	/**Constructeur associant Ã  un Ã©tudiant un nom, un prÃ©nom et une adresse e-mail
+	 * @param num numÃ©ro de l'Ã©tudiant Ã  crÃ©er
+	 * @param n nom de l'Ã©tudiant Ã  crÃ©er
+	 * @param pn prï¿½nom de Ã©tudiant Ã  crÃ©er
+	 * @param m adresse e-mail de l'Ã©tudiant Ã  crÃ©er*/
 	public Etudiant(String num, String n, String pn, String m){
 		super(n, pn, m);
 		numEtu=num;
 		listeInscriptions=new ArrayList<Inscription>();
 	}
 	
-	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail et une fillière
-	 * @param num numéro de l'étudiant à créer
-	 * @param n nom de l'étudiant à créer
-	 * @param pn prénom de étudiant à créer
-	 * @param m adresse e-mail de étudiant à créer
-	 * @param f fillière de l'étudiant à créer*/
+	/**Constructeur associant Ã  un Ã©tudiant un nom, un prÃ©nom, une adresse e-mail et une filliÃ¨re
+	 * @param num numÃ©ro de l'Ã©tudiant Ã  crÃ©er
+	 * @param n nom de l'Ã©tudiant Ã  crÃ©er
+	 * @param pn prÃ©nom de l'Ã©tudiant Ã  crÃ©er
+	 * @param m adresse e-mail de l'Ã©tudiant Ã  crÃ©er
+	 * @param f filliÃ¨re de l'Ã©tudiant Ã  crÃ©er*/
 	public Etudiant(String num, String n, String pn, String m, Filliere f){
 		super(n, pn, m);
 		numEtu=num;
@@ -60,16 +62,16 @@ public class Etudiant extends Personne{
 	
 	//Accesseurs pour l'attribut numEtu
 
-	/**Retourne le numéro de l'étudiant.
-	 * @return numéro de l'étudiant*/
+	/**Retourne le numÃ©ro de l'Ã©tudiant.
+	 * @return numÃ©ro de l'Ã©tudiant*/
 	public String getNumEtu(){
 		return numEtu;
 	}
 
-	/**Modifie le numéro de l'étudiant si celui passé en paramètre est différent de null(retourne vrai si
-	 * la modification s'est bien passée, faux sinon).
-	 * @param num nouveau numéro à attribuer à l'étudiant
-	 * @return modification effectuée ou non*/
+	/**Modifie le numÃ©ro de l'Ã©tudiant si celui passÃ© en paramÃ¨tre est diffÃ©rent de null(retourne vrai si
+	 * la modification s'est bien passÃ©e, faux sinon).
+	 * @param num nouveau numÃ©ro Ã  attribuer Ã  l'Ã©tudiant
+	 * @return modification effectuÃ©e ou non*/
 	public boolean setNumEtu(String num){
 		boolean res = false;
 		
@@ -83,16 +85,16 @@ public class Etudiant extends Personne{
 	
 	//Accesseurs pour l'attribut filliere
 
-	/**Retourne la fillière de l'étudiant.
-	 * @return fillière de l'étudiant*/
+	/**Retourne la filliÃ¨re de l'Ã©tudiant.
+	 * @return filliÃ¨re de l'Ã©tudiant*/
 	public Filliere getFilliere(){
 		return filliere;
 	}
 
-	/**Modifie le numéro de l'étudiant si celui passé en paramètre est différent de null(retourne vrai si
-	 * la modification s'est bien passée, faux sinon).
-	 * @param num nouveau numéro à attribuer à l'étudiant
-	 * @return modification effectuée ou non*/
+	/**Modifie le numÃ©ro de l'Ã©tudiant si celui passÃ© en paramÃ¨tre est diffÃ©rent de null(retourne vrai si
+	 * la modification s'est bien passÃ©e, faux sinon).
+	 * @param f nouvelle filliÃ¨re Ã  attribuer Ã  l'Ã©tudiant
+	 * @return modification effectuÃ©e ou non*/
 	public boolean setFilliere(Filliere f){
 		boolean res = false;
 		
@@ -108,15 +110,16 @@ public class Etudiant extends Personne{
 	
 	//Accesseurs pour l'attribut listeInscriptions
 	
-	/**Retourne toutes les inscriptions de l'étudiant.*/
+	/**Retourne toutes les inscriptions de l'Ã©tudiant.
+	 * @return liste des inscriptions de l'Ã©tudiant*/
 	public Collection<Inscription> getInscriptions(){
 		return listeInscriptions;
 	}
 	
-	/**Associe une nouvelle inscription à un étudiant si celle passée en paramètre est différente de null(retourne vrai si
-	 * la modification s'est bien passée, faux sinon).
-	 * @param i nouvelle inscription à associer à l'étudiant
-	 * @return modification effectuée ou non*/
+	/**Associe une nouvelle inscription Ã  un Ã©tudiant si celle passÃ©e en paramÃ¨tre est diffÃ©rente de null
+	 * (retourne vrai si la modification s'est bien passÃ©e, faux sinon).
+	 * @param i nouvelle inscription Ã  associer Ã  l'Ã©tudiant
+	 * @return modification effectuÃ©e ou non*/
 	public boolean addInscription(Inscription i){
 		boolean res = false;
 		
@@ -128,10 +131,10 @@ public class Etudiant extends Personne{
 		return res;
 	}
 	
-	/**Retire l'inscription passée en paramètre de la liste des inscriptions associées à un étudiant
-	 * (retourne vrai si la modification s'est bien passée, faux sinon).
-	 * @param i inscription à retirer à l'étudiant
-	 * @return modification effectuée ou non*/
+	/**Retire l'inscription passÃ©e en paramÃ¨tre de la liste des inscriptions associÃ©es Ã  un Ã©tudiant
+	 * (retourne vrai si la modification s'est bien passÃ©e, faux sinon).
+	 * @param i inscription Ã  retirer Ã  l'Ã©tudiant
+	 * @return modification effectuÃ©e ou non*/
 	public boolean removeInscription(Inscription i){
 		boolean res=false;
 		if(i!=null){
@@ -140,8 +143,7 @@ public class Etudiant extends Personne{
 		return res;
 	}
 	
-	/**Vide la liste des inscriptions associées à un étudiant.
-	 *@return modification effectuée ou non*/
+	/**Vide la liste des inscriptions associÃ©es Ã  un Ã©tudiant.*/
 	public void removeAllInscriptions(){
 		listeInscriptions.clear();
 	}
