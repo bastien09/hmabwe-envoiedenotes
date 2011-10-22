@@ -11,23 +11,23 @@ import javax.persistence.Table;
 
 /**@author Anthony Biga
  * 
- * La classe Cours représente un cours auquel sont associés un enseignant et des étudiant.
- * Elle est modélisée par la table hmabwe_cours.
+ * La classe Cours reprÃ©sente un cours auquel sont associÃ©s un enseignant et des Ã©tudiant.
+ * Elle est modÃ©lisÃ©e par la table hmabwe_cours.
  * 
  * */
 
 @Entity
 @Table (name="hmabwe_cours")
 public class Cours {
-	/**Chaque cours a un identifiant unique, c'est la clé primaire(automatique) dans la table associée.*/
+	/**Chaque cours a un identifiant unique, c'est la clÃ© primaire(automatique) dans la table associÃ©e.*/
 	@Id
 	@GeneratedValue
 	private int id;
 	
-	/**Un cours est désigné par son nom.*/
+	/**Un cours est dÃ©signÃ© par son nom.*/
 	private String nom;
 	
-	/**Un cours est présenté par un enseignant.*/
+	/**Un cours est prÃ©senÃ© par un enseignant.*/
 	@ManyToOne
 	private Enseignant enseignant;
 	
@@ -35,24 +35,24 @@ public class Cours {
 	@OneToMany(mappedBy="cours")
 	private Collection<Inscription> listeInscriptions;
 	
-	/**Un cours peut avoir plusieurs fillières ayant chacune un coefficient.*/
+	/**Un cours peut avoir plusieurs filliÃ¨res ayant chacune un coefficient.*/
 	@OneToMany(mappedBy="cours")
 	private Collection<Coefficient> listeCoeffFillieres;
 	
-	/**Constructeur par défaut*/
+	/**Constructeur par dÃ©faut*/
 	public Cours(){
 		
 	}
 	
-	/**Constructeur associant un nom à un cours
-	 * @param n nom du cours à créer*/
+	/**Constructeur associant un nom Ã  un cours
+	 * @param n nom du cours Ã  crÃ©er*/
 	public Cours(String n){
 		nom=n;
 	}
 	
-	/**Constructeur associant un nom et un enseignant à un cours
-	 * @param n nom de la fillière à créer
-	 * @param e enseignant du cours à créer*/
+	/**Constructeur associant un nom et un enseignant Ã  un cours
+	 * @param n nom de la filliÃ¨re Ã  crÃ©er
+	 * @param e enseignant du cours Ã  crÃ©er*/
 	public Cours(String n, Enseignant e){
 		nom=n;
 		enseignant=e;
@@ -68,15 +68,15 @@ public class Cours {
 	//Accesseurs pour l'attribut nom
 
 	/**Retourne le nom du cours.
-	 * @return nom de la fillière*/
+	 * @return nom de la filliÃ¨re*/
 	public String getNom(){
 		return nom;
 	}
 
-	/**Modifie le nom du cours si celui passé en paramètre est différent de null(retourne vrai si
-	 * la modification s'est bien passée, faux sinon).
-	 * @param n nouveau nom à attribuer au cours
-	 * @return modification effectuée ou non*/
+	/**Modifie le nom du cours si celui passÃ© en paramÃ¨tre est diffÃ©rent de null(retourne vrai si
+	 * la modification s'est bien passÃ©e, faux sinon).
+	 * @param n nouveau nom Ã  attribuer au cours
+	 * @return modification effectuÃ©e ou non*/
 	public boolean setNom(String n){
 		boolean res = false;
 		
@@ -90,16 +90,16 @@ public class Cours {
 	
 	//Accesseurs pour l'attribut enseignant
 
-	/**Retourne l'enseignant qui présente le cours.
-	 * @return enseignant qui présente le cours*/
+	/**Retourne l'enseignant qui prÃ©sente le cours.
+	 * @return enseignant qui prÃ©sente le cours*/
 	public Enseignant getEnseignant(){
 		return enseignant;
 	}
 
-	/**Modifie l'enseignant qui présente le cours si celui passé en paramètre est différent de null(retourne vrai si
-	 * la modification s'est bien passée, faux sinon).
-	 * @param e nouvel enseignant qui présente le cours
-	 * @return modification effectuée ou non*/
+	/**Modifie l'enseignant qui prÃ©sente le cours si celui passÃ© en paramÃ¨tre est diffÃ©rent de null(retourne vrai si
+	 * la modification s'est bien passÃ©e, faux sinon).
+	 * @param e nouvel enseignant qui prÃ©sente le cours
+	 * @return modification effectuÃ©e ou non*/
 	public boolean setEnseignant(Enseignant e){
 		boolean res = false;
 		
@@ -121,10 +121,10 @@ public class Cours {
 		return listeInscriptions;
 	}
 	
-	/**Associe une nouvelle inscription à un cours si celle passée en paramètre est différente de null(retourne vrai si
-	 * la modification s'est bien passée, faux sinon).
-	 * @param i nouvelle inscription à associer au cours
-	 * @return modification effectuée ou non*/
+	/**Associe une nouvelle inscription Ã  un cours si celle passÃ©e en paramÃ¨tre est diffÃ©rente de null(retourne vrai si
+	 * la modification s'est bien passÃ©e, faux sinon).
+	 * @param i nouvelle inscription Ã  associer au cours
+	 * @return modification effectuÃ©e ou non*/
 	public boolean addInscription(Inscription i){
 		boolean res = false;
 		
@@ -136,10 +136,10 @@ public class Cours {
 		return res;
 	}
 	
-	/**Retire l'inscription passée en paramètre de la liste des inscriptions au cours
-	 * (retourne vrai si la modification s'est bien passée, faux sinon).
-	 * @param i inscription à retirer au cours
-	 * @return modification effectuée ou non*/
+	/**Retire l'inscription passÃ©e en paramÃ¨tre de la liste des inscriptions au cours
+	 * (retourne vrai si la modification s'est bien passÃ©e, faux sinon).
+	 * @param i inscription Ã  retirer au cours
+	 * @return modification effectuÃ©e ou non*/
 	public boolean removeInscriptions(Inscription i){
 		boolean res = false;
 		
@@ -149,19 +149,18 @@ public class Cours {
 		return res;
 	}
 	
-	/**Vide la liste des inscriptions au cours.
-	 *@return modification effectuée ou non*/
+	/**Vide la liste des inscriptions au cours.*/
 	public void removeAllInscriptions(){
 		listeInscriptions.clear();
 	}
 	
 //Accesseurs pour l'attribut listeCoeffFillieres
 	
-	/**Associe une nouvelle fillière(avec un coefficient) à un cours si cellle passée en paramètre est 
-	 * différente de null(retourne vrai si la modification s'est bien passée, faux sinon).
-	 * @param f nouvelle fillière à associer au cours
-	 * @param coeff coefficient du cours à associer à la fillière
-	 * @return modification effectuée ou non*/
+	/**Associe une nouvelle filliÃ¨re(avec un coefficient) Ã  un cours si cellle passÃ©e en paramÃ¨tre est 
+	 * diffÃ©rente de null(retourne vrai si la modification s'est bien passÃ©e, faux sinon).
+	 * @param f nouvelle filliÃ¨re Ã  associer au cours
+	 * @param coeff coefficient du cours Ã  associer Ã  la filliÃ¨re
+	 * @return modification effectuÃ©e ou non*/
 	public boolean addFilliere(Filliere f, Integer coeff){
 		boolean res = false;
 		
@@ -173,10 +172,10 @@ public class Cours {
 		return res;
 	}
 	
-	/**Retire la fillière passée en paramètre de la liste des fillières associées à un cours
-	 * (retourne vrai si la modification s'est bien passée, faux sinon).
-	 * @param f fillière à retirer du cours
-	 * @return modification effectuée ou non*/
+	/**Retire la filliÃ¨re passÃ©e en paramÃ¨tre de la liste des filliÃ¨res associÃ©es Ã  un cours
+	 * (retourne vrai si la modification s'est bien passÃ©e, faux sinon).
+	 * @param f filliÃ¨re Ã  retirer du cours
+	 * @return modification effectuÃ©e ou non*/
 	public boolean removeFilliere(Filliere f){
 		boolean res=false;
 		
@@ -191,8 +190,7 @@ public class Cours {
 		return res;
 	}
 	
-	/**Vide la liste des fillières associées à un cours.
-	 *@return modification effectuée ou non*/
+	/**Vide la liste des filliÃ¨res associÃ©es Ã  un cours.*/
 	public void removeAllFillieres(){
 		listeCoeffFillieres.clear();
 	}

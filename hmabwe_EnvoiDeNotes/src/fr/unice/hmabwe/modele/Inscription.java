@@ -8,8 +8,8 @@ import javax.persistence.Table;
 
 /**@author Anthony Biga
  * 
- * La classe Inscription représente l'inscription d'un étudiant à un cours.
- * Elle est modélisée par la table hmabwe_inscription.
+ * La classe Inscription reprÃ©sente l'inscription d'un Ã©tudiant Ã  un cours.
+ * Elle est modÃ©lisÃ©e par la table hmabwe_inscription.
  * 
  * */
 
@@ -17,12 +17,12 @@ import javax.persistence.Table;
 @Table (name="hmabwe_inscription")
 public class Inscription {
 	
-	/**Chaque inscription a un identifiant unique généré automatiquement.*/
+	/**Chaque inscription a un identifiant unique gÃ©nÃ©rÃ© automatiquement.*/
 	@Id
 	@GeneratedValue
 	int id;
 	
-	/**Une inscription concerne un étudiant.*/
+	/**Une inscription concerne un Ã©tudiant.*/
 	@ManyToOne
 	Etudiant etudiant;
 	
@@ -30,20 +30,22 @@ public class Inscription {
 	@ManyToOne
 	Cours cours;
 	
-	/**Une inscription a lieu une année donnée.*/
+	/**Une inscription a lieu une annÃ©e donnÃ©e.*/
 	Integer annee;
 	
-	/**Dans le cadre de l'application EnvoieDe Notes, un étudiant n'a qu'une seule note par cours, sa moyenne*/
+	/**Dans le cadre de l'application EnvoieDe Notes, un Ã©tudiant n'a qu'une seule note par cours, 
+	 * sa moyenne*/
 	Double moyenne;
 	
-	/**Constructeur par défaut*/
+	/**Constructeur par dÃ©faut*/
 	public Inscription(){
 		
 	}
 	
-	/**Constructeur associant un étudiant, un cours et une année à une inscription
-	 * @param e étudiant de l'inscription à créer
-	 * @param a année de l'inscription à créer*/
+	/**Constructeur associant un Ã©tudiant, un cours et une annÃ©e Ã  une inscription
+	 * @param e Ã©tudiant de l'inscription Ã  crÃ©er
+	 * @param c cours de l'inscription Ã  crÃ©er
+	 * @param a annÃ©e de l'inscription Ã  crÃ©er*/
 	public Inscription(Etudiant e, Cours c, Integer a){
 		etudiant=e;
 		cours=c;
@@ -52,19 +54,19 @@ public class Inscription {
 	}
 	
 	/**Retourne l'id de l'inscription.
-	 * @return étudiant associé à l'inscription*/
+	 * @return identifiant associÃ© Ã  l'inscription*/
 	public int getId(){
 		return id;
 	}
 	
-	/**Retourne l'étudiant associé à l'inscription.
-	 * @return étudiant associé à l'inscription*/
+	/**Retourne l'Ã©tudiant associÃ© Ã  l'inscription.
+	 * @return Ã©tudiant associÃ© Ã  l'inscription*/
 	public Etudiant getEtudiant(){
 		return etudiant;
 	}
 	
-	/**Retourne l'année associé à l'inscription.
-	 * @return année associé à l'inscription*/
+	/**Retourne l'annÃ©e associÃ© Ã  l'inscription.
+	 * @return annÃ©e associÃ© Ã  l'inscription*/
 	public Integer getAnnee(){
 		return annee;
 	}
@@ -72,14 +74,14 @@ public class Inscription {
 	
 	//Accesseurs pour l'attribut moyenne
 
-	/**Retourne la moyenne de l'étudiant associé à l'inscription.
-	 * @return moyenne de l'étudiant associé à l'inscription*/
+	/**Retourne la moyenne de l'Ã©tudiant associÃ© Ã  l'inscription.
+	 * @return moyenne de l'Ã©tudiant associÃ© Ã  l'inscription*/
 	public Double getMoyenne(){
 		return moyenne;
 	}	
 
-	/**Modifie la moyenne de l'étudiant associé à l'inscription.
-	 * @param n nouvelle moyenne à attribuer à l'étudiant
+	/**Modifie la moyenne de l'Ã©tudiant associÃ© Ã  l'inscription.
+	 * @param n nouvelle moyenne Ã  attribuer Ã  l'Ã©tudiant
 	 */
 	public void setMoyenne(Double m){
 		moyenne=m;
