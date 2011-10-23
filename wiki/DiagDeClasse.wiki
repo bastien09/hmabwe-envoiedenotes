@@ -1,8 +1,0 @@
-#summary description et commentaire du diagramme de classes
-
-==  description du diagramme de classes ==
-
-On détaille ici le rôle de chaque classe présente.
-
-http://code.google.com/p/hmabwe-envoiedenotes/source/browse/trunk/hmabwe_EnvoiDeNotes/doc/screenShots/Diagramme_Classe.jpeg
-
