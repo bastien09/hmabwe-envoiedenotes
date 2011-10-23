@@ -5,7 +5,7 @@
 	<classpathentry kind="lib" path="lib/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="lib/eclipselink/jlib/eclipselink.jar"/>
 	<classpathentry kind="lib" path="lib/eclipselink/jlib/jpa/javax.persistence_2.0.3.v201010191057.jar"/>
-	<classpathentry kind="lib" path="/home/amazigh/Documents/M1/Snippets/jaf-1.1/activation.jar"/>
-	<classpathentry kind="lib" path="/home/amazigh/Documents/M1/Snippets/javamail-1.4.4/mail.jar"/>
+	<classpathentry kind="lib" path="/home/amazigh/workspace/EnvoiDeNotes/lib/activation.jar"/>
+	<classpathentry kind="lib" path="/home/amazigh/workspace/EnvoiDeNotes/lib/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
