@@ -18,7 +18,7 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
   
   * Deuxième réunion : 
     * Mise en place de la structure du projet
-    * Diagramme de [http://code.google.com/p/hmabwe-envoiedenotes/source/browse/trunk/hmabwe_EnvoiDeNotes/doc/screenShots/Diagramme_Classe.jpeg classes]
+    * Diagramme de [http://code.google.com/p/hmabwe-envoiedenotes/source/browse/trunk/hmabwe_EnvoiDeNotes/doc/screenShots/Diagramme_Classe.png classes]
     * Choix de stratégies de Développement
     * Répartition des tâches
 
