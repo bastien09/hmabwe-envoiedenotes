@@ -33,6 +33,9 @@ public abstract class JpaDaoGenerique<T, ID extends Serializable> implements Dao
 		classeEntite = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoGenerique#create()
+	 */
 	public void create(T objet) throws DaoException {
 		try {
 			if(em != null && em.isOpen())
@@ -54,6 +57,9 @@ public abstract class JpaDaoGenerique<T, ID extends Serializable> implements Dao
 		}
 	}
 
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoGenerique#update()
+	 */
 	public void update(T objet) throws DaoException {
 		try {
 			if(em != null && em.isOpen())
@@ -68,7 +74,10 @@ public abstract class JpaDaoGenerique<T, ID extends Serializable> implements Dao
 			throw new DaoException("transaction nécessaire", tre, 4);
 		}
 	}
-
+	
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoGenerique#delete()
+	 */
 	public void delete(T objet) throws DaoException {
 		try {
 			if(em != null && em.isOpen())
@@ -84,6 +93,9 @@ public abstract class JpaDaoGenerique<T, ID extends Serializable> implements Dao
 		}
 	}
 
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoGenerique#findById()
+	 */
 	public T findById(ID id) throws DaoException {
 		try {
 			if(em != null && em.isOpen())
@@ -96,6 +108,9 @@ public abstract class JpaDaoGenerique<T, ID extends Serializable> implements Dao
 		}
 	}
 
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoGenerique#findAll()
+	 */
 	public Collection<T> findAll() throws DaoException {
 		try {
 			if(em != null && em.isOpen()) {
@@ -117,10 +132,23 @@ public abstract class JpaDaoGenerique<T, ID extends Serializable> implements Dao
 		}
 	}
 	
+	/**
+	 * cette méthode permet d'attribuer un EntityManager à ce DAO
+	 * 
+	 * @param em l'EntityManager à attribuer à ce DAO
+	 * 
+	 */
 	public void setEntityManager(EntityManager em) {
 		this.em = em;
 	}
 	
+	/**
+	 * cette méthode permet de récupérer l'EntityManager qui a été
+	 * attribué à ce DAO
+	 * 
+	 * @return EntityManager l'EntityManager attribué à ce DAO
+	 * 
+	 */
 	protected EntityManager getEntityManager() {
 		if(em != null && em.isOpen()) {
 			return em;

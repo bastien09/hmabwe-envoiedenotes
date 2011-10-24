@@ -3,6 +3,11 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
+
+import fr.unice.hmabwe.controleur.bd.Connexion;
+import fr.unice.hmabwe.controleur.bd.JpaConnexion;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
 import fr.unice.hmabwe.modele.Coefficient;
@@ -15,39 +20,66 @@ import fr.unice.hmabwe.modele.Inscription;
 /**
  * @author Paraita Wohler
  * 
- * TODO commentaire présentation de la classe
+ * JpaDaoFabrique est une DaoFabrique spécialisé dans
+ * le type de persistance JPA. Elle permet de récupérer
+ * les DAO pouvant gérer les différentes entités qu'on va utiliser
  *
  */
 public class JpaDaoFabrique extends DaoFabrique {
+	
+	private JpaConnexion conn = null;
+	
+	public JpaDaoFabrique() {
+		super();
+		// TODO ici c'est lié avec l'IHM configuration de la persistance
+		this.conn = new JpaConnexion(Persistence.createEntityManagerFactory("Persistance-qui-ecrase").createEntityManager());
+	}
 
 	@Override
 	public DaoGenerique<Enseignant, Integer> getDaoEnseignant() {
-		return new JpaDaoEnseignant();
+		JpaDaoEnseignant enseignant = new JpaDaoEnseignant();
+		enseignant.setEntityManager(conn.getEntityManager());
+		return enseignant;
 	}
 
 	@Override
 	public DaoGenerique<Etudiant, Integer> getDaoEtudiant() {
-		return new JpaDaoEtudiant();
+		JpaDaoEtudiant etudiant = new JpaDaoEtudiant();
+		etudiant.setEntityManager(conn.getEntityManager());
+		return etudiant;
 	}
 
 	@Override
 	public DaoGenerique<Cours, Integer> getDaoCours() {
-		return new JpaDaoCours();
+		JpaDaoCours cours = new JpaDaoCours();
+		cours.setEntityManager(conn.getEntityManager());
+		return cours;
 	}
 
 	@Override
 	public DaoGenerique<Inscription, Integer> getDaoInscription() {
-		return new JpaDaoInscription();
+		JpaDaoInscription inscription = new JpaDaoInscription();
+		inscription.setEntityManager(conn.getEntityManager());
+		return inscription;
 	}
 
 	@Override
 	public DaoGenerique<Filliere, Integer> getDaoFilliere() {
-		return new JpaDaoFilliere();
+		JpaDaoFilliere filliere = new JpaDaoFilliere();
+		filliere.setEntityManager(conn.getEntityManager());
+		return filliere;
 	}
 
 	@Override
 	public DaoGenerique<Coefficient, Integer> getDaoCoefficient() {
-		return new JpaDaoCoefficient();
+		JpaDaoCoefficient coefficient = new JpaDaoCoefficient();
+		coefficient.setEntityManager(conn.getEntityManager());
+		return coefficient;
+	}
+
+	@Override
+	public Connexion getConnexion() {
+		return (Connexion)conn;
 	}
 
 }
