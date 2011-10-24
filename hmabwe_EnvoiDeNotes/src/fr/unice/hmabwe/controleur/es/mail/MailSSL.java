@@ -13,14 +13,14 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
  
-public class SendMailSSL {
+public class MailSSL {
 	
 	private String login;
 	private String password;
 	private String host;
 	private int port;
 	
-	public SendMailSSL(String login,String password,String host, int port){
+	public MailSSL(String login,String password,String host, int port){
 		this.login=login;
 		this.password=password;
 		this.host=host;
