@@ -10,13 +10,17 @@ package fr.unice.hmabwe.modele;
  * */
 
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="hmabwe_personne")
+@Table(
+		name="hmabwe_personne", 
+		uniqueConstraints=@UniqueConstraint(name="hmabwe_numEtu_UniqueConstraint", columnNames={"numEtu"})
+		)
 @DiscriminatorColumn(name="type")
 public class Personne {
 	
