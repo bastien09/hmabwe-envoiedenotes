@@ -23,4 +23,12 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
     * Répartition des tâches
 
 
-= Le projet est sur le SVN faites un checkout après configuration du svn sous eclipse = 
+== 19 Oct 2011 ==
+
+  * Début de codage
+
+== 27 Oct 2011 == 
+
+  * Date _prévisionnel_ du premier prototype de notre application.
+
+       ==On se motive les gars ;) == 
