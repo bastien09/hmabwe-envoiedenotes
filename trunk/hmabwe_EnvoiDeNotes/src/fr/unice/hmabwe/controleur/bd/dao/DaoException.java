@@ -3,27 +3,28 @@ package fr.unice.hmabwe.controleur.bd.dao;
 /**
  * 
  * @author Paraita Wohler
- *
+ * 
+ * DaoException est l'encapsulation des erreurs pouvant arriver
+ * dans le code métier, il permet de faire abstraction en cachant le type
+ * de persistance utilisé. Il est néamoins possible de <i>voir</i> le problème
+ * interne car les DaoException sont la plupart du temps chaînées à l'Exception interne.
+ * Autrement, il est possible de récupérer le code d'erreur de la DaoException en utilisant
+ * la méthode getCode():
+ * 
+ * -1 s'il y a une erreur chaînée
+ * 1 pour une connexion pas ouverte
+ * 2 pour une connexion déjà ouverte
+ * 3 si pas de transaction en cours
+ * 4 si l'EntityManager est inexistant ou fermé
+ * ...
+ * 
  */
 public class DaoException extends Exception {
 	
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	   * Code de l'erreur.
-	   * -1 s'il y a une exception chaînée ;
-	   * 1 pour connexion pas ouverte ;
-	   * 2 pour connexion déjà ouverte ;
-	   * 4 si pas de transaction en cours ;
-	   * 5 EntityManager inexistant ou fermé ;
-	   * ...
-	   */
 	  private int codeErreur;
 
-	  /**
-	   * constructeur vide
-	   * 
-	   */
 	  public DaoException() {
 	  }
 
