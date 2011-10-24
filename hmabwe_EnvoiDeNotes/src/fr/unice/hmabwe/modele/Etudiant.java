@@ -73,7 +73,7 @@ public class Etudiant extends Personne{
 	public Etudiant(String num, String n, String pn, String m, String o, Filliere f){
 		this(num, n, pn, m, o);
 		filliere=f;
-		filliere.addEtudiant(this);
+		//filliere.addEtudiant(this);
 		listeInscriptions=new ArrayList<Inscription>();
 	}
 	
