@@ -33,5 +33,5 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
 
        ==On se motive les gars ;) == 
 
-== Test image ==
+== Diagramme de Classes ==
 http://hmabwe-envoiedenotes.googlecode.com/svn/trunk/hmabwe_EnvoiDeNotes/doc/screenShots/Diagramme_Classe.png
