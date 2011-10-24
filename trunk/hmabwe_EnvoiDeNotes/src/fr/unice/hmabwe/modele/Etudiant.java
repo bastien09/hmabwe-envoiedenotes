@@ -22,6 +22,10 @@ public class Etudiant extends Personne{
 	/**En plus de son id, chaque étudiant dispose d'un numéro unique qui l'identifie au sein de l'université*/
 	private String numEtu;
 	
+	/**Un étudiant a une fillière d'origine, elle est de type String car elle n'est pas forcemment 
+	 * dans la base de données de l'application.*/
+	private String origine;
+	
 	/**Un étudiant est associé à une fillière.*/
 	@ManyToOne
 	private Filliere filliere;
@@ -38,7 +42,7 @@ public class Etudiant extends Personne{
 	/**Constructeur associant à un étudiant un nom, un prénom et une adresse e-mail
 	 * @param num numéro de l'étudiant à créer
 	 * @param n nom de l'étudiant à créer
-	 * @param pn pr�nom de étudiant à créer
+	 * @param pn prénom de étudiant à créer
 	 * @param m adresse e-mail de l'étudiant à créer*/
 	public Etudiant(String num, String n, String pn, String m){
 		super(n, pn, m);
@@ -46,15 +50,28 @@ public class Etudiant extends Personne{
 		listeInscriptions=new ArrayList<Inscription>();
 	}
 	
-	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail et une fillière
+	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail et une origine
+	 * @param num numéro de l'étudiant à créer
+	 * @param n nom de l'étudiant à créer
+	 * @param pn prénom de étudiant à créer
+	 * @param m adresse e-mail de l'étudiant à créer
+	 * @param o origine de l'étudiant à créer*/
+	public Etudiant(String num, String n, String pn, String m, String o){
+		this(num, n, pn, m);
+		origine=o;
+		listeInscriptions=new ArrayList<Inscription>();
+	}
+	
+	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail, une origine 
+	 * et une fillière
 	 * @param num numéro de l'étudiant à créer
 	 * @param n nom de l'étudiant à créer
 	 * @param pn prénom de l'étudiant à créer
 	 * @param m adresse e-mail de l'étudiant à créer
+	 * @param o origine de l'étudiant à créer
 	 * @param f fillière de l'étudiant à créer*/
-	public Etudiant(String num, String n, String pn, String m, Filliere f){
-		super(n, pn, m);
-		numEtu=num;
+	public Etudiant(String num, String n, String pn, String m, String o, Filliere f){
+		this(num, n, pn, m, o);
 		filliere=f;
 		filliere.addEtudiant(this);
 		listeInscriptions=new ArrayList<Inscription>();
@@ -77,6 +94,30 @@ public class Etudiant extends Personne{
 		
 		if(num != null && !num.equalsIgnoreCase("")){
 			numEtu=num;
+			res=true;
+		}
+		
+		return res;
+	}
+	
+	
+	//Accesseurs pour l'attribut origine
+
+	/**Retourne l'origine de l'étudiant.
+	 * @return origine de l'étudiant*/
+	public String getOrigine(){
+		return origine;
+	}
+
+	/**Modifie l'origine de l'étudiant si celle passée en paramètre est différente de null(retourne vrai si
+	 * la modification s'est bien passée, faux sinon).
+	 * @param origine nouvelle origine à attribuer à l'étudiant
+	 * @return modification effectuée ou non*/
+	public boolean setOrigine(String o){
+		boolean res = false;
+		
+		if(o != null && !o.equalsIgnoreCase("")){
+			origine=o;
 			res=true;
 		}
 		
