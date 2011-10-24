@@ -32,3 +32,6 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
   * Date _prévisionnel_ du premier prototype de notre application.
 
        ==On se motive les gars ;) == 
+
+== Test image ==
+http://hmabwe-envoiedenotes.googlecode.com/svn/trunk/hmabwe_EnvoiDeNotes/doc/screenShots/Diagramme_Classe.png
