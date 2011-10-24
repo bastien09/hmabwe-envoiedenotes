@@ -14,31 +14,43 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
  
 public class SendMailSSL {
-	public static void main(String[] args) {
+	
+	private String login;
+	private String password;
+	private String host;
+	private int port;
+	
+	public SendMailSSL(String login,String password,String host, int port){
+		this.login=login;
+		this.password=password;
+		this.host=host;
+		this.port=port;
+	}
+	
+	public void SendMail(String from, String to, String subject, String text){
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.socketFactory.port", port);
 		props.put("mail.smtp.socketFactory.class",
 				"javax.net.ssl.SSLSocketFactory");
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.port", port);
  
 		Session session = Session.getDefaultInstance(props,
 			new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("login@gmail.com","password");
+					return new PasswordAuthentication(login,password);
 				}
 			});
  
 		try {
  
 			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("from@gmail.com"));
+			message.setFrom(new InternetAddress(from));
 			message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse("to@gmail.com"));
-			message.setSubject("Testing Subject");
-			message.setText("Dear Mail Crawler," +
-					"\n\n No spam to my email, please!");
+					InternetAddress.parse(to));
+			message.setSubject(subject);
+			message.setText(text);
  
 			Transport.send(message);
  
@@ -48,4 +60,6 @@ public class SendMailSSL {
 			throw new RuntimeException(e);
 		}
 	}
+	
+		
 }
