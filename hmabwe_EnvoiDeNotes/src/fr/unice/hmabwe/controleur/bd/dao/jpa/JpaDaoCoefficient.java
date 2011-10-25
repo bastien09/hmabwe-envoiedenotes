@@ -19,5 +19,6 @@ public class JpaDaoCoefficient extends JpaDaoGenerique<Coefficient, Integer>
 
 	/**
 	 * le code métier va ici
+	 * 
 	 */
 }

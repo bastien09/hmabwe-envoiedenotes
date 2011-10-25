@@ -5,8 +5,10 @@ package fr.unice.hmabwe.controleur.bd;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.RollbackException;
+
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 
@@ -30,12 +32,15 @@ public class JpaConnexion implements Connexion {
 	
 	
 	/**
+	 * Ouvrir une connexion en JPA en fait c'est juste demander un nouveau EntityManager
+	 * 
 	 * @see fr.unice.hmabwe.controleur.bd.Connexion#ouvrir()
+	 * 
 	 */
 	@Override
 	public void ouvrir() throws DaoException {
-		// TODO ca veut dire quoi ouvrir une connexion ?
-
+		// TODO ici c'est lié avec l'IHM configuration de la persistance
+		this.em = Persistence.createEntityManagerFactory("mapersistance").createEntityManager();
 	}
 
 	/**
