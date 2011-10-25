@@ -49,8 +49,18 @@ public class Inscription {
 	public Inscription(Etudiant e, Cours c, Integer a){
 		etudiant=e;
 		cours=c;
-		cours.addInscription(this);
+		//cours.addInscription(this);
 		annee=a;
+	}
+	
+	/**Constructeur associant un étudiant, un cours, une année et une moyenne à une inscription
+	 * @param e étudiant de l'inscription à créer
+	 * @param c cours de l'inscription à créer
+	 * @param a année de l'inscription à créer
+	 * @param m moyenne associée au cours de l'inscription à créer*/
+	public Inscription(Etudiant e, Cours c, Integer a, Double m){
+		this(e, c, a);
+		moyenne=m;
 	}
 	
 	/**Retourne l'id de l'inscription.

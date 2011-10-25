@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**@author Anthony Biga
  * 
@@ -17,7 +18,9 @@ import javax.persistence.Table;
  * */
 
 @Entity
-@Table (name="hmabwe_cours")
+@Table (
+		name="hmabwe_cours",
+		uniqueConstraints=@UniqueConstraint(name="hmabwe_nomCours_UniqueConstraint", columnNames={"nom"}))
 public class Cours {
 	/**Chaque cours a un identifiant unique, c'est la clé primaire(automatique) dans la table associée.*/
 	@Id
@@ -35,9 +38,9 @@ public class Cours {
 	@OneToMany(mappedBy="cours")
 	private Collection<Inscription> listeInscriptions;
 	
-	/**Un cours peut avoir plusieurs fillières ayant chacune un coefficient.*/
+	/**Un cours peut avoir plusieurs filières ayant chacune un coefficient.*/
 	@OneToMany(mappedBy="cours")
-	private Collection<Coefficient> listeCoeffFillieres;
+	private Collection<Coefficient> listeCoeffFilieres;
 	
 	/**Constructeur par défaut*/
 	public Cours(){
@@ -51,12 +54,12 @@ public class Cours {
 	}
 	
 	/**Constructeur associant un nom et un enseignant à un cours
-	 * @param n nom de la fillière à créer
+	 * @param n nom de la filière à créer
 	 * @param e enseignant du cours à créer*/
 	public Cours(String n, Enseignant e){
 		nom=n;
 		enseignant=e;
-		enseignant.addCours(this);
+		//enseignant.addCours(this);
 	}
 	
 	/**Retourne l'id du cours.
@@ -68,7 +71,7 @@ public class Cours {
 	//Accesseurs pour l'attribut nom
 
 	/**Retourne le nom du cours.
-	 * @return nom de la fillière*/
+	 * @return nom de la filière*/
 	public String getNom(){
 		return nom;
 	}
@@ -156,33 +159,33 @@ public class Cours {
 	
 //Accesseurs pour l'attribut listeCoeffFillieres
 	
-	/**Associe une nouvelle fillière(avec un coefficient) à un cours si cellle passée en paramètre est 
+	/**Associe une nouvelle filière(avec un coefficient) à un cours si cellle passée en paramètre est 
 	 * différente de null(retourne vrai si la modification s'est bien passée, faux sinon).
-	 * @param f nouvelle fillière à associer au cours
-	 * @param coeff coefficient du cours à associer à la fillière
+	 * @param f nouvelle filière à associer au cours
+	 * @param coeff coefficient du cours à associer à la filière
 	 * @return modification effectuée ou non*/
-	public boolean addFilliere(Filliere f, Integer coeff){
+	public boolean addFiliere(Filiere f, Integer coeff){
 		boolean res = false;
 		
 		if(f != null){
-			listeCoeffFillieres.add(new Coefficient(this, f, coeff));
+			listeCoeffFilieres.add(new Coefficient(this, f, coeff));
 			res=true;
 		}
 		
 		return res;
 	}
 	
-	/**Retire la fillière passée en paramètre de la liste des fillières associées à un cours
+	/**Retire la filière passée en paramètre de la liste des filières associées à un cours
 	 * (retourne vrai si la modification s'est bien passée, faux sinon).
-	 * @param f fillière à retirer du cours
+	 * @param f filière à retirer du cours
 	 * @return modification effectuée ou non*/
-	public boolean removeFilliere(Filliere f){
+	public boolean removeFiliere(Filiere f){
 		boolean res=false;
 		
 		if(f!=null){
-			for(Coefficient coeff: listeCoeffFillieres){
-				if(coeff.getFilliere()==f){
-					listeCoeffFillieres.remove(coeff);
+			for(Coefficient coeff: listeCoeffFilieres){
+				if(coeff.getFiliere()==f){
+					listeCoeffFilieres.remove(coeff);
 					break;
 				}
 			}
@@ -190,9 +193,9 @@ public class Cours {
 		return res;
 	}
 	
-	/**Vide la liste des fillières associées à un cours.*/
-	public void removeAllFillieres(){
-		listeCoeffFillieres.clear();
+	/**Vide la liste des filières associées à un cours.*/
+	public void removeAllFilieres(){
+		listeCoeffFilieres.clear();
 	}
 
 }

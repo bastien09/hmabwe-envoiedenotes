@@ -1,7 +1,7 @@
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
-import fr.unice.hmabwe.modele.Filliere;
+import fr.unice.hmabwe.modele.Filiere;
 
 /**
  * 
@@ -12,8 +12,8 @@ import fr.unice.hmabwe.modele.Filliere;
  * Cette classe fourni les méthodes spécifiques au code métier de l'application
  *
  */
-public class JpaDaoFilliere extends JpaDaoGenerique<Filliere, Integer>
-		implements DaoGenerique<Filliere, Integer> {
+public class JpaDaoFilliere extends JpaDaoGenerique<Filiere, Integer>
+		implements DaoGenerique<Filiere, Integer> {
 
 	/**
 	 * le code métier va ici

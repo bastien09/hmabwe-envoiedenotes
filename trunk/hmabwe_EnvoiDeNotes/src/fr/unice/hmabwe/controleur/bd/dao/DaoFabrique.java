@@ -71,7 +71,7 @@ public abstract class DaoFabrique {
 	 * @return DaoGenerique<Filliere, Integer> un DAO qui sait gérer les entités Filliere
 	 * 
 	 */
-	public abstract DaoGenerique<Filliere, Integer> getDaoFilliere();
+	public abstract DaoGenerique<Filiere, Integer> getDaoFilliere();
 	
 	/**
 	 * cette méthode permet de récuperer un DAO sachant gérer les

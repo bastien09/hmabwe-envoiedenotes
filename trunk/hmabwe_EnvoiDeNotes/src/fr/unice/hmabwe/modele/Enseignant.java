@@ -17,9 +17,9 @@ import javax.persistence.OneToMany;
 @DiscriminatorValue("enseignant")
 public class Enseignant extends Personne{
 	
-	/**Un enseignant peut être responsable d'une ou plusieurs fillières*/
+	/**Un enseignant peut être responsable d'une ou plusieurs filières*/
 	@OneToMany(mappedBy="responsable")
-	private Collection<Filliere> listeFillieres;
+	private Collection<Filiere> listeFilieres;
 	
 	/**Un enseignant peut présenter un ou plusieurs cours*/
 	@OneToMany(mappedBy="enseignant")
@@ -40,21 +40,21 @@ public class Enseignant extends Personne{
 	
 	//Accesseurs pour l'attribut listeFillieres
 	
-	/**Retourne toutes les fillières dont l'enseignant est responsable.
-	 * @return fillières dont l'enseignant est responsable*/
-	public Collection<Filliere> getFillieres(){
-		return listeFillieres;
+	/**Retourne toutes les filières dont l'enseignant est responsable.
+	 * @return filières dont l'enseignant est responsable*/
+	public Collection<Filiere> getFilieres(){
+		return listeFilieres;
 	}
 	
-	/**Associe une nouvelle fillière à un enseignant si celle passée en paramètre est différente de null
+	/**Associe une nouvelle filière à un enseignant si celle passée en paramètre est différente de null
 	 * (retourne vrai si la modification s'est bien passée, faux sinon).
-	 * @param f nouvelle fillière à associer à l'enseignant
+	 * @param f nouvelle filière à associer à l'enseignant
 	 * @return modification effectuée ou non*/
-	public boolean addFilliere(Filliere f){
+	public boolean addFiliere(Filiere f){
 		boolean res = false;
 		
 		if(f != null){
-			listeFillieres.add(f);
+			listeFilieres.add(f);
 			f.setResponsable(this);
 			res=true;
 		}
@@ -62,25 +62,25 @@ public class Enseignant extends Personne{
 		return res;
 	}
 	
-	/**Retire la fillière passée en paramètre de la liste des fillières dont l'enseignant est responsable
+	/**Retire la filière passée en paramètre de la liste des filières dont l'enseignant est responsable
 	 * (retourne vrai si la modification s'est bien passée, faux sinon).
-	 * @param f fillière à retirer à l'enseignant
+	 * @param f filière à retirer à l'enseignant
 	 * @return modification effectuée ou non*/
-	public boolean removeFilliere(Filliere f){
+	public boolean removeFiliere(Filiere f){
 		boolean res = false;
 		if(f!=null){
 			f.setResponsable(null);
-			res=listeFillieres.remove(f);
+			res=listeFilieres.remove(f);
 		}
 		return res;
 	}
 	
-	/**Vide la liste des fillières dont l'enseignant est responsable.*/
-	public void removeAllFillieres(){
-		for(Filliere f : listeFillieres){
+	/**Vide la liste des filières dont l'enseignant est responsable.*/
+	public void removeAllFilieres(){
+		for(Filiere f : listeFilieres){
 			f.setResponsable(null);
 		}
-		listeFillieres.clear();
+		listeFilieres.clear();
 	}
 	
 	//Accesseurs pour l'attribut listeCours

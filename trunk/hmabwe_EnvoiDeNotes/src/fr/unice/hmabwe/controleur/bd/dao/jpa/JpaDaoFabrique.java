@@ -12,7 +12,7 @@ import fr.unice.hmabwe.modele.Coefficient;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Enseignant;
 import fr.unice.hmabwe.modele.Etudiant;
-import fr.unice.hmabwe.modele.Filliere;
+import fr.unice.hmabwe.modele.Filiere;
 import fr.unice.hmabwe.modele.Inscription;
 
 /**
@@ -62,7 +62,7 @@ public class JpaDaoFabrique extends DaoFabrique {
 	}
 
 	@Override
-	public DaoGenerique<Filliere, Integer> getDaoFilliere() {
+	public DaoGenerique<Filiere, Integer> getDaoFilliere() {
 		JpaDaoFilliere filliere = new JpaDaoFilliere();
 		filliere.setEntityManager(conn.getEntityManager());
 		return filliere;
