@@ -29,7 +29,7 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
 
 == 27 Oct 2011 == 
 
-  * Date _prévisionnel_ du premier prototype de notre application.
+  * Date _prévisionnel_ du premier prototype (en ligne de commande) de notre application.
 
        ==On se motive les gars ;) == 
 
