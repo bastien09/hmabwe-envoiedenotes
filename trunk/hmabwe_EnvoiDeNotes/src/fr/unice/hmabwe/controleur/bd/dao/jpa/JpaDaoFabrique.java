@@ -3,9 +3,7 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
-import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
-
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.JpaConnexion;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
@@ -32,7 +30,7 @@ public class JpaDaoFabrique extends DaoFabrique {
 	public JpaDaoFabrique() {
 		super();
 		// TODO ici c'est lié avec l'IHM configuration de la persistance
-		this.conn = new JpaConnexion(Persistence.createEntityManagerFactory("Persistance-qui-ecrase").createEntityManager());
+		this.conn = new JpaConnexion(Persistence.createEntityManagerFactory("persistance").createEntityManager());
 	}
 
 	@Override

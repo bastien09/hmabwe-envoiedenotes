@@ -47,13 +47,13 @@ public class TestDao {
 		
 		/* je crée quelques objets */
 		Enseignant ens1 = new Enseignant("Grin", "Mr", "grin@unice.fr");
-		Cours cours1 = new Cours("Persistance des objets", ens1);
+		//Cours cours1 = new Cours("Persistance des objets", ens1);
 		
 		/* on rend persistant ces objets */
 		try {
 			conn.beginTransaction();
 			daoEnseignant.create(ens1);
-			daoCours.create(cours1);
+			//daoCours.create(cours1);
 			conn.commitTransaction();
 		}
 		catch(DaoException e) {
