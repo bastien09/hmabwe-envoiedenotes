@@ -22,13 +22,13 @@ public class Etudiant extends Personne{
 	/**En plus de son id, chaque étudiant dispose d'un numéro unique qui l'identifie au sein de l'université*/
 	private String numEtu;
 	
-	/**Un étudiant a une fillière d'origine, elle est de type String car elle n'est pas forcemment 
+	/**Un étudiant a une filière d'origine, elle est de type String car elle n'est pas forcemment 
 	 * dans la base de données de l'application.*/
 	private String origine;
 	
-	/**Un étudiant est associé à une fillière.*/
+	/**Un étudiant est associé à une filière.*/
 	@ManyToOne
-	private Filliere filliere;
+	private Filiere filiere;
 	
 	/**Un étudiant est inscrit à un ou plusieurs cours.*/
 	@OneToMany(mappedBy="etudiant")
@@ -63,16 +63,16 @@ public class Etudiant extends Personne{
 	}
 	
 	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail, une origine 
-	 * et une fillière
+	 * et une filière
 	 * @param num numéro de l'étudiant à créer
 	 * @param n nom de l'étudiant à créer
 	 * @param pn prénom de l'étudiant à créer
 	 * @param m adresse e-mail de l'étudiant à créer
 	 * @param o origine de l'étudiant à créer
-	 * @param f fillière de l'étudiant à créer*/
-	public Etudiant(String num, String n, String pn, String m, String o, Filliere f){
+	 * @param f filière de l'étudiant à créer*/
+	public Etudiant(String num, String n, String pn, String m, String o, Filiere f){
 		this(num, n, pn, m, o);
-		filliere=f;
+		filiere=f;
 		//filliere.addEtudiant(this);
 		listeInscriptions=new ArrayList<Inscription>();
 	}
@@ -126,23 +126,23 @@ public class Etudiant extends Personne{
 	
 	//Accesseurs pour l'attribut filliere
 
-	/**Retourne la fillière de l'étudiant.
-	 * @return fillière de l'étudiant*/
-	public Filliere getFilliere(){
-		return filliere;
+	/**Retourne la filière de l'étudiant.
+	 * @return filière de l'étudiant*/
+	public Filiere getFiliere(){
+		return filiere;
 	}
 
 	/**Modifie le numéro de l'étudiant si celui passé en paramètre est différent de null(retourne vrai si
 	 * la modification s'est bien passée, faux sinon).
-	 * @param f nouvelle fillière à attribuer à l'étudiant
+	 * @param f nouvelle filière à attribuer à l'étudiant
 	 * @return modification effectuée ou non*/
-	public boolean setFilliere(Filliere f){
+	public boolean setFiliere(Filiere f){
 		boolean res = false;
 		
 		if(f != null){
-			filliere.removeEtudiant(this);
-			filliere=f;
-			filliere.addEtudiant(this);
+			filiere.removeEtudiant(this);
+			filiere=f;
+			filiere.addEtudiant(this);
 			res=true;
 		}
 		

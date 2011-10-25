@@ -66,7 +66,7 @@ public class ExportExcel {
                 sheet.addCell(new Label(3,i,entry.getKey().getMail()));
                 sheet.addCell(new Label(4,i,entry.getKey().getOrigine()));
                 sheet.addCell(new Label(5,i,entry.getValue()));
-                sheet.addCell(new Label(6,i,entry.getKey().getFilliere().getNom()));                
+                sheet.addCell(new Label(6,i,entry.getKey().getFiliere().getNom()));                
                 i++;
             } catch (RowsExceededException e) {
                 e.printStackTrace();

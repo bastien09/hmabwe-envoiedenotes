@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 /**@author Anthony Biga
  * 
- * La classe Coefficient représente l'association d'un cours à une fillière avec un certain coefficient.
+ * La classe Coefficient représente l'association d'un cours à une filière avec un certain coefficient.
  * Elle est modélisée par la table hmabwe_coefficient.
  * 
  * */
@@ -27,11 +27,11 @@ public class Coefficient {
 	@ManyToOne
 	private Cours cours;
 	
-	/**Un coefficient est associé à une fillière*/
+	/**Un coefficient est associé à une filière*/
 	@ManyToOne
-	private Filliere filliere;
+	private Filiere filliere;
 	
-	/**Coefficient pour un cours dans une fillière*/
+	/**Coefficient pour un cours dans une filière*/
 	private Integer coefficient;
 	
 	/**Constructeur par défaut*/
@@ -39,10 +39,12 @@ public class Coefficient {
 	}
 	
 	/**Constructeur associant au coefficient un cours et une fillère*/
-	public Coefficient(Cours c, Filliere f, Integer coeff){
+	public Coefficient(Cours c, Filiere f, Integer coeff){
 		cours=c;
 		filliere=f;
 		coefficient=coeff;
+		//penser à ajouter l'instance crée dans les listes associées de Filliere et Cours juste après
+		//l'appel à ce constructeur !
 	}
 	
 	/**Retourne le cours associé à une instance de la classe Coefficient
@@ -57,9 +59,9 @@ public class Coefficient {
 		return cours;
 	}
 
-	/**Retourne la fillière associée à une instance de la classe Coefficient
-	 * @return fillière de l'instance de Coefficient*/
-	public Filliere getFilliere() {
+	/**Retourne la filière associée à une instance de la classe Coefficient
+	 * @return filière de l'instance de Coefficient*/
+	public Filiere getFiliere() {
 		return filliere;
 	}
 	
