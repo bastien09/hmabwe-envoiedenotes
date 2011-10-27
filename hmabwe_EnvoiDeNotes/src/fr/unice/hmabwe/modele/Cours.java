@@ -2,6 +2,7 @@ package fr.unice.hmabwe.modele;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -35,11 +36,11 @@ public class Cours {
 	private Enseignant enseignant;
 	
 	/**Un cours peut avoir une ou plusieurs inscriptions*/
-	@OneToMany(mappedBy="cours")
+	@OneToMany(mappedBy="cours", cascade=CascadeType.ALL)
 	private Collection<Inscription> listeInscriptions;
 	
 	/**Un cours peut avoir plusieurs filières ayant chacune un coefficient.*/
-	@OneToMany(mappedBy="cours")
+	@OneToMany(mappedBy="cours", cascade=CascadeType.ALL)
 	private Collection<Coefficient> listeCoeffFilieres;
 	
 	/**Constructeur par défaut*/
