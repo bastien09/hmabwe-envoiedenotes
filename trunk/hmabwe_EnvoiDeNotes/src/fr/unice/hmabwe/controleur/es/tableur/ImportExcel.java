@@ -12,7 +12,7 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoCoefficient;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoCours;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoEtudiant;
-import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoFilliere;
+import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoFiliere;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoInscription;
 import fr.unice.hmabwe.modele.Coefficient;
 import fr.unice.hmabwe.modele.Cours;
@@ -127,7 +127,7 @@ public class ImportExcel {
 					
 					JpaDaoEtudiant jpaEtudiant = new JpaDaoEtudiant();
 					JpaDaoCours jpaCours = new JpaDaoCours();
-					JpaDaoFilliere jpaFiliere = new JpaDaoFilliere();
+					JpaDaoFiliere jpaFiliere = new JpaDaoFiliere();
 					JpaDaoCoefficient jpaCoef = new JpaDaoCoefficient();
 					JpaDaoInscription jpaInscr = new JpaDaoInscription();
 					

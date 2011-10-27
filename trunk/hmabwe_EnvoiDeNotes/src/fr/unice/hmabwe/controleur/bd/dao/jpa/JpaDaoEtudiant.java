@@ -3,6 +3,10 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
+import javax.persistence.Embeddable;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
 import fr.unice.hmabwe.modele.Etudiant;
 
@@ -14,10 +18,23 @@ import fr.unice.hmabwe.modele.Etudiant;
  * Cette classe fourni les méthodes spécifiques au code métier de l'application
  *
  */
+
 public class JpaDaoEtudiant extends JpaDaoGenerique<Etudiant, Integer>
-		implements DaoGenerique<Etudiant, Integer> {
+implements DaoGenerique<Etudiant, Integer> {
+
+	private String RequeteEtaitInscrit = "select e from Etudiant as e where " +
+			"e.nom = :etuNom and " +
+			"e.";
 
 	/**
 	 * le code métier va ici
 	 */
+
+	//TODO finir la méthode
+	public boolean etaitInscrit(String numEtu, String nomCours, int annee) {
+		EntityManager e = this.getEntityManager();
+		Query q = null;
+		e.createQuery(RequeteEtaitInscrit);
+		return true;
+	}
 }
