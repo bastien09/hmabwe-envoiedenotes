@@ -29,7 +29,7 @@ public class Coefficient {
 	
 	/**Un coefficient est associé à une filière*/
 	@ManyToOne
-	private Filiere filliere;
+	private Filiere filiere;
 	
 	/**Coefficient pour un cours dans une filière*/
 	private Integer coefficient;
@@ -41,7 +41,7 @@ public class Coefficient {
 	/**Constructeur associant au coefficient un cours et une fillère*/
 	public Coefficient(Cours c, Filiere f, Integer coeff){
 		cours=c;
-		filliere=f;
+		filiere=f;
 		coefficient=coeff;
 		//penser à ajouter l'instance crée dans les listes associées de Filliere et Cours juste après
 		//l'appel à ce constructeur !
@@ -62,7 +62,7 @@ public class Coefficient {
 	/**Retourne la filière associée à une instance de la classe Coefficient
 	 * @return filière de l'instance de Coefficient*/
 	public Filiere getFiliere() {
-		return filliere;
+		return filiere;
 	}
 	
 	/**Retourne le cours associé à une instance de la classe Coefficient
