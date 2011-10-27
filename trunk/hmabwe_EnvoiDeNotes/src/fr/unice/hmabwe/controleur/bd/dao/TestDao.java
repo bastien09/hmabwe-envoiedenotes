@@ -43,7 +43,7 @@ public class TestDao {
 		
 		/* je récupère quelques DAO */
 		DaoGenerique<Enseignant, Integer> daoEnseignant = df.getDaoEnseignant();
-		DaoGenerique<Cours, Integer> daoCours = df.getDaoCours();
+		//DaoGenerique<Cours, Integer> daoCours = df.getDaoCours();
 		
 		/* je crée quelques objets */
 		Enseignant ens1 = new Enseignant("Grin", "Mr", "grin@unice.fr");

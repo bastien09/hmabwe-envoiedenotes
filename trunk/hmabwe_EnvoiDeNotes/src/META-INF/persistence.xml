@@ -4,7 +4,7 @@
   <class>fr.unice.hmabwe.modele.Personne</class>
   <class>fr.unice.hmabwe.modele.Enseignant</class>
   <class>fr.unice.hmabwe.modele.Etudiant</class>
-  <class>fr.unice.hmabwe.modele.Filliere</class>
+  <class>fr.unice.hmabwe.modele.Filiere</class>
   <class>fr.unice.hmabwe.modele.Inscription</class>
   <class>fr.unice.hmabwe.modele.Cours</class>
   <class>fr.unice.hmabwe.modele.Coefficient</class>
@@ -12,11 +12,11 @@
     <property name="javax.persistence.jdbc.driver"
        value="oracle.jdbc.driver.OracleDriver"/>
     <property name="javax.persistence.jdbc.url"
-      value="jdbc:oracle:thin:@192.168.56.101:1521:XE"/>
+      value="jdbc:oracle:thin:@euterpe.unice.fr:1521:INFO"/>
     <property name="javax.persistence.jdbc.user"  
-      value="paraita"/>
+      value="M1WOHLERP"/>
     <property name="javax.persistence.jdbc.password" 
-      value="azerty"/>
+      value="AZERTY"/>
     <property name="eclipselink.ddl-generation" 
       value="drop-and-create-tables"/>
     <property name="eclipselink.logging.level" 

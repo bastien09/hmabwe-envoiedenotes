@@ -40,7 +40,7 @@ public class JpaConnexion implements Connexion {
 	@Override
 	public void ouvrir() throws DaoException {
 		// TODO ici c'est lié avec l'IHM configuration de la persistance
-		this.em = Persistence.createEntityManagerFactory("mapersistance").createEntityManager();
+		this.em = Persistence.createEntityManagerFactory("persistance").createEntityManager();
 	}
 
 	/**
