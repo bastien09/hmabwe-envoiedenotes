@@ -3,6 +3,7 @@ package fr.unice.hmabwe.modele;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -31,7 +32,7 @@ public class Etudiant extends Personne{
 	private Filiere filiere;
 	
 	/**Un étudiant est inscrit à un ou plusieurs cours.*/
-	@OneToMany(mappedBy="etudiant")
+	@OneToMany(mappedBy="etudiant", cascade=CascadeType.ALL)
 	private Collection<Inscription> listeInscriptions;
 	
 	/**Constructeur par défaut*/
