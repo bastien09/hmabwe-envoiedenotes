@@ -63,7 +63,7 @@ public class JpaDaoFabrique extends DaoFabrique {
 
 	@Override
 	public DaoGenerique<Filiere, Integer> getDaoFilliere() {
-		JpaDaoFilliere filliere = new JpaDaoFilliere();
+		JpaDaoFiliere filliere = new JpaDaoFiliere();
 		filliere.setEntityManager(conn.getEntityManager());
 		return filliere;
 	}
