@@ -101,6 +101,7 @@ public class ImportExcel {
 			Cours c;
 			Coefficient coef;
 			Inscription inscription;
+			int an = Integer.parseInt(annee[0].getContents());
 
 			for (int i = 1; i < (numsEtu.length >= noms.length ? noms.length
 					: numsEtu.length); i++) {
@@ -182,9 +183,23 @@ public class ImportExcel {
 							daexep.printStackTrace();
 						}
 					}
-//					else {
-//						verifier si l'inscription n'existe pas on la crée sinon on la met à jour 
-//					}
+					else {
+						if(jpaEtudiant.etaitInscrit(numEtu, cours.toString(),an)){
+							try {
+								jpaInscr.update(inscription);
+							} catch (DaoException e1) {
+								e1.printStackTrace();
+							}
+						}
+						else{
+							try {
+								jpaInscr.create(inscription);
+							} catch (DaoException e1) {
+								e1.printStackTrace();
+							}
+						}
+						
+					}
 					
 					moyennesEtudiants.put(e, moyenne);
 				} catch (NumberFormatException nfe) {
