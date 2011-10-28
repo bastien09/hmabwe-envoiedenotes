@@ -27,9 +27,10 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
 
   * Début de codage
 
-== 27 Oct 2011 == 
+== 28 Oct 2011 == 
 
-  * Date _prévisionnel_ du premier prototype (en ligne de commande) de notre application.
+  * Version Alpha du projet (ça tourne en ligne de commande). Maquette IHM en attente d'approbation par le groupe. 
+  * Date de début du développement de l'IHM : Dimanche 30 Oct 2011. Durée prévisionnel : 1 semaine.
 
        ==On se motive les gars ;) == 
 
