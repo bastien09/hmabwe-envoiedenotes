@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.modele.Etudiant;
 
 /**
@@ -20,7 +20,7 @@ import fr.unice.hmabwe.modele.Etudiant;
  */
 
 public class JpaDaoEtudiant extends JpaDaoGenerique<Etudiant, Integer>
-implements DaoGenerique<Etudiant, Integer> {
+implements DaoEtudiant{
 
 	private String RequeteEtaitInscrit = "select e from Etudiant as e where " +
 			"e.nom = :etuNom and " +

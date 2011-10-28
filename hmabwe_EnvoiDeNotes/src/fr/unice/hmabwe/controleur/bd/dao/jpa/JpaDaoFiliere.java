@@ -1,6 +1,6 @@
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
-import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
 import fr.unice.hmabwe.modele.Filiere;
 
 /**
@@ -13,7 +13,7 @@ import fr.unice.hmabwe.modele.Filiere;
  *
  */
 public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
-		implements DaoGenerique<Filiere, Integer> {
+		implements DaoFiliere {
 
 	/**
 	 * le code métier va ici

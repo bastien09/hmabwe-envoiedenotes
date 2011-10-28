@@ -3,7 +3,7 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
-import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoEnseignant;
 import fr.unice.hmabwe.modele.Enseignant;
 
 /**
@@ -15,7 +15,7 @@ import fr.unice.hmabwe.modele.Enseignant;
  *
  */
 public class JpaDaoEnseignant extends JpaDaoGenerique<Enseignant, Integer>
-		implements DaoGenerique<Enseignant, Integer> {
+		implements DaoEnseignant {
 
 	/**
 	 * le code métier va ici
