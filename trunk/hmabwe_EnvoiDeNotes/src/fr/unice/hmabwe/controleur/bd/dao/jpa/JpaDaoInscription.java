@@ -1,6 +1,7 @@
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoInscription;
 import fr.unice.hmabwe.modele.Inscription;
 
 /**
@@ -13,7 +14,7 @@ import fr.unice.hmabwe.modele.Inscription;
  *
  */
 public class JpaDaoInscription extends JpaDaoGenerique<Inscription, Integer>
-		implements DaoGenerique<Inscription, Integer> {
+		implements DaoInscription {
 
 	/**
 	 * le code métier va ici

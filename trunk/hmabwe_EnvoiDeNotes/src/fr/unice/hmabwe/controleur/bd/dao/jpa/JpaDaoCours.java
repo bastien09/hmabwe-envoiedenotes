@@ -1,6 +1,6 @@
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
-import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoCours;
 import fr.unice.hmabwe.modele.Cours;
 
 /**
@@ -13,7 +13,7 @@ import fr.unice.hmabwe.modele.Cours;
  *
  */
 public class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
-		DaoGenerique<Cours, Integer> {
+		DaoCours {
 
 	/**
 	 * le code métier va ici

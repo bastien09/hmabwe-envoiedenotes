@@ -3,7 +3,7 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
-import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoCoefficient;
 import fr.unice.hmabwe.modele.Coefficient;
 
 /**
@@ -15,7 +15,7 @@ import fr.unice.hmabwe.modele.Coefficient;
  *
  */
 public class JpaDaoCoefficient extends JpaDaoGenerique<Coefficient, Integer>
-		implements DaoGenerique<Coefficient, Integer> {
+		implements DaoCoefficient {
 
 	/**
 	 * le code métier va ici
