@@ -3,12 +3,10 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
+import java.util.List;
 import java.util.HashMap;
-
-import javax.persistence.Embeddable;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Etudiant;
@@ -25,9 +23,9 @@ import fr.unice.hmabwe.modele.Etudiant;
 public class JpaDaoEtudiant extends JpaDaoGenerique<Etudiant, Integer>
 implements DaoEtudiant{
 
-	private String RequeteEtaitInscrit = "select e from Etudiant as e where " +
-			"e.nom = :etuNom and " +
-			"e.";
+	private String RequeteEtaitInscrit = "select e from Etudiant as e where e.numEtu = :numEtu" +
+										 " and e.filiere.listeCoeffCours.cours.nom = :nomCours" +
+										 " and e.Inscription.annee = :annee";
 	//TODO chercher la requete
 	private String RequeteListeInscrit = "";
 
@@ -35,11 +33,8 @@ implements DaoEtudiant{
 	 * le code métier va ici
 	 */
 
-	//TODO finir la méthode
+	//
 	public boolean etaitInscrit(String numEtu, String nomCours, int annee) {
-		EntityManager e = this.getEntityManager();
-		Query q = null;
-		e.createQuery(RequeteEtaitInscrit);
 		return true;
 	}
 	//TODO methode à faire

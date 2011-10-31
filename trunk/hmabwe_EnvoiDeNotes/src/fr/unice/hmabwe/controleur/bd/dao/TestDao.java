@@ -43,11 +43,13 @@ public class TestDao {
 		
 		/* je récupère quelques DAO */
 		DaoGenerique<Enseignant, Integer> daoEnseignant = df.getDaoEnseignant();
+		DaoGenerique<Etudiant, Integer> daoEtudiant = df.getDaoEtudiant();
 		//DaoGenerique<Cours, Integer> daoCours = df.getDaoCours();
 		
 		/* je crée quelques objets */
 		Enseignant ens1 = new Enseignant("Grin", "Mr", "grin@unice.fr");
 		//Cours cours1 = new Cours("Persistance des objets", ens1);
+		System.out.println("est ce que l'étudiant de numéro 1234 existe ?");
 		
 		/* on rend persistant ces objets */
 		try {
