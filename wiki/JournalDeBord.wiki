@@ -32,6 +32,12 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
   * Version Alpha du projet (ça tourne en ligne de commande). Maquette IHM en attente d'approbation par le groupe. 
   * Date de début du développement de l'IHM : Dimanche 30 Oct 2011. Durée prévisionnel : 1 semaine.
 
+== 31 Oct 2011 ==
+
+  * IHM approuvé. Début de codage..
+  * Nouveau membre : Chandarong. Tâche affecté : JUnit Test. Deadline 04 Nov 2011
+  * Édition et gestion des tags dans les mails. 
+
        ==On se motive les gars ;) == 
 
 == Diagramme de Classes ==
