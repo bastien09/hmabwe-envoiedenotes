@@ -26,8 +26,8 @@ implements DaoEtudiant{
 	private String RequeteEtaitInscrit = "select e from Etudiant as e where e.numEtu = :numEtu" +
 										 " and e.filiere.listeCoeffCours.cours.nom = :nomCours" +
 										 " and e.Inscription.annee = :annee";
-	//TODO chercher la requete
-	private String RequeteListeInscrit = "";
+	//TODO chercher comment faire des requete avec jointure
+	private String RequeteListeInscrit = "SELECT s FROM Etudiant s WHERE s.firstname = :fs";
 
 	/**
 	 * le code métier va ici
