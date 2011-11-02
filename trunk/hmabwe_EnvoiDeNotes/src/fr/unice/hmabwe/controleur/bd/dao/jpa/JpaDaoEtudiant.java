@@ -20,7 +20,7 @@ import fr.unice.hmabwe.modele.Etudiant;
  *
  */
 
-public class JpaDaoEtudiant extends JpaDaoGenerique<Etudiant, Integer>
+public abstract class JpaDaoEtudiant extends JpaDaoGenerique<Etudiant, Integer>
 implements DaoEtudiant{
 
 	private String RequeteEtaitInscrit = "select e from Etudiant as e where e.numEtu = :numEtu" +
@@ -38,7 +38,7 @@ implements DaoEtudiant{
 		return true;
 	}
 	//TODO methode à faire
-	public HashMap<Etudiant, String> listeInscrit(Cours cours, Integer annee){
+	public HashMap<Etudiant, String> listeInscrit(String nomCours, Integer annee){
 		
 		return null;
 	}
