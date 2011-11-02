@@ -11,7 +11,12 @@ import fr.unice.hmabwe.modele.Etudiant;
 /**
  * @author Engilberge swan
  *
+ * DaoEtudiant est une interface non parametrée qui sera implementé 
+ * par les daoetudiant 
+ *
  */
+
+
 public interface DaoCours extends DaoGenerique<Cours, Integer> {
 	
 	/**
