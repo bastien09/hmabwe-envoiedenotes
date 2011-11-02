@@ -42,6 +42,8 @@ public class JpaDaoFabrique extends DaoFabrique {
 
 	@Override
 	public DaoGenerique<Etudiant, Integer> getDaoEtudiant() {
+		
+		//TODO ERREUR en rendant les classe jpaDaoXXX abstract
 		JpaDaoEtudiant etudiant = new JpaDaoEtudiant();
 		etudiant.setEntityManager(conn.getEntityManager());
 		return etudiant;
