@@ -12,7 +12,7 @@ import fr.unice.hmabwe.modele.Cours;
  * Cette classe fourni les méthodes spécifiques au code métier de l'application
  *
  */
-public abstract class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
+public class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
 		DaoCours {
 
 	/**

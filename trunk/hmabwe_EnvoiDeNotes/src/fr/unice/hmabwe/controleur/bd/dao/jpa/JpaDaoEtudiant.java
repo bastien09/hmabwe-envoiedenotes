@@ -20,7 +20,7 @@ import fr.unice.hmabwe.modele.Etudiant;
  *
  */
 
-public abstract class JpaDaoEtudiant extends JpaDaoGenerique<Etudiant, Integer>
+public class JpaDaoEtudiant extends JpaDaoGenerique<Etudiant, Integer>
 implements DaoEtudiant{
 
 	private String RequeteEtaitInscrit = "select e from Etudiant as e where e.numEtu = :numEtu" +

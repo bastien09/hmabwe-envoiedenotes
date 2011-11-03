@@ -12,7 +12,7 @@ import fr.unice.hmabwe.modele.Filiere;
  * Cette classe fourni les méthodes spécifiques au code métier de l'application
  *
  */
-public abstract class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
+public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 		implements DaoFiliere {
 
 	/**
