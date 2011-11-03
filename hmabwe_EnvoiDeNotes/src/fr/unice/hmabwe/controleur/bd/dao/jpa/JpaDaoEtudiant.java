@@ -5,6 +5,8 @@ package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
 import java.util.List;
 import java.util.HashMap;
+
+import javax.persistence.Embeddable;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
@@ -37,7 +39,18 @@ implements DaoEtudiant{
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#etaitInscrit()
 	 */
 	public boolean etaitInscrit(String numEtu, String nomCours, int annee) {
-		return true;
+		EntityManager em = getEntityManager();
+		Query q = em.createQuery(RequeteEtaitInscrit);
+		q.setParameter("numEtu", numEtu);
+		q.setParameter("nomCours", nomCours);
+		q.setParameter("annee", annee);
+		List<Etudiant> res = (List<Etudiant>)q.getResultList();
+		if (res.isEmpty()) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 
