@@ -42,20 +42,22 @@ public class TestDao {
 		Connexion conn = df.getConnexion();
 		
 		/* je récupère quelques DAO */
-		DaoGenerique<Enseignant, Integer> daoEnseignant = df.getDaoEnseignant();
-		DaoGenerique<Etudiant, Integer> daoEtudiant = df.getDaoEtudiant();
-		//DaoGenerique<Cours, Integer> daoCours = df.getDaoCours();
+		DaoEnseignant daoEnseignant = df.getDaoEnseignant();
+		DaoEtudiant daoEtudiant = df.getDaoEtudiant();
+		DaoCours daoCours = df.getDaoCours();
+		
 		
 		/* je crée quelques objets */
 		Enseignant ens1 = new Enseignant("Grin", "Mr", "grin@unice.fr");
-		//Cours cours1 = new Cours("Persistance des objets", ens1);
+		Cours cours1 = new Cours("Persistance des objets", ens1);
+		Filiere filiere1 = new Filiere("M1 Info", ens1);
 		System.out.println("est ce que l'étudiant de numéro 1234 existe ?");
 		
 		/* on rend persistant ces objets */
 		try {
 			conn.beginTransaction();
 			daoEnseignant.create(ens1);
-			//daoCours.create(cours1);
+			daoCours.create(cours1);
 			conn.commitTransaction();
 		}
 		catch(DaoException e) {

@@ -6,8 +6,7 @@ package fr.unice.hmabwe.controleur.bd.dao.jpa;
 import javax.persistence.Persistence;
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.JpaConnexion;
-import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
-import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
+import fr.unice.hmabwe.controleur.bd.dao.*;
 import fr.unice.hmabwe.modele.Coefficient;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Enseignant;
@@ -34,14 +33,14 @@ public class JpaDaoFabrique extends DaoFabrique {
 	}
 
 	@Override
-	public DaoGenerique<Enseignant, Integer> getDaoEnseignant() {
+	public DaoEnseignant getDaoEnseignant() {
 		JpaDaoEnseignant enseignant = new JpaDaoEnseignant();
 		enseignant.setEntityManager(conn.getEntityManager());
 		return enseignant;
 	}
 
 	@Override
-	public DaoGenerique<Etudiant, Integer> getDaoEtudiant() {
+	public DaoEtudiant getDaoEtudiant() {
 		
 		//TODO ERREUR en rendant les classe jpaDaoXXX abstract
 		JpaDaoEtudiant etudiant = new JpaDaoEtudiant();
@@ -50,28 +49,28 @@ public class JpaDaoFabrique extends DaoFabrique {
 	}
 
 	@Override
-	public DaoGenerique<Cours, Integer> getDaoCours() {
+	public DaoCours getDaoCours() {
 		JpaDaoCours cours = new JpaDaoCours();
 		cours.setEntityManager(conn.getEntityManager());
 		return cours;
 	}
 
 	@Override
-	public DaoGenerique<Inscription, Integer> getDaoInscription() {
+	public DaoInscription getDaoInscription() {
 		JpaDaoInscription inscription = new JpaDaoInscription();
 		inscription.setEntityManager(conn.getEntityManager());
 		return inscription;
 	}
 
 	@Override
-	public DaoGenerique<Filiere, Integer> getDaoFilliere() {
-		JpaDaoFiliere filliere = new JpaDaoFiliere();
-		filliere.setEntityManager(conn.getEntityManager());
-		return filliere;
+	public DaoFiliere getDaoFiliere() {
+		JpaDaoFiliere filiere = new JpaDaoFiliere();
+		filiere.setEntityManager(conn.getEntityManager());
+		return filiere;
 	}
 
 	@Override
-	public DaoGenerique<Coefficient, Integer> getDaoCoefficient() {
+	public DaoCoefficient getDaoCoefficient() {
 		JpaDaoCoefficient coefficient = new JpaDaoCoefficient();
 		coefficient.setEntityManager(conn.getEntityManager());
 		return coefficient;

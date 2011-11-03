@@ -31,7 +31,7 @@ public abstract class DaoFabrique {
 	 * @return DaoGenerique<Enseignant, Integer> un DAO qui sait gérer les entités Enseignant
 	 * 
 	 */
-	public abstract DaoGenerique<Enseignant, Integer> getDaoEnseignant();
+	public abstract DaoEnseignant getDaoEnseignant();
 	
 	/**
 	 * cette méthode permet de récuperer un DAO sachant gérer les
@@ -41,7 +41,7 @@ public abstract class DaoFabrique {
 	 * @return DaoGenerique<Etudiant, Integer> un DAO qui sait gérer les entités Etudiant
 	 * 
 	 */
-	public abstract DaoGenerique<Etudiant, Integer> getDaoEtudiant();
+	public abstract DaoEtudiant getDaoEtudiant();
 	
 	/**
 	 * cette méthode permet de récuperer un DAO sachant gérer les
@@ -51,7 +51,7 @@ public abstract class DaoFabrique {
 	 * @return DaoGenerique<Cours, Integer> un DAO qui sait gérer les entités Cours
 	 * 
 	 */
-	public abstract DaoGenerique<Cours, Integer> getDaoCours();
+	public abstract DaoCours getDaoCours();
 	
 	/**
 	 * cette méthode permet de récuperer un DAO sachant gérer les
@@ -61,17 +61,17 @@ public abstract class DaoFabrique {
 	 * @return DaoGenerique<Inscription, Integer> un DAO qui sait gérer les entités Inscription
 	 * 
 	 */
-	public abstract DaoGenerique<Inscription, Integer> getDaoInscription();
+	public abstract DaoInscription getDaoInscription();
 	
 	/**
 	 * cette méthode permet de récuperer un DAO sachant gérer les
-	 * entités Filliere. Il est nécessaire d'avoir indiqué auparavant
+	 * entités Filiere. Il est nécessaire d'avoir indiqué auparavant
 	 * quel type de persistance on allait utiliser
 	 * 
-	 * @return DaoGenerique<Filliere, Integer> un DAO qui sait gérer les entités Filliere
+	 * @return DaoGenerique<Filiere, Integer> un DAO qui sait gérer les entités Filliere
 	 * 
 	 */
-	public abstract DaoGenerique<Filiere, Integer> getDaoFilliere();
+	public abstract DaoFiliere getDaoFiliere();
 	
 	/**
 	 * cette méthode permet de récuperer un DAO sachant gérer les
@@ -81,7 +81,7 @@ public abstract class DaoFabrique {
 	 * @return DaoGenerique<Coefficient, Integer> un DAO qui sait gérer les entités Coefficient
 	 * 
 	 */
-	public abstract DaoGenerique<Coefficient, Integer> getDaoCoefficient();
+	public abstract DaoCoefficient getDaoCoefficient();
 	
 	/**
 	 * cette méthode permet de récupérer la connexion qu'on va utiliser avec les DAO que cette
