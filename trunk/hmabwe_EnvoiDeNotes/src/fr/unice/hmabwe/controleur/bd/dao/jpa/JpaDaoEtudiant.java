@@ -33,12 +33,19 @@ implements DaoEtudiant{
 	 * le code métier va ici
 	 */
 
-	//
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#etaitInscrit()
+	 */
 	public boolean etaitInscrit(String numEtu, String nomCours, int annee) {
 		return true;
 	}
+	
+
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#listeInscrit()
+	 */
 	//TODO methode à faire
-	public HashMap<Etudiant, String> listeInscrit(String nomCours, Integer annee){
+	public HashMap<Etudiant, String> listeInscrit(String nomCours, int annee){
 		
 		return null;
 	}

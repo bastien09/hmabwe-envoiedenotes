@@ -16,21 +16,21 @@ public interface DaoFiliere extends DaoGenerique<Filiere, Integer> {
 	 * cette methode renvoie toute les filières
 	 * 
 	 */
-	Collection<Filiere> getAllFilieres();
+	public Collection<Filiere> getAllFilieres();
 	
 	/**
 	 * cette methode renvoie tout les etudiants inscrient à cette fillière
 	 * 
 	 */
 	
-	Collection<Etudiant> getEtudiantsInstcrits();
+	public Collection<Etudiant> getEtudiantsInstcrits();
 	
 	/**
 	 * cette methode renvoie la moyenne de cette filière
 	 * 
 	 */
 	
-	double getMoyenne();
+	public double getMoyenne();
 	
 
 }
