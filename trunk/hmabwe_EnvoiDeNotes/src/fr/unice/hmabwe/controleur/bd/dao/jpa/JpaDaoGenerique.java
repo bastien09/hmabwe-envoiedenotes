@@ -12,9 +12,9 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
-
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
+import fr.unice.hmabwe.modele.*;
 
 /**
  * @author Paraita Wohler
@@ -28,6 +28,7 @@ public class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique
 	private Class<T> classeEntite;
 	private EntityManager em;
 	private final String query_findAll = "select e from :entite as e";
+	private final String query_findAll_Persons = "select p from Personne as p where type(p) = :entite";
 	
 	public JpaDaoGenerique() {
 		classeEntite = (Class<T>)((ParameterizedType)getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -112,10 +113,18 @@ public class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique
 	 * @see fr.unice.hmabwe.controleur.dao.DaoGenerique#findAll()
 	 */
 	public Collection<T> findAll() throws DaoException {
+		String requete = null;
 		try {
+			if(classeEntite.getSuperclass().getSimpleName().compareTo("Personne") == 0) {
+				requete = query_findAll_Persons;
+			}
+			else {
+				requete = query_findAll;
+			}
 			if(em != null && em.isOpen()) {
-				Query q = em.createQuery(query_findAll);
-				q.setParameter("entite", classeEntite.getName());
+				Query q = null;
+				q = em.createQuery(requete);
+				q.setParameter("entite", Class.forName(classeEntite.getName()));
 				List<T> res = (List<T>) q.getResultList();
 				return res;
 			}
@@ -125,10 +134,12 @@ public class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique
 		}
 		catch(IllegalArgumentException iae) {
 			throw new DaoException("requete invalide (" +
-									query_findAll +
+									requete +
 									") ou nom de classe invalide (" +
-									classeEntite.getName() +
+									classeEntite.getSimpleName() +
 									")", iae);
+		} catch (ClassNotFoundException e) {
+			throw new DaoException("classe non trouvée !", e);
 		}
 	}
 	
