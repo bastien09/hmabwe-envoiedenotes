@@ -23,7 +23,7 @@ public interface DaoCours extends DaoGenerique<Cours, Integer> {
 	 * renvoie tout les cours
 	 * 
 	 */
-	Collection<Cours> getAllCours();
+	public Collection<Cours> getAllCours();
 	
 	/**
 	 * renvoie la moyenne de tout les etudiants
@@ -32,13 +32,13 @@ public interface DaoCours extends DaoGenerique<Cours, Integer> {
 	 * @param annee l'année a laquelle on cherche les moyennes
 	 */
 	
-	double getMoyenne(int annee); 
+	public double getMoyenne(int annee); 
 	
 	/**
 	 * renvoie tout les etudiant inscrit à ce cour
 	 * toutes années confondue
 	 */
 	
-	Collection<Etudiant> getEtudiantsInstcrits();
+	public Collection<Etudiant> getEtudiantsInstcrits();
 
 }

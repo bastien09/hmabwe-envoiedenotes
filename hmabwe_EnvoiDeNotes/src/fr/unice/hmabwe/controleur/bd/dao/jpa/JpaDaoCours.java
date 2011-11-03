@@ -1,7 +1,10 @@
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
+import java.util.Collection;
+
 import fr.unice.hmabwe.controleur.bd.dao.DaoCours;
 import fr.unice.hmabwe.modele.Cours;
+import fr.unice.hmabwe.modele.Etudiant;
 
 /**
  * 
@@ -18,4 +21,26 @@ public class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
 	/**
 	 * le code métier va ici
 	 */
+	
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getAllCours()
+	 */
+	
+	public Collection<Cours> getAllCours(){
+		return null;
+	}
+	
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getMoyenne()
+	 */
+	public double getMoyenne(int annee){
+		return 0;
+	}
+	
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getEtudiantsInscrits()
+	 */
+	public Collection<Etudiant> getEtudiantsInstcrits(){
+		return null;
+	}
 }
