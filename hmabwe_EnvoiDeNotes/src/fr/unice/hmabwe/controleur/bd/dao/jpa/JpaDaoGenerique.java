@@ -23,7 +23,7 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
  * persistance en utilisant JPA
  *
  */
-public abstract class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique<T, ID> {
+public class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique<T, ID> {
 
 	private Class<T> classeEntite;
 	private EntityManager em;
