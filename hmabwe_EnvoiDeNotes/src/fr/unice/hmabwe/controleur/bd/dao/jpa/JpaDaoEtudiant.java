@@ -25,15 +25,17 @@ import fr.unice.hmabwe.modele.Etudiant;
 public class JpaDaoEtudiant extends JpaDaoGenerique<Etudiant, Integer>
 implements DaoEtudiant{
 
-	private String RequeteEtaitInscrit = "select e from Etudiant as e where e.numEtu = :numEtu" +
-										 " and e.filiere.listeCoeffCours.cours.nom = :nomCours" +
-										 " and e.Inscription.annee = :annee";
+	private final String RequeteEtaitInscrit = "select e from Inscription i " +
+			"join i.etudiant e " +
+			"join i.cours c " +
+			"where i.annee = :annee and e.numEtu = :numEtu and c.nom = :nomCours";
 	//TODO chercher comment faire des requete avec jointure
 	private String RequeteListeInscrit = "SELECT s FROM Etudiant s WHERE s.firstname = :fs";
 
 	/**
 	 * le code métier va ici
 	 */
+
 
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#etaitInscrit()
@@ -61,5 +63,22 @@ implements DaoEtudiant{
 	public HashMap<Etudiant, String> listeInscrit(String nomCours, int annee){
 		
 		return null;
+	}
+	
+	
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#findByNumeroEtudiant()
+	 */
+	public Etudiant findByNumeroEtudiant(String numEtu) {
+		EntityManager em = getEntityManager();
+		Query q = em.createQuery("select e from Etudiant e where e.numEtu = :numEtu");
+		q.setParameter("numEtu", numEtu);
+		List<Etudiant> res = (List<Etudiant>)q.getResultList();
+		if (res.isEmpty()) {
+			return null;
+		}
+		else {
+			return res.get(0);
+		}
 	}
 }

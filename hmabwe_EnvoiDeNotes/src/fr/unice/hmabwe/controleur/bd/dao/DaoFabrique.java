@@ -3,7 +3,7 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao;
 
-import fr.unice.hmabwe.modele.*;
+
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoFabrique;
 
