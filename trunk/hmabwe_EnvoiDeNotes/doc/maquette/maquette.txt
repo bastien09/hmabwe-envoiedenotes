@@ -141,7 +141,7 @@
                                     <text>Gestion%20des%20enseignants</text>
                                   </controlProperties>
                                 </control>
-                                <control controlID="1" controlTypeID="com.balsamiq.mockups::List" x="6" y="27" w="133" h="364" measuredW="100" measuredH="126" zOrder="1" locked="false" isInGroup="0">
+                                <control controlID="1" controlTypeID="com.balsamiq.mockups::List" x="6" y="27" w="133" h="336" measuredW="100" measuredH="126" zOrder="1" locked="false" isInGroup="0">
                                   <controlProperties>
                                     <hasHeader>false</hasHeader>
                                     <rowHeight>26</rowHeight>
@@ -262,6 +262,18 @@
                                 <control controlID="11" controlTypeID="com.balsamiq.mockups::Button" x="309" y="370" w="-1" h="-1" measuredW="65" measuredH="27" zOrder="11" locked="false" isInGroup="0">
                                   <controlProperties>
                                     <text>Annuler</text>
+                                  </controlProperties>
+                                </control>
+                                <control controlID="12" controlTypeID="com.balsamiq.mockups::Button" x="71" y="370" w="34" h="28" measuredW="40" measuredH="27" zOrder="12" locked="false" isInGroup="0">
+                                  <controlProperties>
+                                    <icon>DashIcon%7Cxsmall</icon>
+                                    <text/>
+                                  </controlProperties>
+                                </control>
+                                <control controlID="13" controlTypeID="com.balsamiq.mockups::Button" x="105" y="370" w="34" h="28" measuredW="40" measuredH="27" zOrder="13" locked="false" isInGroup="0">
+                                  <controlProperties>
+                                    <icon>PlusBigIcon%7Cxsmall</icon>
+                                    <text/>
                                   </controlProperties>
                                 </control>
                               </groupChildrenDescriptors>
