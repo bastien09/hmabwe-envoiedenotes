@@ -10,12 +10,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 
+/**
+ * 
+ * @author Bastien Auda
+ * 
+ * Classe contenant le JPanel qui liste les étudiants.
+ */
 public class PanneauListeEtudiants extends JPanel {
 	
-	Connexion conn;
+	private DaoFabrique df;
 	
-	String  colonnes[] = {"Numéro", "Nom", "Prénom", "e-mail", "Filière", "Groupe" , "Origine"};
+	private final String  colonnes[] = {"Numéro", "Nom", "Prénom", "e-mail", "Filière", "Groupe" , "Origine"};
 	private JTable tableEtudiants;
 	
 	
@@ -26,8 +33,8 @@ public class PanneauListeEtudiants extends JPanel {
 	private JButton remove = new JButton(new ImageIcon(this.getClass().getResource("/resource/minus-circle.png")));
 	private JButton add = new JButton(new ImageIcon(this.getClass().getResource("/resource/plus-circle.png")));
 
-	public PanneauListeEtudiants(Connexion conn) {
-		this.conn = conn;
+	public PanneauListeEtudiants(DaoFabrique df) {
+		this.df = df;
 		
 		this.setLayout(new BorderLayout());
 		
