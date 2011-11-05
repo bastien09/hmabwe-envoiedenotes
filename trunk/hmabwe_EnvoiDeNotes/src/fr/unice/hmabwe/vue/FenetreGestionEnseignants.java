@@ -19,6 +19,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+
 /**
  * 
  * @author M'RAH Mehdi
@@ -30,11 +32,11 @@ import javax.swing.JTextField;
 public class FenetreGestionEnseignants extends FenetreCommune{
 	private JSplitPane panel;
 	
-	private JPanel panelCours, panelFiliere, panelNom, panelPrenom ,panelEmail, panelDroite, panelIdentite, panelBouton1, panelBouton2, panelGauche;
+	private JPanel panelCours, panelFiliere, panelNom, panelPrenom ,panelEmail, panelDroite, panelIdentite, panelBouton1, panelBouton2, panelGauche, panelBoutPlusMoins;
 	
 	private JScrollPane panscrollEnseig, panscrollFili, panscrollCours;
 	private JScrollBar essaiScroll = new JScrollBar();
-	private JButton bAjout1, bAjout2, bSuppress1, bSuppress2, bModif1, bModif2;
+	private JButton bAjout1, bAjout2, bSuppress1, bSuppress2, bModif1, bModif2, bPlus, bMoins;
 	
 	private JLabel nom, prenom, email, filiere, cours;
 	private JTextField txtNom, txtPrenom, txtEmail;
@@ -42,9 +44,8 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 	
 	
 	
-	public FenetreGestionEnseignants(String nomFenetre, int longueur,
-			int largeur) {
-		super(nomFenetre, longueur, largeur);
+	public FenetreGestionEnseignants(DaoFabrique df) {
+		super("Gestion des enseignants", 500, 500, df);
 		// A effacer plus tard
 		Object[] tabEnse = {"Patrick", "Louis", "Yves"};
 		Object[] tabCours = {"Math", "Anglais", "Latin"};
@@ -87,9 +88,15 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		listEnseignant.setFixedCellWidth(100);
 		panscrollEnseig = new JScrollPane(listEnseignant, panscrollEnseig.VERTICAL_SCROLLBAR_AS_NEEDED, panscrollEnseig.HORIZONTAL_SCROLLBAR_NEVER );
 		
+		panelBoutPlusMoins = new JPanel(new BorderLayout());
+		bPlus = new JButton(new ImageIcon(this.getClass().getResource("/resource/plus-circle.png")));
+		bMoins = new JButton(new ImageIcon(this.getClass().getResource("/resource/minus-circle.png")));
+		panelBoutPlusMoins.add(bPlus, BorderLayout.WEST);
+		panelBoutPlusMoins.add(bMoins, BorderLayout.EAST);
 		
-		panelGauche = new JPanel();
-		panelGauche.add(panscrollEnseig);
+		panelGauche = new JPanel(new BorderLayout());
+		panelGauche.add(panscrollEnseig, BorderLayout.CENTER);
+		panelGauche.add(panelBoutPlusMoins, BorderLayout.SOUTH);
 		
 		panelBouton1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		bAjout1 = new JButton(new ImageIcon(this.getClass().getResource("/resource/plus-circle.png")));
@@ -134,7 +141,7 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		panelDroite.add(panelCours);
 		panelDroite.setAlignmentX(50);
 		
-		panel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panscrollEnseig, panelDroite);
+		panel = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelGauche, panelDroite);
 		
 		
 		this.setResizable(true);

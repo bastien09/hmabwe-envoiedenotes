@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+
 /**
  * 
  * @author M'RAH Mehdi
@@ -14,6 +16,7 @@ import javax.swing.*;
  */
 
 public class FenetreStatistiqueEtudiant extends JFrame{
+	private DaoFabrique df;
 	
 	private JPanel panelAnnee, panelMoyenne, panelCours, panel;
 	
@@ -26,9 +29,11 @@ public class FenetreStatistiqueEtudiant extends JFrame{
 	//Simple essai pour l'interface
 	private ArrayList<ObjetLigneMoyenneEtudiant> ligneMoyenne;
 	
-	public FenetreStatistiqueEtudiant(){
+	public FenetreStatistiqueEtudiant(DaoFabrique df){
 		//TODO Dans le constructeur ajouter la connexion a la base.
 		//TODO Remplacer les moyennes de l'arraylist, par les moyennes recus de la database(ArrayList), ainsi que le nom des cours.
+		
+		this.df = df;
 		
 		//Simple essai pour l'interface
 		ligneMoyenne = new ArrayList<ObjetLigneMoyenneEtudiant>();

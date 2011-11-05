@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+
 /**
  * 
  * @author M'RAH Mehdi
@@ -15,7 +17,8 @@ import javax.swing.*;
  */
 
 public class FenetreStatistiqueFiliere extends JFrame{
-
+	private DaoFabrique df;
+	
 	private JPanel panel, panelGeneral, panelSpecD, panelmoyenneG, panelmoyenneGr1, panelmoyenneGr2, panelmoyenneG2, panelmoyenneGr12, panelmoyenneGr22, panelEcartType;
 	
 	private JLabel moyenneG, moyenneGr1, moyenneGr2, ecartType,moyenneG2, moyenneGr12, moyenneGr22, notemoyenneG, notemoyenneGr1, notemoyenneGr2, noteEcartType, notemoyenneG2, notemoyenneGr12, notemoyenneGr22;
@@ -26,9 +29,11 @@ public class FenetreStatistiqueFiliere extends JFrame{
 	
 	private JScrollPane scrollList;
 	
-	public FenetreStatistiqueFiliere(int notemoyenneG, int notemoyenneGr1, int notemoyenneGr2, int noteEcartType, int notemoyenneG2, int notemoyenneG12, int notemoyenneG22){
+	public FenetreStatistiqueFiliere(int notemoyenneG, int notemoyenneGr1, int notemoyenneGr2, int noteEcartType, int notemoyenneG2, int notemoyenneG12, int notemoyenneG22, DaoFabrique df){
 		//TODO Dans le constructeur ajouter la connexion a la base.
 		//TODO Remplacer les moyennes dans le constructeur, par les moyennes recus de la database.
+		this.df = df;
+		
 		
 		moyenneG = new JLabel("Moyenne General :	");
 		moyenneGr1 = new JLabel("Moyenne Groupe 1 :	");

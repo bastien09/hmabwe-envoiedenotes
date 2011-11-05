@@ -6,6 +6,8 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+
 /**
  * 
  * @author M'RAH Mehdi
@@ -26,8 +28,8 @@ public class FenetreAjoutCours extends FenetreCommune{
 	JPanel panelNom;
 	JPanel panelEnseignant;
 	
-	public FenetreAjoutCours(String nomFenetre, int longueur, int largeur) {
-		super(nomFenetre, longueur, largeur);
+	public FenetreAjoutCours(DaoFabrique df) {
+		super("Ajout/Edition de cours", 400, 250, df);
 		
 		panel = new JPanel(new GridLayout(2, 0));
 		panelNom = new JPanel(new GridLayout(0 ,2));

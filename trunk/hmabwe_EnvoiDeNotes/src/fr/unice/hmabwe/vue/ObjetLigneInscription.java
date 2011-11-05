@@ -56,7 +56,7 @@ public class ObjetLigneInscription{
 		
 		boutonMoins = new JButton((new ImageIcon(this.getClass().getResource("/resource/minus-circle.png"))));
 		boutonPlus =  new JButton((new ImageIcon(this.getClass().getResource("/resource/plus.png"))));
-		boutonValide =  new JButton((new ImageIcon(this.getClass().getResource("/resource/import.png"))));
+		boutonValide =  new JButton((new ImageIcon(this.getClass().getResource("/resource/tick-circle.png"))));
 		
 		panelBoutonV = new JPanel(new FlowLayout());
 		panelBoutonV.add(boutonMoins);
