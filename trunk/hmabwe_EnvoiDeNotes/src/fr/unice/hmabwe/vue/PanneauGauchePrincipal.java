@@ -4,6 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Properties;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -13,6 +18,10 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import org.eclipse.persistence.annotations.Property;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.dao.DaoCours;
@@ -20,14 +29,15 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
 import fr.unice.hmabwe.modele.Cours;
+import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Filiere;
 
 /**
- * 
- * @author Bastien Auda
- * 
  * Le JPanel contenant la liste des filières et cours.
  *
+ * @author Bastien Auda
+ * 
+ * 
  */
 
 public class PanneauGauchePrincipal extends JPanel {
@@ -37,7 +47,8 @@ public class PanneauGauchePrincipal extends JPanel {
 	private DaoFiliere daoFiliere;
 	private DaoCours daoCours;
 
-	private EcouteurGauche l = new EcouteurGauche();
+	private ActionListener l = new EcouteurGauche();
+	private ListSelectionListener pcl = new ListeListener();
 
 	private JComboBox choix = new JComboBox();
 	private JList liste = new JList();
@@ -62,6 +73,7 @@ public class PanneauGauchePrincipal extends JPanel {
 
 		this.add(choix, BorderLayout.NORTH);
 		this.add(new JScrollPane(liste), BorderLayout.CENTER);
+		liste.addListSelectionListener(pcl);
 		refreshList();
 
 
@@ -165,6 +177,24 @@ public class PanneauGauchePrincipal extends JPanel {
 		}
 
 
+	}
+	
+	private class ListeListener implements ListSelectionListener {
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			Collection<Etudiant> etudiants = new ArrayList<Etudiant>();
+			if(choix.getSelectedItem().equals("Cours")) {
+				Cours c = (Cours) liste.getSelectedValue();
+				//TODO etudiants = c.getEtudiantsInscrits();
+			} else {
+				Filiere f = (Filiere) liste.getSelectedValue();
+				//TODO etudiants = f.getEtudiantsInscrits();
+			}
+			((FenetrePrincipale) PanneauGauchePrincipal.this.getParent()).setListeEtudiant(etudiants);
+		}
+
+	
 	}
 
 }
