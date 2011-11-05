@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
+import fr.unice.hmabwe.controleur.bd.dao.DaoCours;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 
 /**
@@ -18,44 +19,22 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 
 public class FenetreAjoutCours extends FenetreCommune{
 	
-	private JLabel labelNom;
-	private JLabel labelEnseignant;
-	
-	private JTextField txtNom;
-	private JComboBox tabEnseignant;
-	
-	JPanel panel;
-	JPanel panelNom;
-	JPanel panelEnseignant;
+	PanelAjoutCours panelCours;
 	
 	public FenetreAjoutCours(DaoFabrique df) {
 		super("Ajout/Edition de cours", 400, 250, df);
 		
-		panel = new JPanel(new GridLayout(2, 0));
-		panelNom = new JPanel(new GridLayout(0 ,2));
-		panelEnseignant = new JPanel(new GridLayout(0, 2));
+		DaoCours daocours = df.getDaoCours();
 		
-		labelNom = new JLabel("Nom :");
-		labelEnseignant =  new JLabel("Enseignant :");
+		panelCours = new PanelAjoutCours();
 		
-		txtNom = new JTextField();
-		txtNom.setMaximumSize(new Dimension(150, 30));
-		
-		tabEnseignant = new JComboBox();
-		
-		panelNom.add(labelNom);
-		panelNom.add(txtNom);
-		
-		panelEnseignant.add(labelEnseignant);
-		panelEnseignant.add(tabEnseignant);
-		
-		panel.add(panelNom);
-		panel.add(panelEnseignant);
 		
 		
 		this.setResizable(false);
-		this.container.add(panel, BorderLayout.NORTH);
+		this.container.add(panelCours.getPanelPrincipal(), BorderLayout.NORTH);
 		this.setVisible(true);
+		
+		
 		
 	}
 	
