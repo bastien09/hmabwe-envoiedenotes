@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.util.Collection;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -19,18 +20,19 @@ import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.config.ConfigConnection;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.modele.Etudiant;
 
 /**
+ * La fenêtre principale dans laquelle nous auront les filières, les cours et les étudiants.
  * 
  * @author Bastien Auda
  * 
- * La fenêtre principale dans laquelle nous auront les filières, les cours et les étudiants.
  *
  */
 public class FenetrePrincipale extends JFrame {
 	private DaoFabrique df;
 
-	private MenuListener l = new MenuListener();
+	private ActionListener l = new MenuListener();
 
 	// La barre des menus
 	private JMenuBar menu = new JMenuBar();
@@ -59,6 +61,7 @@ public class FenetrePrincipale extends JFrame {
 	private JMenuItem copier = new JMenuItem("Copier", new ImageIcon(this.getClass().getResource("/resource/document-copy.png")));
 	private JMenuItem coller = new JMenuItem("Coller", new ImageIcon(this.getClass().getResource("/resource/clipboard-paste-document-text.png")));
 	private JMenuItem selectAll = new JMenuItem("Tout sélectionner");
+	private JMenuItem prefs = new JMenuItem("Préférences", new ImageIcon(this.getClass().getResource("/resource/gear.png")));
 
 	// Les items du menu d'aide
 	private JMenuItem about = new JMenuItem("À propos", new ImageIcon(this.getClass().getResource("/resource/information-frame.png")));
@@ -124,6 +127,8 @@ public class FenetrePrincipale extends JFrame {
 		coller.addActionListener(l);
 		edition.add(selectAll);
 		selectAll.addActionListener(l);
+		edition.add(prefs);
+		prefs.addActionListener(l);
 
 		aide.add(about);
 		about.addActionListener(l);
@@ -152,16 +157,12 @@ public class FenetrePrincipale extends JFrame {
 		}
 		System.exit(0);
 	}
-
-	public static void main(String[] args) {
-
-		DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
-
-		DaoFabrique df = DaoFabrique.getDaoFabrique();
-
-		new FenetrePrincipale(df);
-
+	
+	public void setListeEtudiant(Collection<Etudiant> etudiants) {
+		panneauDroite.setListeEtudiants(etudiants);
 	}
+
+
 
 	
 	/*
@@ -217,10 +218,16 @@ public class FenetrePrincipale extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			Object source = e.getSource();
-			
+			// fichier
 			if(source.equals(quitter)) {
 				close();
 			}
+			// edition
+			if(source.equals(prefs)) {
+				new FenetrePreferences();
+			}
+			
+			// aide
 			if(source.equals(web)) {
 				String url = "http://code.google.com/p/hmabwe-envoiedenotes/";
 				try {
