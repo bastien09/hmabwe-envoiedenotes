@@ -112,10 +112,10 @@ public class PanneauGauchePrincipal extends JPanel {
 			if(source.equals(add)) {
 				if(choix.getSelectedItem().equals("Cours")) {
 					//TODO ajout cours
-					new FenetreAjoutCours("", 600, 600);
+					new FenetreAjoutCours(df);
 				} else {
 					//TODO ajout filiere
-					new FenetreAjoutFiliere("", 600, 600);
+					new FenetreAjoutFiliere(df);
 				}
 			}
 			if(source.equals(remove)) {
@@ -146,11 +146,11 @@ public class PanneauGauchePrincipal extends JPanel {
 				if(choix.getSelectedItem().equals("Cours")) {
 					Cours c = (Cours) liste.getSelectedValue();
 					//TODO edit cours
-					new FenetreAjoutCours("", 600, 600);
+					new FenetreAjoutCours(df);
 				} else {
 					Filiere f = (Filiere) liste.getSelectedValue();
 					//TODO edit filiere
-					new FenetreAjoutFiliere("", 600, 600);
+					new FenetreAjoutFiliere(df);
 				}
 			}
 			if(source.equals(stats)) {
