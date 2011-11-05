@@ -12,9 +12,9 @@ import javax.swing.*;
  *
  */
 
-public class ObjetLigneMoyenneEtudiant extends JFrame{
+public class ObjetLigneMoyenneEtudiant extends JPanel{
 	
-	private JLabel moyenne, cours, note;
+	public JLabel moyenne, cours, note;
 	
 	public JPanel panelMoyenne;
 	

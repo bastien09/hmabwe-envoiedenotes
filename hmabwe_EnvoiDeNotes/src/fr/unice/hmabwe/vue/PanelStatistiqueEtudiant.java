@@ -1,0 +1,97 @@
+package fr.unice.hmabwe.vue;
+
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+
+/**
+ * 
+ * @author M'RAH Mehdi
+ * 
+ * Panel pour les statisiques d'un etudiant 
+ *
+ */
+
+public class PanelStatistiqueEtudiant extends JPanel{
+	private DaoFabrique df;
+	
+	private JPanel panelAnnee, panelMoyenne, panelCours, panel;
+	
+	private JLabel annee, moyenne, noteMoyenne, changeAnne;
+	
+	private JComboBox comboAnnee;
+	
+	private JScrollPane scrollCours
+	;
+	//Simple essai pour l'interface
+	private ArrayList<ObjetLigneMoyenneEtudiant> ligneMoyenne;
+	
+	public PanelStatistiqueEtudiant(){
+		
+		//Simple essai pour l'interface
+		ligneMoyenne = new ArrayList<ObjetLigneMoyenneEtudiant>();
+		ObjetLigneMoyenneEtudiant obj1 = new ObjetLigneMoyenneEtudiant("Francais", "10");
+		ObjetLigneMoyenneEtudiant obj2 = new ObjetLigneMoyenneEtudiant("Anglais", "15");
+		ObjetLigneMoyenneEtudiant obj3 = new ObjetLigneMoyenneEtudiant("Math", "15");
+		ObjetLigneMoyenneEtudiant obj4 = new ObjetLigneMoyenneEtudiant("Sport", "15");
+		ObjetLigneMoyenneEtudiant obj5 = new ObjetLigneMoyenneEtudiant("Latin", "15");
+		ObjetLigneMoyenneEtudiant obj6 = new ObjetLigneMoyenneEtudiant("Physique", "15");
+		ObjetLigneMoyenneEtudiant obj7 = new ObjetLigneMoyenneEtudiant("Italien", "15");
+		ligneMoyenne.add(obj1);
+		ligneMoyenne.add(obj2);
+		ligneMoyenne.add(obj3);
+		ligneMoyenne.add(obj4);
+		ligneMoyenne.add(obj5);
+		ligneMoyenne.add(obj6);
+		ligneMoyenne.add(obj7);
+		// Fin essai
+		
+		panelAnnee = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panelMoyenne = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panelCours = new JPanel();
+		panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
+		annee = new JLabel("Année :");
+		moyenne = new JLabel("Moyenne :");
+		
+		comboAnnee = new JComboBox();
+		
+		panelAnnee.add(annee);
+		panelAnnee.add(comboAnnee);
+		
+		panelMoyenne.add(moyenne);
+		
+		panelCours.setLayout(new BoxLayout(panelCours, BoxLayout.Y_AXIS));
+		scrollCours = new JScrollPane(panelCours);
+		scrollCours.setBorder(BorderFactory.createTitledBorder("Cours"));
+		for(ObjetLigneMoyenneEtudiant objl : ligneMoyenne){
+			panelCours.add(objl.panelMoyenne);
+		}
+		
+		panel.add(panelAnnee);
+		panel.add(panelMoyenne);
+		panel.add(scrollCours);
+	}
+	
+	public JPanel getPanelPrincipal(){
+		return this.panel;
+	}
+	
+	public void setMoyenne(int note){
+		this.noteMoyenne.setText(String.valueOf(note));
+	}
+	
+	public void setAnnee(int annee){
+		this.changeAnne.setText(String.valueOf(annee));
+	}
+	
+}

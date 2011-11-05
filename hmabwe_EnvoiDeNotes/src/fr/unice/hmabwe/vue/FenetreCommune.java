@@ -42,8 +42,10 @@ public class FenetreCommune extends JFrame{
 		 * - débuter/commiter une transaction
 		 * - de savoir l'état de la connexion/transaction
 		 */
-        this.conn = df.getConnexion();
         
+		
+		this.conn = df.getConnexion();
+		
         container = new JPanel();
         container.setLayout(new BorderLayout());
         
