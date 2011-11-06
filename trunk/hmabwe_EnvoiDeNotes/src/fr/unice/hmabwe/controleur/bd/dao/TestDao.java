@@ -66,6 +66,7 @@ public class TestDao {
 		Etudiant etu5 = new Etudiant("es1234", "Engilberge", "Swan", "engilberge-swan@etu.unice.fr", "L3I", filiere1);
 		Etudiant etu6 = new Etudiant("nc1234", "Nuon", "Channdarong", "nuonchanndarong@gmail.com", "???", filiere1);
 		Inscription inscr1 = new Inscription(etu1, cours1, 2010);
+		inscr1.setMoyenne(15.5);
 
 		/* on rend persistant ces objets */
 		try {
@@ -166,6 +167,11 @@ public class TestDao {
 				System.out.println("#################################### " + cours.getNom());
 				System.out.println("#######################################################################");
 			}
+			
+			double moy_cours = daoCours.getMoyenne("POO", 2010);
+			System.out.println("Moyenne du cours de POO en 2010: " + moy_cours + "/20");
+			
+			
 			
 			conn.commitTransaction();
 		}
