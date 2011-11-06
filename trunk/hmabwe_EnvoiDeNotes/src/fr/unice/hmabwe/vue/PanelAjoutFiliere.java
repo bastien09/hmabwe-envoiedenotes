@@ -68,8 +68,8 @@ public class PanelAjoutFiliere extends JPanel{
 		return this.textNom.getText();
 	}
 	
-	public Enseignant getEnseignant(int index){
-		return (Enseignant) this.tabEnseignant.getItemAt(index);
+	public Enseignant getEnseignant(){
+		return (Enseignant) this.tabEnseignant.getSelectedItem();
 	}
 	
 	

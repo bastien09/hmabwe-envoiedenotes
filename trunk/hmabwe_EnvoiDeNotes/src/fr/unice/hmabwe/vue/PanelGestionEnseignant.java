@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -176,4 +178,5 @@ public class PanelGestionEnseignant extends JPanel {
 	public Object getCoursSelect(){
 		return this.listCours.getSelectedValues();
 	}
+	
 }
