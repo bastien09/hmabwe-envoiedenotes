@@ -21,7 +21,6 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 	/**
 	 * le code métier va ici
 	 */
-	//TODO code a finir
 	
 
 	/**
@@ -29,14 +28,6 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 	 */
 	public Collection<Etudiant> getEtudiantsInstcrits(){
 	return null;
-	}
-	
-
-	/**
-	 * @see fr.unice.hmabwe.controleur.dao.DaoFiliere#getAllFilieres()
-	 */
-	public Collection<Filiere> getAllFilieres(){
-		return null;
 	}
 	
 

@@ -27,7 +27,6 @@ public class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique
 
 	private Class<T> classeEntite;
 	private EntityManager em;
-	private final String query_findAll = "select e from :entite as e";
 	private final String query_findAll_Persons = "select p from Personne as p where type(p) = :entite";
 	
 	public JpaDaoGenerique() {
@@ -116,31 +115,41 @@ public class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique
 		String requete = null;
 		try {
 			if(classeEntite.getSuperclass().getSimpleName().compareTo("Personne") == 0) {
-				requete = query_findAll_Persons;
+				if(em != null && em.isOpen()) {
+					Query q = null;
+					requete = query_findAll_Persons;
+					q = em.createQuery(requete);
+					q.setParameter("entite", Class.forName(classeEntite.getName()));
+					return (List<T>) q.getResultList();
+				}
+				else {
+					throw new DaoException("erreur interne  au DAO", 5);
+				}
 			}
 			else {
-				requete = query_findAll;
-			}
-			if(em != null && em.isOpen()) {
-				Query q = null;
-				q = em.createQuery(requete);
-				q.setParameter("entite", Class.forName(classeEntite.getName()));
-				List<T> res = (List<T>) q.getResultList();
-				return res;
-			}
-			else {
-				throw new DaoException("erreur interne  au DAO", 5);
+				if(em != null && em.isOpen()) {
+					Query q = null;
+					//todo vraiment moche mais peut pas faire autrement :/
+					requete = "select e from " + classeEntite.getSimpleName() + " e";
+					q = em.createQuery(requete);
+					return (List<T>) q.getResultList();
+				}
+				else {
+					throw new DaoException("erreur interne  au DAO", 5);
+				}
 			}
 		}
 		catch(IllegalArgumentException iae) {
 			throw new DaoException("requete invalide (" +
 									requete +
 									") ou nom de classe invalide (" +
-									classeEntite.getSimpleName() +
+									classeEntite +
 									")", iae);
-		} catch (ClassNotFoundException e) {
+		}
+		catch (ClassNotFoundException e) {
 			throw new DaoException("classe non trouvée !", e);
 		}
+		
 	}
 	
 	/**
