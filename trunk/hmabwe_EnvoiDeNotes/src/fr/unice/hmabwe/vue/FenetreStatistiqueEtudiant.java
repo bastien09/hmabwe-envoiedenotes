@@ -28,6 +28,15 @@ public class FenetreStatistiqueEtudiant extends JFrame{
 		//TODO Dans le constructeur ajouter la connexion a la base.
 		//TODO Remplacer les moyennes de l'arraylist, par les moyennes recus de la database(ArrayList), ainsi que le nom des cours.
 		panelStatEtu = new PanelStatistiqueEtudiant();
+		this.df = df;
+		this.conn = df.getConnexion();
+		
+		
+		//TODO a voir avec Bastien !Est-ce que c'est Fenetre Principal qui revoi l'etudiant ?
+		
+		
+		
+		
 		
 		this.setTitle("Statistiques Etudiant");
         this.setSize(350, 350);
@@ -37,7 +46,7 @@ public class FenetreStatistiqueEtudiant extends JFrame{
 		this.setVisible(true);
 		
 		
-		this.df = df;
-		this.conn = df.getConnexion();
+		
 	}
+	
 }

@@ -29,6 +29,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 	
 	public DaoFiliere daoFiliere;
 	public DaoEnseignant daoEnseignant;
+	public EcouteurFiliere l;
 	
 	public FenetreAjoutFiliere(DaoFabrique df) {
 		super("Ajout/Edition d'une filière", 500, 300, df);
@@ -37,6 +38,12 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		daoFiliere = df.getDaoFiliere();
 		daoEnseignant = df.getDaoEnseignant();
 		
+		l = new EcouteurFiliere();
+		
+		boutonOK.addMouseListener(l);
+		boutonAnnuler.addMouseListener(l);
+		
+		
 		this.setResizable(false);
 		this.container.add(panelFiliere.getPanelPrincipal(), BorderLayout.NORTH);
 		this.setVisible(true);
@@ -44,7 +51,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		
 	}
 	
-	private class EcouteurEnseignant implements MouseListener{
+	private class EcouteurFiliere implements MouseListener{
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {

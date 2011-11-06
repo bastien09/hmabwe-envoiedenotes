@@ -30,11 +30,19 @@ public class FenetreAjoutCours extends FenetreCommune{
 	public DaoCours daocours;
 	public DaoEnseignant daoenseignant;
 	public Collection<Enseignant> listeEnseign;
+	
+	public EcouteurCours l;
 	public FenetreAjoutCours(DaoFabrique df) {
 		super("Ajout/Edition de cours", 400, 250, df);
 		
 		daocours = df.getDaoCours();
 		daoenseignant = df.getDaoEnseignant();
+		
+		l = new EcouteurCours();
+		
+		boutonOK.addMouseListener(l);
+		boutonAnnuler.addMouseListener(l);
+		
 		
 		try {
 			listeEnseign = daoenseignant.findAll();

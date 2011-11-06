@@ -20,7 +20,9 @@ import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Enseignant;
+import fr.unice.hmabwe.modele.Filiere;
 
 /**
  * 
@@ -167,16 +169,16 @@ public class PanelGestionEnseignant extends JPanel {
 	
 	//private JList listEnseignant, listFiliere, listCours;
 	
-	public Object getEnseignantSelect(){
-		return this.listEnseignant.getSelectedValue();
+	public Enseignant getEnseignantSelect(){
+		return (Enseignant) this.listEnseignant.getSelectedValue();
 	}
 	
-	public Object getFiliereSelect(){
-		return this.listFiliere.getSelectedValues();
+	public Filiere getFiliereSelect(){
+		return (Filiere) this.listFiliere.getSelectedValue();
 	}
 	
-	public Object getCoursSelect(){
-		return this.listCours.getSelectedValues();
+	public Cours getCoursSelect(){
+		return (Cours) this.listCours.getSelectedValue();
 	}
 	
 }
