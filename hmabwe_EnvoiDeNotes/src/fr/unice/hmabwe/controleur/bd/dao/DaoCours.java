@@ -21,18 +21,27 @@ public interface DaoCours extends DaoGenerique<Cours, Integer> {
 	
 	/**
 	 * renvoie la moyenne de tout les etudiants
-	 * qui on suivit ce cours une année donnée
+	 * qui ont suivit un cours donnée à une année donnée
 	 * 
-	 * @param annee l'année a laquelle on cherche les moyennes
+	 * @param nomCours le nom du cours dont on veut la moyenne
+	 * @param annee l'année a laquelle on cherche la moyenne
+	 * @return la moyenne du cours l'année donnée
 	 */
 	
-	public double getMoyenne(int annee); 
+	public double getMoyenne(String nomCours, int annee); 
 	
 	/**
-	 * renvoie tout les etudiant inscrit à ce cour
+	 * renvoie tout les etudiant inscrit à ce cours
 	 * toutes années confondue
 	 */
 	
 	public Collection<Etudiant> getEtudiantsInstcrits();
+	
+	/**
+	 * renvoie un cours dont on à donné le nom
+	 * @param nom le nom du cours qu'on cherche
+	 * 
+	 */
+	public Cours getCoursByName(String nom);
 
 }
