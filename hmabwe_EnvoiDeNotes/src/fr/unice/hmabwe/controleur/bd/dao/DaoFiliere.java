@@ -13,12 +13,6 @@ import fr.unice.hmabwe.modele.Filiere;
 public interface DaoFiliere extends DaoGenerique<Filiere, Integer> {
 	
 	/**
-	 * cette methode renvoie toute les filières
-	 * 
-	 */
-	public Collection<Filiere> getAllFilieres();
-	
-	/**
 	 * cette methode renvoie tout les etudiants inscrient à cette fillière
 	 * 
 	 */

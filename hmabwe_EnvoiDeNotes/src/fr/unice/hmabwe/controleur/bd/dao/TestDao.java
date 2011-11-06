@@ -54,8 +54,10 @@ public class TestDao {
 
 		/* je crée quelques objets métier */
 		Enseignant ens1 = new Enseignant("Grin", "Richard", "grin@unice.fr");
+		Enseignant ens2 = new Enseignant("Mallet", "Frédéric", "fmallet@unice.fr");
 		Cours cours1 = new Cours("POO", ens1);
 		Filiere filiere1 = new Filiere("M1 Info", ens1);
+		Filiere filiere2 = new Filiere("M1 Miage", ens2);
 		Coefficient coef1 = new Coefficient(cours1, filiere1, 2);
 		Etudiant etu1 = new Etudiant("wp803469", "Wohler", "Paraita", "wp803469@etu.unice.fr", "L3I", filiere1);
 		Etudiant etu2 = new Etudiant("hi1234", "Hassala", "Iliasse", "hassala.iliasse@etu.unice.fr", "L3I", filiere1);
@@ -69,8 +71,10 @@ public class TestDao {
 		try {
 			conn.beginTransaction();
 			daoEnseignant.create(ens1);
+			daoEnseignant.create(ens2);
 			daoCours.create(cours1);
 			daoFiliere.create(filiere1);
+			daoFiliere.create(filiere2);
 			daoCoefficient.create(coef1);
 			daoEtudiant.create(etu1);
 			daoEtudiant.create(etu2);
@@ -110,6 +114,8 @@ public class TestDao {
 		Connexion conn = df.getConnexion();
 		DaoEtudiant daoEtudiant = df.getDaoEtudiant();
 		DaoEnseignant daoEnseignant = df.getDaoEnseignant();
+		DaoFiliere daoFiliere = df.getDaoFiliere();
+		DaoCours daoCours = df.getDaoCours();
 		Etudiant etu1 = null;
 
 		try {
@@ -126,7 +132,6 @@ public class TestDao {
 			}
 			
 			System.out.println("Tout les enseignants de la BDD:");
-			
 			Collection<Enseignant> listeEnseign = daoEnseignant.findAll();
 			for (Enseignant enseignant : listeEnseign) {
 				System.out.println("#######################################################################");
@@ -137,7 +142,6 @@ public class TestDao {
 			
 			
 			System.out.println("Est ce que 'wp803469' à suivi POO en 2010 ? " + daoEtudiant.etaitInscrit("wp803469", "POO", 2010));
-			
 			String matricule = "wp803469";
 			etu1 = daoEtudiant.findByNumeroEtudiant(matricule);
 			if (etu1 == null) {
@@ -145,6 +149,22 @@ public class TestDao {
 			}
 			else {
 				System.out.println("L'étudiant de matricule " + matricule + " s'apelle " + etu1.getPrenom() + " " + etu1.getNom());
+			}
+			
+			System.out.println("Toutes les filieres :");
+			Collection<Filiere> listFiliere = daoFiliere.findAll();
+			for (Filiere filiere : listFiliere) {
+				System.out.println("#######################################################################");
+				System.out.println("#################################### " + filiere.getNom());
+				System.out.println("#######################################################################");
+			}
+			
+			System.out.println("Tout les cours :");
+			Collection<Cours> listeCours = daoCours.findAll();
+			for (Cours cours : listeCours) {
+				System.out.println("#######################################################################");
+				System.out.println("#################################### " + cours.getNom());
+				System.out.println("#######################################################################");
 			}
 			
 			conn.commitTransaction();

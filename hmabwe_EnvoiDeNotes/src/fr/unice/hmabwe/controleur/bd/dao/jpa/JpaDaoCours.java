@@ -17,18 +17,6 @@ import fr.unice.hmabwe.modele.Etudiant;
  */
 public class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
 		DaoCours {
-
-	/**
-	 * le code métier va ici
-	 */
-	
-	/**
-	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getAllCours()
-	 */
-	
-	public Collection<Cours> getAllCours(){
-		return null;
-	}
 	
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getMoyenne()

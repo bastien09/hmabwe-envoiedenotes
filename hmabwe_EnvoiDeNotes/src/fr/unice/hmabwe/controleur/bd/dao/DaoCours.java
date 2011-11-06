@@ -20,12 +20,6 @@ import fr.unice.hmabwe.modele.Etudiant;
 public interface DaoCours extends DaoGenerique<Cours, Integer> {
 	
 	/**
-	 * renvoie tout les cours
-	 * 
-	 */
-	public Collection<Cours> getAllCours();
-	
-	/**
 	 * renvoie la moyenne de tout les etudiants
 	 * qui on suivit ce cours une année donnée
 	 * 
