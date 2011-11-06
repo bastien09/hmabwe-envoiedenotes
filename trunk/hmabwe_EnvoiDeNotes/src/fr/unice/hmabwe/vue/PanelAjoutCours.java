@@ -71,7 +71,11 @@ public class PanelAjoutCours extends JPanel{
 	}
 	
 	public Enseignant getEnseignantChoisi(){
-		return null;
+		return (Enseignant) this.tabEnseignant.getSelectedItem();
 		//TODO A faire
+	}
+	
+	public JComboBox getComboEnseignant(){
+		return this.tabEnseignant;
 	}
 }
