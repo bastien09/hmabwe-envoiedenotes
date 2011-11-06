@@ -43,4 +43,14 @@ public interface DaoEtudiant extends DaoGenerique<Etudiant, Integer> {
 	 * @return l'étudiant cherché, ou <code>null</code> s'il n'existe pas
 	 */
 	public Etudiant findByNumeroEtudiant(String numEtu);
+	
+	/**
+	 * calcule la moyenne d'un étudiant suivant son numéro d'étudiant
+	 * 
+	 * @param numEtu le numéro d'étudiant
+	 * @return la moyenne de l'étudiant
+	 * 
+	 */
+	public double getMoyenne(String numEtu);
+	
 }

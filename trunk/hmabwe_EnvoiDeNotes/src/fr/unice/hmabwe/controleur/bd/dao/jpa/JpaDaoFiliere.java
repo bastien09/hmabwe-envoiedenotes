@@ -1,6 +1,10 @@
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
 import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.Query;
+import javax.persistence.EntityManager;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
 import fr.unice.hmabwe.modele.Etudiant;
@@ -35,7 +39,8 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 	 * @see fr.unice.hmabwe.controleur.dao.DaoFiliere#getMoyenne()
 	 */
 	
-	public double getMoyenne(){
+	//TODO la moyenne d'une filiere
+	public double getMoyenne(String nomFiliere) {
 		return 0;
 	}
 }
