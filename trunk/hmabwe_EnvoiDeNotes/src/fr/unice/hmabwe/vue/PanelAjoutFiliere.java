@@ -25,9 +25,9 @@ public class PanelAjoutFiliere extends JPanel{
 	
 	private JLabel labelNom, labelEnseignant;
 	
-	private JTextField textNom;
+	public JTextField textNom;
 	
-	private JComboBox tabEnseignant;
+	public JComboBox tabEnseignant;
 	
 	private JPanel panel, nomPanel, enseignantPanel;
 	

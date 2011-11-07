@@ -31,8 +31,12 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 	public DaoEnseignant daoEnseignant;
 	public EcouteurFiliere l;
 	
+	/**Constructeur permettant l'ajout d'une nouvelle filière
+	 *@param df Daofabrique
+	 */
 	public FenetreAjoutFiliere(DaoFabrique df) {
 		super("Ajout/Edition d'une filière", 500, 300, df);
+		
 		panelFiliere = new PanelAjoutFiliere();
 		
 		daoFiliere = df.getDaoFiliere();
@@ -50,6 +54,35 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		
 		
 	}
+	
+	/**Constructeur permettant de modifier une filiere
+	 *@param df Daofabrique
+	 *@param f Filière à modifier
+	 */
+	public FenetreAjoutFiliere(DaoFabrique df, Filiere f){
+		
+		super("Ajout/Edition d'une filière", 500, 300, df);
+		
+		panelFiliere = new PanelAjoutFiliere();
+		
+		daoFiliere = df.getDaoFiliere();
+		daoEnseignant = df.getDaoEnseignant();
+		
+		panelFiliere.textNom.setText(f.getNom());
+		panelFiliere.tabEnseignant.setSelectedItem(f.getResponsable());
+		
+		
+		l = new EcouteurFiliere();		
+		boutonOK.addMouseListener(l);
+		boutonAnnuler.addMouseListener(l);
+		
+		
+		this.setResizable(false);
+		this.container.add(panelFiliere.getPanelPrincipal(), BorderLayout.NORTH);
+		this.setVisible(true);
+		
+	}
+	
 	
 	private class EcouteurFiliere implements MouseListener{
 

@@ -2,6 +2,7 @@ package fr.unice.hmabwe.vue;
 
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -11,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.modele.Etudiant;
+import fr.unice.hmabwe.modele.Inscription;
 
 /**
  * 
@@ -32,27 +35,21 @@ public class PanelStatistiqueEtudiant extends JPanel{
 	private JScrollPane scrollCours
 	;
 	//Simple essai pour l'interface
-	private ArrayList<ObjetLigneMoyenneEtudiant> ligneMoyenne;
+	public ArrayList<ObjetLigneMoyenneEtudiant> ligneMoyenne;
 	
-	public PanelStatistiqueEtudiant(){
+	public PanelStatistiqueEtudiant(Etudiant e){
+		// Methode de remplissage de diverse liste.
 		
-		//Simple essai pour l'interface
-		ligneMoyenne = new ArrayList<ObjetLigneMoyenneEtudiant>();
-		ObjetLigneMoyenneEtudiant obj1 = new ObjetLigneMoyenneEtudiant("Francais", "10");
-		ObjetLigneMoyenneEtudiant obj2 = new ObjetLigneMoyenneEtudiant("Anglais", "15");
-		ObjetLigneMoyenneEtudiant obj3 = new ObjetLigneMoyenneEtudiant("Math", "15");
-		ObjetLigneMoyenneEtudiant obj4 = new ObjetLigneMoyenneEtudiant("Sport", "15");
-		ObjetLigneMoyenneEtudiant obj5 = new ObjetLigneMoyenneEtudiant("Latin", "15");
-		ObjetLigneMoyenneEtudiant obj6 = new ObjetLigneMoyenneEtudiant("Physique", "15");
-		ObjetLigneMoyenneEtudiant obj7 = new ObjetLigneMoyenneEtudiant("Italien", "15");
-		ligneMoyenne.add(obj1);
-		ligneMoyenne.add(obj2);
-		ligneMoyenne.add(obj3);
-		ligneMoyenne.add(obj4);
-		ligneMoyenne.add(obj5);
-		ligneMoyenne.add(obj6);
-		ligneMoyenne.add(obj7);
-		// Fin essai
+		Collection<Inscription> listInscription = new ArrayList<Inscription>();
+		ArrayList<Integer> listannee = new ArrayList<Integer>();
+		
+		listInscription = e.getInscriptions();
+		for(Inscription insc : listInscription){
+			ObjetLigneMoyenneEtudiant o = new ObjetLigneMoyenneEtudiant(insc);
+			this.ligneMoyenne.add(o); // Remplissage de la liste de moyenne
+			listannee.add(insc.getAnnee()); // Remplissage de la liste Annee
+		}
+		
 		
 		panelAnnee = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panelMoyenne = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -64,6 +61,8 @@ public class PanelStatistiqueEtudiant extends JPanel{
 		moyenne = new JLabel("Moyenne :");
 		
 		comboAnnee = new JComboBox();
+		comboAnnee.addItem(listannee);
+		
 		
 		panelAnnee.add(annee);
 		panelAnnee.add(comboAnnee);
@@ -73,6 +72,8 @@ public class PanelStatistiqueEtudiant extends JPanel{
 		panelCours.setLayout(new BoxLayout(panelCours, BoxLayout.Y_AXIS));
 		scrollCours = new JScrollPane(panelCours);
 		scrollCours.setBorder(BorderFactory.createTitledBorder("Cours"));
+		
+		
 		for(ObjetLigneMoyenneEtudiant objl : ligneMoyenne){
 			panelCours.add(objl.panelMoyenne);
 		}

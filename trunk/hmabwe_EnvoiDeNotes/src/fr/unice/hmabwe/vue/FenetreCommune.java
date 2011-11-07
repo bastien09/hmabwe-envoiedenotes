@@ -25,6 +25,10 @@ public class FenetreCommune extends JFrame{
 	
     protected JButton boutonOK, boutonAnnuler ;
     
+    /**Contructeur par défaut*/
+    public FenetreCommune(){
+    	
+    }
     
     
     public FenetreCommune(String nomFenetre, int longueur, int largeur, DaoFabrique df){
