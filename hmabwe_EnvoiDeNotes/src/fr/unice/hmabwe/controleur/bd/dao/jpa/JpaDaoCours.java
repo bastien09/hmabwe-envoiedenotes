@@ -1,5 +1,6 @@
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
 	private final String queryGetMoyenne = "select i from Inscription i " +
 			"join i.cours c where i.annee = :annee and c.nom = :cours";
 	
+	private final String requetGetCour = "select c from Cours " + "where c.nom = :nomCours";
+	
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getMoyenne()
 	 */
@@ -45,14 +48,23 @@ public class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getEtudiantsInscrits()
 	 */
-	public Collection<Etudiant> getEtudiantsInstcrits(){
-		return null;
+	public Collection<Etudiant> getEtudiantsInstcrits(Cours cour){
+		Collection<Inscription> colInscrit= cour.getInscriptions();
+		ArrayList<Etudiant> listEtu = new ArrayList<Etudiant>();
+		for (Inscription inscrit : colInscrit) {
+			listEtu.add(inscrit.getEtudiant());
+		}
+		
+		return ((Collection<Etudiant>)listEtu);
 	}
 	
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getCoursByName()
 	 */
-	public Cours getCoursByName(String nom) {
-		return null;
+	public List<Cours> getCoursByName(String nom) {
+		EntityManager em = getEntityManager();
+		Query q = em.createQuery(requetGetCour);
+		q.setParameter("nomCours", nom);
+		return ((List<Cours>)q.getResultList());
 	}
 }
