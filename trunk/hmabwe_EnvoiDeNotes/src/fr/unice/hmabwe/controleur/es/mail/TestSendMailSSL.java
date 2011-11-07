@@ -11,7 +11,7 @@ public class TestSendMailSSL {
 
 	public static void main(String[] args) {
 		
-		MailSSL mail = new MailSSL("kt107003@etu.unice.fr", "kae2waetho",
+		MailSSL mail = new MailSSL("from@etu.unice.fr", "password",
 				"smtp.unice.fr", 465);
 		
 		
@@ -30,8 +30,8 @@ public class TestSendMailSSL {
 		to.add(e1);
 		to.add(e2);
 
-		mail.SendMail("kulish.Tatiana@etu.unice.fr", to, "TestMail",
-				"salut #nom #prenom", c1, enseignant, 2011);
+		mail.SendMail("from@etu.unice.fr", to, "Subject",
+				"<-- Text + Tag --> : salut #nom #prenom", c1, enseignant, 2011);
 
 	}
 
