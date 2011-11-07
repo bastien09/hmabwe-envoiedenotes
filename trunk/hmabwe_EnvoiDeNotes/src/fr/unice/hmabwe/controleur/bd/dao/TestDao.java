@@ -171,9 +171,16 @@ public class TestDao {
 			double moy_cours = daoCours.getMoyenne("POO", 2010);
 			System.out.println("Moyenne du cours de POO en 2010: " + moy_cours + "/20");
 			
-			daoEtudiant.listeInscrit("POO", 2010);
+			System.out.println(" liste des etudiant de POO en 2010 avec leur moyenne: \n" + daoEtudiant.listeInscrit("POO", 2010).toString());
 			
+			System.out.println("list de tout les etudiant de POO: \n " + daoCours.getEtudiantsInstcrits(daoCours.getCoursByName("POO").get(0)).toString());
 			
+			System.out.println("recherche etudiant par nom: \n " + daoEtudiant.getEtudiantByName("Wohler"));
+			
+			System.out.println("recherche etudiant par nom et prenom: \n " + daoEtudiant.getEtudiantByName("Engilberge", "Swan"));
+
+			System.out.println("recherche prof par nom: \n " + daoEnseignant.getEnseignantsByName("Grin"));
+
 			
 			conn.commitTransaction();
 		}
