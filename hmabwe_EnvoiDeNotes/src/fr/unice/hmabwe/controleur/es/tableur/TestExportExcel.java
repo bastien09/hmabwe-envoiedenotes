@@ -5,7 +5,11 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import fr.unice.hmabwe.controleur.bd.Connexion;
+import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoInscription;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoInscription;
 import fr.unice.hmabwe.modele.Cours;
@@ -24,15 +28,27 @@ public class TestExportExcel {
 		Cours cours = new Cours("POO");
 
 		int annee = 2010;
+		
+		DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
+		DaoFabrique df = DaoFabrique.getDaoFabrique();
+		Connexion conn = df.getConnexion();
+		
+		DaoEtudiant etus = df.getDaoEtudiant();
+		DaoInscription insc = df.getDaoInscription();
+		
+		try {
+			conn.beginTransaction();
+			HashMap<Etudiant, String> ed = null;
 
-		JpaDaoEtudiant etus = new JpaDaoEtudiant();
-		JpaDaoInscription insc = new JpaDaoInscription();
-
-		HashMap<Etudiant, String> ed = null;
-
-		ed = insc.listeInscrit(cours.getNom(), annee);
-
-		eex.createXls(ed, cours, annee);
+			ed = insc.listeInscrit(cours.getNom(), annee);
+	
+			eex.createXls(ed, cours, annee);
+			
+			conn.commitTransaction();
+		}
+		catch(DaoException e) {
+			e.printStackTrace();
+		}
 
 	}
 
