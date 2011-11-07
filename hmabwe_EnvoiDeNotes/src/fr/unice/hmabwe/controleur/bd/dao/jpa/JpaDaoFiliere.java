@@ -24,6 +24,8 @@ import fr.unice.hmabwe.modele.Inscription;
  */
 public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 		implements DaoFiliere {
+	
+	
 
 
 	/**
@@ -45,7 +47,7 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 		for (Etudiant etudiant : listeEtudiant) {
 			HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
 			EntityManager em = getEntityManager();
-			Query q = em.createQuery("select c from Coefficient c where c.filiere_id = :id");
+			Query q = em.createQuery("select c from Coefficient c where c.filiere = :id");
 			Collection<Inscription> l_inscr = etudiant.getInscriptions();
 			q.setParameter("id", filiere.getId());
 			double somme_notes = 0;
@@ -64,4 +66,6 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 		return somme / listeEtudiant.size();
 		
 	}
+	
+
 }
