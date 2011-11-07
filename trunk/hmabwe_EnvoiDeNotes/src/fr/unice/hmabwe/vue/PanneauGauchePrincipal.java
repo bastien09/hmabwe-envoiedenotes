@@ -97,9 +97,10 @@ public class PanneauGauchePrincipal extends JPanel {
 		try {
 			conn.beginTransaction();
 			if(choix.getSelectedItem().equals("Filière")) {
-				//TODO liste.setListData(daoFiliere.getAllFilieres().toArray());
+				liste.setListData(daoFiliere.findAll().toArray());
+				System.out.println("nb Filieres = " + daoFiliere.findAll().size());
 			} else {
-				//TODO liste.setListData(daoCours.getAllCours().toArray());
+				liste.setListData(daoCours.findAll().toArray());
 			}
 			liste.setSelectedIndex(0);
 			conn.commitTransaction();
@@ -107,6 +108,10 @@ public class PanneauGauchePrincipal extends JPanel {
 			//TODO error message
 			e.printStackTrace();
 		}
+	}
+	
+	public Object getSelectedItem() {
+		return liste.getSelectedValue();
 	}
 
 	/*
@@ -186,12 +191,12 @@ public class PanneauGauchePrincipal extends JPanel {
 			Collection<Etudiant> etudiants = new ArrayList<Etudiant>();
 			if(choix.getSelectedItem().equals("Cours")) {
 				Cours c = (Cours) liste.getSelectedValue();
-				//TODO etudiants = c.getEtudiantsInscrits();
+				//etudiants = c.getEtudiantsInscrits();
 			} else {
 				Filiere f = (Filiere) liste.getSelectedValue();
 				//TODO etudiants = f.getEtudiantsInscrits();
 			}
-			((FenetrePrincipale) PanneauGauchePrincipal.this.getParent()).setListeEtudiant(etudiants);
+			//((FenetrePrincipale) PanneauGauchePrincipal.this.getTopLevelAncestor()).setListeEtudiant(etudiants);
 		}
 
 	

@@ -199,6 +199,11 @@ public class Cours {
 		listeCoeffFilieres.clear();
 	}
 
+	@Override
+	public String toString() {
+		return "Cours : " + nom;
+	}
+
 }
 
 //////////////////////////////PROBLEME A REGLER////////////////////////////////////////////////////

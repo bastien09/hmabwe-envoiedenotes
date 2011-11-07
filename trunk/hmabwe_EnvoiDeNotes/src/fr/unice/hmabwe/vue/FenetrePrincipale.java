@@ -97,7 +97,7 @@ public class FenetrePrincipale extends JFrame {
 	/**
 	 * Ajoute une barre des menus à la fenêtre.
 	 */
-	public void addMenuBar() {
+	private void addMenuBar() {
 
 		ajouter.add(addEtudiant);
 		addEtudiant.addActionListener(l);
@@ -160,6 +160,10 @@ public class FenetrePrincipale extends JFrame {
 	
 	public void setListeEtudiant(Collection<Etudiant> etudiants) {
 		panneauDroite.setListeEtudiants(etudiants);
+	}
+	
+	public Object getSelectedItem() {
+		return panneauGauche.getSelectedItem();
 	}
 
 

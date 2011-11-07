@@ -191,6 +191,11 @@ public class Filiere {
 		
 		return res;
 	}
+	
+	@Override
+	public String toString() {
+		return "Filière : " + nom;
+	}
 
 }
 
