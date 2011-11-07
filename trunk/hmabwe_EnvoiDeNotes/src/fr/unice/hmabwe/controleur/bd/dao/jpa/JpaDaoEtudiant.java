@@ -34,6 +34,11 @@ implements DaoEtudiant{
 	"join i.etudiant e " +
 	"join i.cours c " +
 	"where i.annee = :annee and e.numEtu = :numEtu and c.nom = :nomCours";
+	
+	private final String RequeteInscrit = "select i from Inscription i " +
+	"join i.etudiant e " +
+	"join i.cours c " +
+	"where i.annee = :annee and e.numEtu = :numEtu and c.nom = :nomCours";
 
 
 	private final String requetGetEtudiant = "select e from Etudiant e where e.nom = :nomEtudiant";
@@ -57,7 +62,20 @@ implements DaoEtudiant{
 		}
 	}
 
-
+	public Inscription inscriptionEtu(String numEtu, String nomCours, int annee) {
+		EntityManager em = getEntityManager();
+		Query q = em.createQuery(RequeteInscrit);
+		q.setParameter("numEtu", numEtu);
+		q.setParameter("nomCours", nomCours);
+		q.setParameter("annee", annee);
+		List<Inscription> res = (List<Inscription>)q.getResultList();
+		if (res.isEmpty()) {
+			return null;
+		}
+		else {
+			return res.get(0);
+		}
+	}
 
 
 	/**

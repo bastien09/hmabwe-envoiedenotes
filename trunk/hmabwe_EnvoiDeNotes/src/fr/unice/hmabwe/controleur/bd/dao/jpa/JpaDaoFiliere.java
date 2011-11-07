@@ -47,9 +47,8 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 		for (Etudiant etudiant : listeEtudiant) {
 			HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
 			EntityManager em = getEntityManager();
-			Query q = em.createQuery("select c from Coefficient c where c.filiere = :id");
+			Query q = em.createQuery("select c from Coefficient c where c.filiere = " + filiere.getId());
 			Collection<Inscription> l_inscr = etudiant.getInscriptions();
-			q.setParameter("id", filiere.getId());
 			double somme_notes = 0;
 			int somme_coef = 0;
 			List<Coefficient> l_coeffs = q.getResultList();

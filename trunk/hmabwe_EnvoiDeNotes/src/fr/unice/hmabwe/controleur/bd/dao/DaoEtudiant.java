@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import fr.unice.hmabwe.modele.Etudiant;
+import fr.unice.hmabwe.modele.Inscription;
 
 /**
  * @author Engilberge swan
@@ -26,7 +27,8 @@ public interface DaoEtudiant extends DaoGenerique<Etudiant, Integer> {
 	public boolean etaitInscrit(String numEtu, String nomCours, int annee);
 	
 
-
+	public Inscription inscriptionEtu(String numEtu, String nomCours, int annee);
+	
 	/**
 	 * Cherche l'étudiant dont on donne le numéro d'étudiant et le retourne
 	 * 
