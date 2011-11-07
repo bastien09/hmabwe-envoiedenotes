@@ -69,9 +69,28 @@ public class TestDao {
 		Etudiant etu6 = new Etudiant("nc1234", "Nuon", "Channdarong", "nuonchanndarong@gmail.com", "???", filiere1);
 		Inscription inscr1 = new Inscription(etu1, cours1, 2010);
 		Inscription inscr2 = new Inscription(etu1, cours2, 2010);
+		Inscription inscr3 = new Inscription(etu2, cours1, 2010);
+		Inscription inscr4 = new Inscription(etu2, cours2, 2010);
+		Inscription inscr5 = new Inscription(etu3, cours1, 2010);
+		Inscription inscr6 = new Inscription(etu3, cours2, 2010);
+		Inscription inscr7 = new Inscription(etu4, cours1, 2010);
+		Inscription inscr8 = new Inscription(etu4, cours2, 2010);
+		Inscription inscr9 = new Inscription(etu5, cours1, 2010);
+		Inscription inscr10 = new Inscription(etu5, cours2, 2010);
+		Inscription inscr11 = new Inscription(etu6, cours1, 2010);
+		Inscription inscr12 = new Inscription(etu6, cours2, 2010);
 		inscr1.setMoyenne(15.0);
 		inscr2.setMoyenne(10.0);
-
+		inscr3.setMoyenne(15.0);
+		inscr4.setMoyenne(10.0);
+		inscr5.setMoyenne(15.0);
+		inscr6.setMoyenne(10.0);
+		inscr7.setMoyenne(15.0);
+		inscr8.setMoyenne(10.0);
+		inscr9.setMoyenne(15.0);
+		inscr10.setMoyenne(15.0);
+		inscr11.setMoyenne(15.0);
+		inscr12.setMoyenne(10.0);
 		/* on rend persistant ces objets */
 		try {
 			conn.beginTransaction();
@@ -91,6 +110,16 @@ public class TestDao {
 			daoEtudiant.create(etu6);
 			daoInscription.create(inscr1);
 			daoInscription.create(inscr2);
+			daoInscription.create(inscr3);
+			daoInscription.create(inscr4);
+			daoInscription.create(inscr5);
+			daoInscription.create(inscr6);
+			daoInscription.create(inscr7);
+			daoInscription.create(inscr8);
+			daoInscription.create(inscr9);
+			daoInscription.create(inscr10);
+			daoInscription.create(inscr11);
+			daoInscription.create(inscr12);
 			conn.commitTransaction();
 		}
 		catch(DaoException e) {
