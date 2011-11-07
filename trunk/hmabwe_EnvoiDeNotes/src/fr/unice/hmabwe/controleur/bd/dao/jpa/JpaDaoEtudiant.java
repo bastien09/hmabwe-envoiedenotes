@@ -35,7 +35,7 @@ implements DaoEtudiant{
 			"where i.annee = :annee and e.numEtu = :numEtu and c.nom = :nomCours";
 	//TODO chercher comment faire des requete avec jointure
 	
-	private final String RequeteEtaitInscrit = "select e from Inscription i " +
+	private final String RequeteListeInscrit = "select e from Inscription i " +
 	"join i.etudiant e " +
 	"join i.cours c " +
 	"where i.annee = :annee and c.nom = :nomCours";
