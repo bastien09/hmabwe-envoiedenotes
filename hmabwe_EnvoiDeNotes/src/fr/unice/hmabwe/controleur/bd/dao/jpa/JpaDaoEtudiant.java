@@ -103,18 +103,16 @@ implements DaoEtudiant{
 		Collection<Inscription> l_inscr = e.getInscriptions();
 		Filiere f = e.getFiliere();
 		q.setParameter("id", f.getId());
-		double somme = 0;
+		double somme_notes = 0;
+		int somme_coef = 0;
 		List<Coefficient> l_coeffs = q.getResultList();
 		for (Coefficient coefficient : l_coeffs) {
 			coeffs.put(coefficient.getCours().getId(), coefficient.getCoefficient());
 		}
 		for (Inscription inscription : l_inscr) {
-
+			somme_notes += inscription.getMoyenne() * coeffs.get(inscription.getCours().getId());
+			somme_coef += coeffs.get(inscription.getCours().getId());
 		}
-
-
-
-
-		return 0;
+		return somme_notes / somme_coef;
 	}
 }

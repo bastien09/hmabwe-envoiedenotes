@@ -39,7 +39,7 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 	 * @see fr.unice.hmabwe.controleur.dao.DaoFiliere#getMoyenne()
 	 */
 	
-	//TODO la moyenne d'une filiere
+	//TODO la moyenne d'une filiere dépend de la moyenne de chaque étudiant de cette filiere
 	public double getMoyenne(String nomFiliere) {
 		return 0;
 	}
