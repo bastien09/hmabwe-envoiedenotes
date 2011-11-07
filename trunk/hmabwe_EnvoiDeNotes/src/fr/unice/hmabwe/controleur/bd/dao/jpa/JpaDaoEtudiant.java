@@ -94,15 +94,14 @@ implements DaoEtudiant{
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#getMoyenne()
 	 */
-	//TODO finir la méthode !
+
 	public double getMoyenne(String numEtu) {
 		HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
 		EntityManager em = getEntityManager();
-		Query q = em.createQuery("select c from Coefficient c where c.filiere_id = :id");
 		Etudiant e = findByNumeroEtudiant(numEtu);
-		Collection<Inscription> l_inscr = e.getInscriptions();
 		Filiere f = e.getFiliere();
-		q.setParameter("id", f.getId());
+		Query q = em.createQuery("select c from Coefficient c where c.filiere = " + f.getId());
+		Collection<Inscription> l_inscr = e.getInscriptions();
 		double somme_notes = 0;
 		int somme_coef = 0;
 		List<Coefficient> l_coeffs = q.getResultList();

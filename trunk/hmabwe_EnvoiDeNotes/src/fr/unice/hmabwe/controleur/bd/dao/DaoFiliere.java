@@ -27,4 +27,6 @@ public interface DaoFiliere extends DaoGenerique<Filiere, Integer> {
 	public double getMoyenne(Filiere filiere);
 	
 
+	
+
 }

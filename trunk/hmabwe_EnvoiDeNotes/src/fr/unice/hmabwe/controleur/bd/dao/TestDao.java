@@ -56,9 +56,11 @@ public class TestDao {
 		Enseignant ens1 = new Enseignant("Grin", "Richard", "grin@unice.fr");
 		Enseignant ens2 = new Enseignant("Mallet", "Frédéric", "fmallet@unice.fr");
 		Cours cours1 = new Cours("POO", ens1);
+		Cours cours2 = new Cours("SYSTEME", ens1);
 		Filiere filiere1 = new Filiere("M1 Info", ens1);
 		Filiere filiere2 = new Filiere("M1 Miage", ens2);
 		Coefficient coef1 = new Coefficient(cours1, filiere1, 2);
+		Coefficient coef2 = new Coefficient(cours2, filiere1, 4);
 		Etudiant etu1 = new Etudiant("wp803469", "Wohler", "Paraita", "wp803469@etu.unice.fr", "L3I", filiere1);
 		Etudiant etu2 = new Etudiant("hi1234", "Hassala", "Iliasse", "hassala.iliasse@etu.unice.fr", "L3I", filiere1);
 		Etudiant etu3 = new Etudiant("ba1234", "Auda", "Bastien", "bastien26990@yahoo.fr", "L3I", filiere1);
@@ -66,7 +68,9 @@ public class TestDao {
 		Etudiant etu5 = new Etudiant("es1234", "Engilberge", "Swan", "engilberge-swan@etu.unice.fr", "L3I", filiere1);
 		Etudiant etu6 = new Etudiant("nc1234", "Nuon", "Channdarong", "nuonchanndarong@gmail.com", "???", filiere1);
 		Inscription inscr1 = new Inscription(etu1, cours1, 2010);
-		inscr1.setMoyenne(15.5);
+		Inscription inscr2 = new Inscription(etu1, cours2, 2010);
+		inscr1.setMoyenne(15.0);
+		inscr2.setMoyenne(10.0);
 
 		/* on rend persistant ces objets */
 		try {
@@ -74,9 +78,11 @@ public class TestDao {
 			daoEnseignant.create(ens1);
 			daoEnseignant.create(ens2);
 			daoCours.create(cours1);
+			daoCours.create(cours2);
 			daoFiliere.create(filiere1);
 			daoFiliere.create(filiere2);
 			daoCoefficient.create(coef1);
+			daoCoefficient.create(coef2);
 			daoEtudiant.create(etu1);
 			daoEtudiant.create(etu2);
 			daoEtudiant.create(etu3);
@@ -84,6 +90,7 @@ public class TestDao {
 			daoEtudiant.create(etu5);
 			daoEtudiant.create(etu6);
 			daoInscription.create(inscr1);
+			daoInscription.create(inscr2);
 			conn.commitTransaction();
 		}
 		catch(DaoException e) {
@@ -157,7 +164,7 @@ public class TestDao {
 			Collection<Filiere> listFiliere = daoFiliere.findAll();
 			for (Filiere filiere : listFiliere) {
 				System.out.println("#######################################################################");
-				System.out.println("#################################### " + filiere.getNom());
+				System.out.println("#################################### " + filiere.getNom() + " " + filiere.getId());
 				System.out.println("#######################################################################");
 			}
 			
@@ -182,7 +189,7 @@ public class TestDao {
 
 			System.out.println("recherche prof par nom: \n " + daoEnseignant.getEnseignantsByName("Grin"));
 
-			
+			System.out.println("moyen de filiere info = " + daoFiliere.getMoyenne(daoFiliere.findById(5)));
 			conn.commitTransaction();
 		}
 		catch(DaoException e) {
