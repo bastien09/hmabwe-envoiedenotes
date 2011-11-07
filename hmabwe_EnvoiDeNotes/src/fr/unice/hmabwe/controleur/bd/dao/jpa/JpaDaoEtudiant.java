@@ -42,7 +42,7 @@ implements DaoEtudiant{
 	"where i.annee = :annee and c.nom = :nomCours";
 
 	private final String requetGetEtudiant = "select e from Etudiant e where e.nom = :nomEtudiant";
-	private final String requetGetEtudiant2 = "select e from Etudiant e where e.nom = :nomEtudiant and e.prenom = : prenomEtudiant";
+	private final String requetGetEtudiant2 = "select e from Etudiant e where e.nom = :nomEtudiant and e.prenom = :prenomEtudiant";
 
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#etaitInscrit()
@@ -97,18 +97,18 @@ implements DaoEtudiant{
 		}
 	}
 
-	public List<Enseignant> getEtudiantByName(String nom){
+	public List<Etudiant> getEtudiantByName(String nom){
 		EntityManager em = getEntityManager();
 		Query q = em.createQuery(requetGetEtudiant);
 		q.setParameter("nomEtudiant", nom);
-		return (List<Enseignant>)q.getResultList();
+		return (List<Etudiant>)q.getResultList();
 	}
-	public List<Enseignant> getEtudiantByName(String nom, String prenom){
+	public List<Etudiant> getEtudiantByName(String nom, String prenom){
 		EntityManager em = getEntityManager();
 		Query q = em.createQuery(requetGetEtudiant2);
 		q.setParameter("nomEtudiant", nom);
 		q.setParameter("prenomEtudiant", prenom);
-		return (List<Enseignant>)q.getResultList();
+		return (List<Etudiant>)q.getResultList();
 	}
 
 

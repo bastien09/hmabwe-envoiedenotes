@@ -23,9 +23,9 @@ import fr.unice.hmabwe.modele.Enseignant;
 public class JpaDaoEnseignant extends JpaDaoGenerique<Enseignant, Integer>
 implements DaoEnseignant {
 
-	private final String requetGetEnseignant = "select e from enseignant e " + "where e.nom = :nomEnseigant";
+	private final String requetGetEnseignant = "select e from Enseignant e " + "where e.nom = :nomEnseigant";
 
-	private final String requetGetEnseignant2 = "select e from enseignant e " + "where e.nom = :nomEnseigant and e.prenom = :prenomEnseignant";
+	private final String requetGetEnseignant2 = "select e from Enseignant e " + "where e.nom = :nomEnseigant and e.prenom = :prenomEnseignant";
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEnseignant#getEnseignantByName()
 	 */
