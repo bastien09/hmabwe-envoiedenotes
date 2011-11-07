@@ -27,7 +27,7 @@ public class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
 	private final String queryGetMoyenne = "select i from Inscription i " +
 			"join i.cours c where i.annee = :annee and c.nom = :cours";
 	
-	private final String requetGetCour = "select c from Cours where c.nom = :cours";
+	private final String requetGetCour = "select c from Cours c where c.nom = :cours";
 	
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getMoyenne()

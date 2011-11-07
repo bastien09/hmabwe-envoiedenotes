@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.modele.Coefficient;
 import fr.unice.hmabwe.modele.Cours;
+import fr.unice.hmabwe.modele.Enseignant;
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Filiere;
 import fr.unice.hmabwe.modele.Inscription;
@@ -30,21 +31,18 @@ public class JpaDaoEtudiant extends JpaDaoGenerique<Etudiant, Integer>
 implements DaoEtudiant{
 
 	private final String RequeteEtaitInscrit = "select e from Inscription i " +
-			"join i.etudiant e " +
-			"join i.cours c " +
-			"where i.annee = :annee and e.numEtu = :numEtu and c.nom = :nomCours";
+	"join i.etudiant e " +
+	"join i.cours c " +
+	"where i.annee = :annee and e.numEtu = :numEtu and c.nom = :nomCours";
 	//TODO chercher comment faire des requete avec jointure
-	
+
 	private final String RequeteListeInscrit = "select e, i.moyenne from Inscription i " +
 	"join i.etudiant e " +
 	"join i.cours c " +
 	"where i.annee = :annee and c.nom = :nomCours";
-	
 
-	/**
-	 * le code métier va ici
-	 */
-
+	private final String requetGetEtudiant = "select e from Etudiant e where e.nom = :nomEtudiant";
+	private final String requetGetEtudiant2 = "select e from Etudiant e where e.nom = :nomEtudiant and e.prenom = : prenomEtudiant";
 
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#etaitInscrit()
@@ -63,7 +61,7 @@ implements DaoEtudiant{
 			return true;
 		}
 	}
-	
+
 
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#listeInscrit()
@@ -81,8 +79,8 @@ implements DaoEtudiant{
 		}
 		return map;
 	}
-	
-	
+
+
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#findByNumeroEtudiant()
 	 */
@@ -98,8 +96,22 @@ implements DaoEtudiant{
 			return res.get(0);
 		}
 	}
-	
-	
+
+	public List<Enseignant> getEtudiantByName(String nom){
+		EntityManager em = getEntityManager();
+		Query q = em.createQuery(requetGetEtudiant);
+		q.setParameter("nomEtudiant", nom);
+		return (List<Enseignant>)q.getResultList();
+	}
+	public List<Enseignant> getEtudiantByName(String nom, String prenom){
+		EntityManager em = getEntityManager();
+		Query q = em.createQuery(requetGetEtudiant2);
+		q.setParameter("nomEtudiant", nom);
+		q.setParameter("prenomEtudiant", prenom);
+		return (List<Enseignant>)q.getResultList();
+	}
+
+
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#getMoyenne()
 	 */
@@ -118,12 +130,12 @@ implements DaoEtudiant{
 			coeffs.put(coefficient.getCours().getId(), coefficient.getCoefficient());
 		}
 		for (Inscription inscription : l_inscr) {
-			
+
 		}
-		
-		
-		
-		
+
+
+
+
 		return 0;
 	}
 }
