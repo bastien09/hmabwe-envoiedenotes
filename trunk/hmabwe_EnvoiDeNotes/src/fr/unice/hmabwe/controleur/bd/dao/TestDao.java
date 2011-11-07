@@ -117,6 +117,7 @@ public class TestDao {
 		DaoEnseignant daoEnseignant = df.getDaoEnseignant();
 		DaoFiliere daoFiliere = df.getDaoFiliere();
 		DaoCours daoCours = df.getDaoCours();
+		DaoInscription daoInscription = df.getDaoInscription();
 		Etudiant etu1 = null;
 
 		try {
@@ -171,7 +172,7 @@ public class TestDao {
 			double moy_cours = daoCours.getMoyenne("POO", 2010);
 			System.out.println("Moyenne du cours de POO en 2010: " + moy_cours + "/20");
 			
-			System.out.println(" liste des etudiant de POO en 2010 avec leur moyenne: \n" + daoEtudiant.listeInscrit("POO", 2010).toString());
+			System.out.println(" liste des etudiant de POO en 2010 avec leur moyenne: \n" + daoInscription.listeInscrit("POO", 2010).toString());
 			
 			System.out.println("list de tout les etudiant de POO: \n " + daoCours.getEtudiantsInstcrits(daoCours.getCoursByName("POO").get(0)).toString());
 			
