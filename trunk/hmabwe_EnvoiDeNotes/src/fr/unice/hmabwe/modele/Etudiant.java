@@ -31,6 +31,9 @@ public class Etudiant extends Personne{
 	@ManyToOne
 	private Filiere filiere;
 	
+	/**Un étudiant est associé à un groupe.*/
+	private String groupe;
+	
 	/**Un étudiant est inscrit à un ou plusieurs cours.*/
 	@OneToMany(mappedBy="etudiant", cascade=CascadeType.ALL)
 	private Collection<Inscription> listeInscriptions;
@@ -74,7 +77,22 @@ public class Etudiant extends Personne{
 	public Etudiant(String num, String n, String pn, String m, String o, Filiere f){
 		this(num, n, pn, m, o);
 		filiere=f;
-		//filliere.addEtudiant(this);
+		listeInscriptions=new ArrayList<Inscription>();
+	}
+	
+	
+	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail, une origine 
+	 * , une filière et un groupe
+	 * @param num numéro de l'étudiant à créer
+	 * @param n nom de l'étudiant à créer
+	 * @param pn prénom de l'étudiant à créer
+	 * @param m adresse e-mail de l'étudiant à créer
+	 * @param o origine de l'étudiant à créer
+	 * @param f filière de l'étudiant à créer
+	 * @param g groupe de l'étudiant à créer*/
+	public Etudiant(String num, String n, String pn, String m, String o, Filiere f, String g){
+		this(num, n, pn, m, o, f);
+		groupe=g;
 		listeInscriptions=new ArrayList<Inscription>();
 	}
 	
@@ -189,10 +207,17 @@ public class Etudiant extends Personne{
 	public void removeAllInscriptions(){
 		listeInscriptions.clear();
 	}
+
+	/**Retourne le groupe associé à l'étudiant.
+	 * @return groupe de l'étudiant*/
+	public String getGroupe() {
+		return groupe;
+	}
+	
+	/**Modifie le groupe associé à l'étudiant.
+	 * @param groupe nouveau groupe associé à l'étudiant
+	 */
+	public void setGroupe(String groupe) {
+		this.groupe = groupe;
+	}
 }
-
-//////////////////////////////PROBLEME A REGLER////////////////////////////////////////////////////
-
-//removeInscription et removeAllInscriptions : suppression de(s) l'(les)inscription(s) dans la base
-
-///////////////////////////////////////////////////////////////////////////////////////////////////

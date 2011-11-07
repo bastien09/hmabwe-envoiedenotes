@@ -20,22 +20,22 @@ public class Inscription {
 	/**Chaque inscription a un identifiant unique généré automatiquement.*/
 	@Id
 	@GeneratedValue
-	int id;
+	private int id;
 	
 	/**Une inscription concerne un étudiant.*/
 	@ManyToOne
-	Etudiant etudiant;
+	private Etudiant etudiant;
 	
 	/**Une inscription concerne un cours.*/
 	@ManyToOne
-	Cours cours;
+	private Cours cours;
 	
 	/**Une inscription a lieu une année donnée.*/
-	Integer annee;
+	private Integer annee;
 	
 	/**Dans le cadre de l'application EnvoieDe Notes, un étudiant n'a qu'une seule note par cours, 
 	 * sa moyenne*/
-	Double moyenne;
+	private Double moyenne;
 	
 	/**Constructeur par défaut*/
 	public Inscription(){
@@ -48,7 +48,7 @@ public class Inscription {
 	 * @param a année de l'inscription à créer*/
 	public Inscription(Etudiant e, Cours c, Integer a){
 		etudiant=e;
-		cours=c;
+		setCours(c);
 		//cours.addInscription(this);
 		annee=a;
 	}
@@ -95,5 +95,18 @@ public class Inscription {
 	 */
 	public void setMoyenne(Double m){
 		moyenne=m;
+	}
+	
+	/**Retourne le cours associé à l'inscription.
+	 * @return cours associé à l'inscription*/
+	public Cours getCours() {
+		return cours;
+	}
+
+	/**Modifie le cours associé à l'inscription.
+	 * @param cours nouveau cours associé à l'inscription
+	 */
+	public void setCours(Cours cours) {
+		this.cours = cours;
 	}
 }

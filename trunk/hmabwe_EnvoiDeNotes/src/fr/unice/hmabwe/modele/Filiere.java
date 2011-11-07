@@ -192,16 +192,18 @@ public class Filiere {
 		return res;
 	}
 	
+	/**
+	 * Retourne la liste des étudiants de la filière
+	 * @return la liste des étudiants de la filière
+	 */
+	public Collection<Etudiant> getListEtudiants(){
+		return listeEtudiants;
+	}
+	
 	@Override
 	public String toString() {
 		return "Filière : " + nom;
 	}
 
 }
-
-//////////////////////////////PROBLEME A REGLER////////////////////////////////////////////////////
-
-//removeCours et removeAllCours : suppression du(des) coefficient(s) dans la base
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
