@@ -27,7 +27,7 @@ public class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
 	private final String queryGetMoyenne = "select i from Inscription i " +
 			"join i.cours c where i.annee = :annee and c.nom = :cours";
 	
-	private final String requetGetCour = "select c from Cours " + "where c.nom = :nomCours";
+	private final String requetGetCour = "select c from Cours where c.nom = :cours";
 	
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoCours#getMoyenne()
@@ -64,7 +64,7 @@ public class JpaDaoCours extends JpaDaoGenerique<Cours, Integer> implements
 	public List<Cours> getCoursByName(String nom) {
 		EntityManager em = getEntityManager();
 		Query q = em.createQuery(requetGetCour);
-		q.setParameter("nomCours", nom);
+		q.setParameter("cours", nom);
 		return ((List<Cours>)q.getResultList());
 	}
 }
