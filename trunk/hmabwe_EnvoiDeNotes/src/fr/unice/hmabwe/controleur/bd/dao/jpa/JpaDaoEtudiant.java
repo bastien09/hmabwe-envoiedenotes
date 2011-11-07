@@ -94,12 +94,15 @@ implements DaoEtudiant{
 		}
 	}
 
+	
 	public List<Etudiant> getEtudiantByName(String nom){
 		EntityManager em = getEntityManager();
 		Query q = em.createQuery(requetGetEtudiant);
 		q.setParameter("nomEtudiant", nom);
 		return (List<Etudiant>)q.getResultList();
 	}
+	
+	
 	public List<Etudiant> getEtudiantByName(String nom, String prenom){
 		EntityManager em = getEntityManager();
 		Query q = em.createQuery(requetGetEtudiant2);
@@ -118,7 +121,7 @@ implements DaoEtudiant{
 		EntityManager em = getEntityManager();
 		Etudiant e = findByNumeroEtudiant(numEtu);
 		Filiere f = e.getFiliere();
-		Query q = em.createQuery("select c from Coefficient c where c.filiere = " + f.getId());
+		Query q = em.createQuery("select c from Coefficient c where c.filiere = " + f);
 		Collection<Inscription> l_inscr = e.getInscriptions();
 		double somme_notes = 0;
 		int somme_coef = 0;

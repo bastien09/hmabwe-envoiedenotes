@@ -40,17 +40,19 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 	 * @see fr.unice.hmabwe.controleur.dao.DaoFiliere#getMoyenne()
 	 */
 	
-	
+	//TODO debugger la méthode
 	public double getMoyenne(Filiere filiere) {
 		Collection<Etudiant> listeEtudiant = getEtudiantsInscrits(filiere);
 		double somme = 0;
 		for (Etudiant etudiant : listeEtudiant) {
+			double moyenne_totale_etu = 0;
 			HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
 			EntityManager em = getEntityManager();
-			Query q = em.createQuery("select c from Coefficient c where c.filiere = " + filiere.getId());
+			Query q = em.createQuery("select c from Coefficient c where c.filiere = :id");
 			Collection<Inscription> l_inscr = etudiant.getInscriptions();
+			q.setParameter("id", filiere);
 			double somme_notes = 0;
-			int somme_coef = 0;
+			double somme_coef = 1;
 			List<Coefficient> l_coeffs = q.getResultList();
 			for (Coefficient coefficient : l_coeffs) {
 				coeffs.put(coefficient.getCours().getId(), coefficient.getCoefficient());
@@ -59,9 +61,10 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 				somme_notes += inscription.getMoyenne() * coeffs.get(inscription.getCours().getId());
 				somme_coef += coeffs.get(inscription.getCours().getId());
 			}
-			somme += somme_notes / somme_coef;
+			moyenne_totale_etu = (somme_notes / somme_coef);
+			//System.out.println("moyenne de " + etudiant.getPrenom() + " " + etudiant.getNom() + " : " + moyenne_totale_etu);
+			somme += moyenne_totale_etu;
 		}
-		
 		return somme / listeEtudiant.size();
 		
 	}
