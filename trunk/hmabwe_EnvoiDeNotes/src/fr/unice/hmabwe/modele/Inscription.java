@@ -109,4 +109,8 @@ public class Inscription {
 	public void setCours(Cours cours) {
 		this.cours = cours;
 	}
+
+	public String toString(){
+		return "Inscription numero : " + this.id + "cour: " + this.cours + " année: " + this.annee + " etudiant " + this.etudiant.getNom() + " moyenne " + this.moyenne;
+	}
 }
