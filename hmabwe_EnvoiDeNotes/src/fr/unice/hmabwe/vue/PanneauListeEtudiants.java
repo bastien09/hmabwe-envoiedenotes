@@ -80,6 +80,7 @@ public class PanneauListeEtudiants extends JPanel {
 	 * @param etudiants
 	 */
 	public void setListeEtudiants(Collection<Etudiant> etudiants) {
+		//TODO debug [Ljava.lang.Object; cannot be cast to [[Ljava.lang.Object;
 		Collection<Object[]> tmpdata = new ArrayList<Object[]>();
 		for(Etudiant e : etudiants) {
 			tmpdata.add(etudiantToRow(e));

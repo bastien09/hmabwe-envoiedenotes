@@ -18,6 +18,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -109,7 +110,7 @@ public class PanneauGauchePrincipal extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public Object getSelectedItem() {
 		return liste.getSelectedValue();
 	}
@@ -128,10 +129,8 @@ public class PanneauGauchePrincipal extends JPanel {
 			}
 			if(source.equals(add)) {
 				if(choix.getSelectedItem().equals("Cours")) {
-					//TODO ajout cours
 					new FenetreAjoutCours(df);
 				} else {
-					//TODO ajout filiere
 					new FenetreAjoutFiliere(df);
 				}
 			}
@@ -158,16 +157,15 @@ public class PanneauGauchePrincipal extends JPanel {
 				} catch (Exception ex) {
 					// TODO: handle exception
 				}
+				refreshList();
 			}
 			if(source.equals(edit)) {
 				if(choix.getSelectedItem().equals("Cours")) {
 					Cours c = (Cours) liste.getSelectedValue();
-					//TODO edit cours
-					new FenetreAjoutCours(df);
+					new FenetreAjoutCours(df, c);
 				} else {
 					Filiere f = (Filiere) liste.getSelectedValue();
-					//TODO edit filiere
-					new FenetreAjoutFiliere(df);
+					new FenetreAjoutFiliere(df,f);
 				}
 			}
 			if(source.equals(stats)) {
@@ -176,14 +174,14 @@ public class PanneauGauchePrincipal extends JPanel {
 					//TODO stats cours
 				} else {
 					Filiere f = (Filiere) liste.getSelectedValue();
-					//TODO stats filiere
+					new FenetreStatistiqueFiliere(df, f);
 				}
 			}
 		}
 
 
 	}
-	
+
 	private class ListeListener implements ListSelectionListener {
 
 		@Override
@@ -191,15 +189,18 @@ public class PanneauGauchePrincipal extends JPanel {
 			Collection<Etudiant> etudiants = new ArrayList<Etudiant>();
 			if(choix.getSelectedItem().equals("Cours")) {
 				Cours c = (Cours) liste.getSelectedValue();
-				//etudiants = c.getEtudiantsInscrits();
+				etudiants = daoCours.getEtudiantsInstcrits(c);
 			} else {
 				Filiere f = (Filiere) liste.getSelectedValue();
-				//TODO etudiants = f.getEtudiantsInscrits();
+				etudiants = daoFiliere.getEtudiantsInscrits(f);
 			}
-			//((FenetrePrincipale) PanneauGauchePrincipal.this.getTopLevelAncestor()).setListeEtudiant(etudiants);
+			FenetrePrincipale fp = (FenetrePrincipale) SwingUtilities.getRoot(PanneauGauchePrincipal.this);
+			if(fp != null) {
+				fp.setListeEtudiant(etudiants);
+			}
 		}
 
-	
+
 	}
 
 }
