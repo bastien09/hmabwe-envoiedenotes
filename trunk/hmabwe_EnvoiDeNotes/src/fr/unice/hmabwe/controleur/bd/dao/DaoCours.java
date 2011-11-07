@@ -4,6 +4,7 @@
 package fr.unice.hmabwe.controleur.bd.dao;
 
 import java.util.Collection;
+import java.util.List;
 
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Etudiant;
@@ -35,13 +36,13 @@ public interface DaoCours extends DaoGenerique<Cours, Integer> {
 	 * toutes années confondue
 	 */
 	
-	public Collection<Etudiant> getEtudiantsInstcrits();
+	public Collection<Etudiant> getEtudiantsInstcrits(Cours cour);
 	
 	/**
 	 * renvoie un cours dont on à donné le nom
 	 * @param nom le nom du cours qu'on cherche
 	 * 
 	 */
-	public Cours getCoursByName(String nom);
+	public List<Cours> getCoursByName(String nom);
 
 }
