@@ -34,7 +34,12 @@ implements DaoEtudiant{
 			"join i.cours c " +
 			"where i.annee = :annee and e.numEtu = :numEtu and c.nom = :nomCours";
 	//TODO chercher comment faire des requete avec jointure
-	private String RequeteListeInscrit = "SELECT s FROM Etudiant s WHERE s.firstname = :fs";
+	
+	private final String RequeteEtaitInscrit = "select e from Inscription i " +
+	"join i.etudiant e " +
+	"join i.cours c " +
+	"where i.annee = :annee and c.nom = :nomCours";
+	
 
 	/**
 	 * le code métier va ici
@@ -65,6 +70,13 @@ implements DaoEtudiant{
 	 */
 	//TODO methode à faire
 	public HashMap<Etudiant, String> listeInscrit(String nomCours, int annee){
+		EntityManager em = getEntityManager();
+		Query q = em.createQuery(RequeteListeInscrit);
+		q.setParameter("nomCours", nomCours);
+		q.setParameter("annee", annee);
+		List<Etudiant> res = (List<Etudiant>)q.getResultList();
+		System.out.println( "ici : \n\n "+ res + "\n\n");
+		
 		
 		return null;
 	}
