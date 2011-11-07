@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoEtudiant;
+import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoInscription;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Filiere;
@@ -18,27 +19,19 @@ public class TestExportExcel {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
+
 		ExportExcel eex = new ExportExcel();
 		Cours cours = new Cours("POO");
-		
+
 		int annee = 2010;
-		
+
 		JpaDaoEtudiant etus = new JpaDaoEtudiant();
-		
+		JpaDaoInscription insc = new JpaDaoInscription();
+
 		HashMap<Etudiant, String> ed = null;
-		/*
-		try {
-			
-			/*appeler une méthode qui renverra une HashMap<Etudiant, String> qui devra contenir :
-			 * - les étudiants inscrits au cours c l'année a (c et a seront passés en paramètres);
-			 * - leurs moyenne pour cette inscription sous forme de String.*/
-			
-			//ed = /*******/
-		/*} catch (DaoException e) {
-			e.printStackTrace();
-		}*/
-		
+
+		ed = insc.listeInscrit(cours.getNom(), annee);
+
 		eex.createXls(ed, cours, annee);
 
 	}
