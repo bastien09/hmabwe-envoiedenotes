@@ -79,7 +79,6 @@ implements DaoEtudiant{
 		for (Object[] o : res) {
 			map.put(((Etudiant)o[0]), ((Double)o[1]).toString());
 		}
-		System.out.println(map.toString());
 		return map;
 	}
 	
