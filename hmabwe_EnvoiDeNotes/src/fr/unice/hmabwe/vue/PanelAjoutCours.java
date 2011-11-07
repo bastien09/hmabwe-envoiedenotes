@@ -27,8 +27,8 @@ public class PanelAjoutCours extends JPanel{
 	private JLabel labelNom;
 	private JLabel labelEnseignant;
 	
-	private JTextField txtNom;
-	private JComboBox tabEnseignant;
+	public JTextField txtNom;
+	public JComboBox tabEnseignant;
 	
 	private JPanel panel;
 	private JPanel panelNom;

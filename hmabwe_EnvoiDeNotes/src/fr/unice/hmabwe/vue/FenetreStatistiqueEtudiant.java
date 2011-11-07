@@ -2,12 +2,15 @@ package fr.unice.hmabwe.vue;
 
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.*;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.modele.Etudiant;
+import fr.unice.hmabwe.modele.Inscription;
 
 /**
  * 
@@ -24,21 +27,18 @@ public class FenetreStatistiqueEtudiant extends JFrame{
 	
 	private PanelStatistiqueEtudiant panelStatEtu;
 	
-	public FenetreStatistiqueEtudiant(DaoFabrique df){
-		//TODO Dans le constructeur ajouter la connexion a la base.
-		//TODO Remplacer les moyennes de l'arraylist, par les moyennes recus de la database(ArrayList), ainsi que le nom des cours.
-		panelStatEtu = new PanelStatistiqueEtudiant();
+	/** Constructeur vide*/
+	public FenetreStatistiqueEtudiant(){
+		
+	}
+	
+	public FenetreStatistiqueEtudiant(DaoFabrique df, Etudiant e){
+		
+		panelStatEtu = new PanelStatistiqueEtudiant(e);
 		this.df = df;
 		this.conn = df.getConnexion();
 		
-		
-		//TODO a voir avec Bastien !Est-ce que c'est Fenetre Principal qui revoi l'etudiant ?
-		
-		
-		
-		
-		
-		this.setTitle("Statistiques Etudiant");
+		this.setTitle("Statistiques de l'etudiant " + e.getPrenom() + " " + e.getNom());
         this.setSize(350, 350);
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);

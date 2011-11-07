@@ -32,6 +32,11 @@ public class FenetreAjoutCours extends FenetreCommune{
 	public Collection<Enseignant> listeEnseign;
 	
 	public EcouteurCours l;
+	
+	
+	/**Constructeur permettant d'ajouter un nouveau cours
+	 *@param df Daofabrique
+	 */
 	public FenetreAjoutCours(DaoFabrique df) {
 		super("Ajout/Edition de cours", 400, 250, df);
 		
@@ -63,8 +68,48 @@ public class FenetreAjoutCours extends FenetreCommune{
 		
 		
 	}
+	/**Constructeur permettant de modifier un cours
+	 *@param df Daofabrique
+	 *@param c Cours à modifiers
+	 */
+	public FenetreAjoutCours(DaoFabrique df, Cours c){
+		super("Ajout/Edition de cours", 400, 250, df);
+		
+		daocours = df.getDaoCours();
+		daoenseignant = df.getDaoEnseignant();
+		panelCours = new PanelAjoutCours();
+		l = new EcouteurCours();
+		
+		boutonOK.addMouseListener(l);
+		boutonAnnuler.addMouseListener(l);
+		
+		panelCours.txtNom.setText(c.getNom());
+		panelCours.tabEnseignant.setSelectedItem(c.getEnseignant());
+		
+		try {
+			listeEnseign = daoenseignant.findAll();
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
+		
+		//Remplissage de la comboBox Enseignant
+		panelCours.getComboEnseignant().addItem(listeEnseign);
+		
+		
+		this.setResizable(false);
+		this.container.add(panelCours.getPanelPrincipal(), BorderLayout.NORTH);
+		this.setVisible(true);
+		
+		
+		
+	}
+	
 	
 	private class EcouteurCours implements MouseListener{
+
+		public EcouteurCours() {
+			// TODO Auto-generated constructor stub
+		}
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {

@@ -24,11 +24,11 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 
 public class PanelAjoutEleve extends JPanel{
 	
-	private JTextField jtf, jtf2, jtf3, jtf4, jtf5 ;
+	public JTextField jtf, jtf2, jtf3, jtf4, jtf5 ;
 	
     private JLabel label, label2, label3, label4, label5, label6;
     
-    private JScrollPane scrollPane;
+    public JScrollPane scrollPane;
     
     private JPanel panel, panelIdentite, panelNom, panelPrenom, panelGroupe, panelEmail, panelFiliere, panelOrigine, top, labels, saisie, lignePanel;
     

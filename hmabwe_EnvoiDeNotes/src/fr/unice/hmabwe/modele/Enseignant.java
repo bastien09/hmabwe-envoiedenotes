@@ -127,4 +127,9 @@ public class Enseignant extends Personne{
 		}
 		listeCours.clear();
 	}
+	
+	@Override
+	public String toString(){
+		return "" + this.prenom + " " + this.nom;
+	}
 }

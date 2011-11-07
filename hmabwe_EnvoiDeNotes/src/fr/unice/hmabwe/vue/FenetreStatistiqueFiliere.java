@@ -8,6 +8,8 @@ import javax.swing.*;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
+import fr.unice.hmabwe.modele.Filiere;
 
 /**
  * 
@@ -22,18 +24,28 @@ public class FenetreStatistiqueFiliere extends JFrame{
 	
 	private DaoFabrique df;
 	
+	private DaoFiliere daofiliere;
+	
 	private Connexion conn;
 	
-	public FenetreStatistiqueFiliere(int notemoyenneG, int notemoyenneGr1, int notemoyenneGr2, int noteEcartType, int notemoyenneG2, int notemoyenneG12, int notemoyenneG22, DaoFabrique df){
+	/** Constructeur vide*/
+	public FenetreStatistiqueFiliere(){
+		
+	}
+	
+	
+	public FenetreStatistiqueFiliere(DaoFabrique df, Filiere f){
 		//TODO Dans le constructeur ajouter la connexion a la base.
 		//TODO Remplacer les moyennes dans le constructeur, par les moyennes recus de la database.
 		this.df = df;
 		
 		this.conn = df.getConnexion();
+		daofiliere = df.getDaoFiliere();
 		
-		panelStatFili = new PanelStatistiqueFiliere();
+		panelStatFili = new PanelStatistiqueFiliere(f, daofiliere);
+		
 				
-		this.setTitle("Statistiques Flières");
+		this.setTitle("Statistique Flière : " + f.getNom());
         this.setSize(350, 350);
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
