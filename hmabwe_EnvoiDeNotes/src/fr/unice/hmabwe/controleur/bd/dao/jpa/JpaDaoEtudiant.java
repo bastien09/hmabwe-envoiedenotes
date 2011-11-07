@@ -34,12 +34,7 @@ implements DaoEtudiant{
 	"join i.etudiant e " +
 	"join i.cours c " +
 	"where i.annee = :annee and e.numEtu = :numEtu and c.nom = :nomCours";
-	//TODO chercher comment faire des requete avec jointure
 
-	private final String RequeteListeInscrit = "select e, i.moyenne from Inscription i " +
-	"join i.etudiant e " +
-	"join i.cours c " +
-	"where i.annee = :annee and c.nom = :nomCours";
 
 	private final String requetGetEtudiant = "select e from Etudiant e where e.nom = :nomEtudiant";
 	private final String requetGetEtudiant2 = "select e from Etudiant e where e.nom = :nomEtudiant and e.prenom = :prenomEtudiant";
@@ -63,22 +58,6 @@ implements DaoEtudiant{
 	}
 
 
-	/**
-	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#listeInscrit()
-	 */
-	//TODO methode à faire
-	public HashMap<Etudiant, String> listeInscrit(String nomCours, int annee){
-		HashMap<Etudiant, String> map = new HashMap<Etudiant, String>();
-		EntityManager em = getEntityManager();
-		Query q = em.createQuery(RequeteListeInscrit);
-		q.setParameter("nomCours", nomCours);
-		q.setParameter("annee", annee);
-		List<Object[]> res = q.getResultList();
-		for (Object[] o : res) {
-			map.put(((Etudiant)o[0]), ((Double)o[1]).toString());
-		}
-		return map;
-	}
 
 
 	/**

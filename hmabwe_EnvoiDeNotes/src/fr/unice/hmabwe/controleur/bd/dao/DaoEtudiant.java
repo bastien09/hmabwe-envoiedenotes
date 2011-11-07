@@ -25,15 +25,7 @@ public interface DaoEtudiant extends DaoGenerique<Etudiant, Integer> {
 	
 	public boolean etaitInscrit(String numEtu, String nomCours, int annee);
 	
-	/**
-	 * cette methode renvoie la liste des étudiants inscrit à un cour et une année donnée
-	 * 
-	 * @param nomCours le nom du cours où on veut la liste des inscrit
-	 * @param annee l'année a laquelle on veut les inscrit
-	 * 
-	 */
-	
-	public HashMap<Etudiant, String> listeInscrit(String nomCours, int annee);
+
 
 	/**
 	 * Cherche l'étudiant dont on donne le numéro d'étudiant et le retourne
