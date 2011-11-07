@@ -35,7 +35,7 @@ implements DaoEtudiant{
 			"where i.annee = :annee and e.numEtu = :numEtu and c.nom = :nomCours";
 	//TODO chercher comment faire des requete avec jointure
 	
-	private final String RequeteListeInscrit = "select e from Inscription i " +
+	private final String RequeteListeInscrit = "select e, i.moyenne from Inscription i " +
 	"join i.etudiant e " +
 	"join i.cours c " +
 	"where i.annee = :annee and c.nom = :nomCours";
@@ -70,15 +70,17 @@ implements DaoEtudiant{
 	 */
 	//TODO methode à faire
 	public HashMap<Etudiant, String> listeInscrit(String nomCours, int annee){
+		HashMap<Etudiant, String> map = new HashMap<Etudiant, String>();
 		EntityManager em = getEntityManager();
 		Query q = em.createQuery(RequeteListeInscrit);
 		q.setParameter("nomCours", nomCours);
 		q.setParameter("annee", annee);
-		List<Etudiant> res = (List<Etudiant>)q.getResultList();
-		System.out.println( "ici : \n\n "+ res + "\n\n");
-		
-		
-		return null;
+		List<Object[]> res = q.getResultList();
+		for (Object[] o : res) {
+			map.put(((Etudiant)o[0]), ((Double)o[1]).toString());
+		}
+		System.out.println(map.toString());
+		return map;
 	}
 	
 	
@@ -104,6 +106,7 @@ implements DaoEtudiant{
 	 */
 	//TODO finir la méthode !
 	public double getMoyenne(String numEtu) {
+		HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
 		EntityManager em = getEntityManager();
 		Query q = em.createQuery("select c from Coefficient c where c.filiere_id = :id");
 		Etudiant e = findByNumeroEtudiant(numEtu);
@@ -113,6 +116,10 @@ implements DaoEtudiant{
 		double somme = 0;
 		List<Coefficient> l_coeffs = q.getResultList();
 		for (Coefficient coefficient : l_coeffs) {
+			coeffs.put(coefficient.getCours().getId(), coefficient.getCoefficient());
+		}
+		for (Inscription inscription : l_inscr) {
+			
 		}
 		
 		
