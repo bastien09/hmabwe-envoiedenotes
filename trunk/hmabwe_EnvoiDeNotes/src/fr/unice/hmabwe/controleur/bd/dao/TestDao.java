@@ -171,6 +171,8 @@ public class TestDao {
 			double moy_cours = daoCours.getMoyenne("POO", 2010);
 			System.out.println("Moyenne du cours de POO en 2010: " + moy_cours + "/20");
 			
+			daoEtudiant.listeInscrit("POO", 2010);
+			
 			
 			
 			conn.commitTransaction();

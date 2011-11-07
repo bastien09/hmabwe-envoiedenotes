@@ -4,8 +4,6 @@
 package fr.unice.hmabwe.controleur.bd.dao;
 
 import java.util.HashMap;
-
-import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Etudiant;
 
 /**
