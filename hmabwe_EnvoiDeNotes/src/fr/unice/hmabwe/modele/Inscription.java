@@ -110,7 +110,21 @@ public class Inscription {
 		this.cours = cours;
 	}
 
+	/**Description d'une inscription
+	 * @return description de l'inscription*/
 	public String toString(){
-		return "Inscription numero : " + this.id + "cour: " + this.cours + " année: " + this.annee + " etudiant " + this.etudiant.getNom() + " moyenne " + this.moyenne;
+		String toString;
+		toString ="Id : ";
+		toString+=id+"\n";
+		toString+="Etudiant : ";
+		toString+=etudiant.getNumEtu()+" - "+etudiant.getNom()+"\n";
+		toString+="Cours : ";
+		toString+=cours.getNom()+"\n";
+		toString+="Annee : ";
+		toString+=annee+"\n";
+		toString+="Moyenne : ";
+		toString+=moyenne+"\n";
+		
+		return toString;
 	}
 }
