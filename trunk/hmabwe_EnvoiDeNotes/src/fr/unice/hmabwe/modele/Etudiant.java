@@ -38,6 +38,9 @@ public class Etudiant extends Personne{
 	@OneToMany(mappedBy="etudiant", cascade=CascadeType.ALL)
 	private Collection<Inscription> listeInscriptions;
 	
+	/**Un étudiant peut avoir une photo*/
+	private byte[] photo;
+	
 	/**Constructeur par défaut*/
 	public Etudiant(){
 		
@@ -94,6 +97,20 @@ public class Etudiant extends Personne{
 		this(num, n, pn, m, o, f);
 		groupe=g;
 		listeInscriptions=new ArrayList<Inscription>();
+	}
+	
+	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail, une origine 
+	 * , une filière, un groupe et une photo
+	 * @param num numéro de l'étudiant à créer
+	 * @param n nom de l'étudiant à créer
+	 * @param pn prénom de l'étudiant à créer
+	 * @param m adresse e-mail de l'étudiant à créer
+	 * @param o origine de l'étudiant à créer
+	 * @param f filière de l'étudiant à créer
+	 * @param g groupe de l'étudiant à créer*/
+	public Etudiant(String num, String n, String pn, String m, String o, Filiere f, String g, byte[] p){
+		this(num, n, pn, m, o, f, g);
+		photo=p;
 	}
 	
 	//Accesseurs pour l'attribut numEtu
@@ -208,6 +225,8 @@ public class Etudiant extends Personne{
 		listeInscriptions.clear();
 	}
 
+	//Accesseurs pour l'attribut groupe
+	
 	/**Retourne le groupe associé à l'étudiant.
 	 * @return groupe de l'étudiant*/
 	public String getGroupe() {
@@ -219,5 +238,43 @@ public class Etudiant extends Personne{
 	 */
 	public void setGroupe(String groupe) {
 		this.groupe = groupe;
+	}
+	
+	//Accesseurs pour l'attribut photo
+	
+	/**Retourne la photo de l'étudiant.
+	 * @return photo de l'étudiant*/
+	public byte[] getPhoto() {
+		return photo;
+	}
+	
+	/**Modifie la photo de l'étudiant.
+	 * @param p nouvelle photo de l'étudiant
+	 */
+	public void setPhoto(byte[] p) {
+		photo = p;
+	}
+	
+	/**Description d'un étudiant
+	 * @return description de l'étudiant*/
+	public String toString(){
+		String toString;
+		toString =super.toString();
+		toString+="Numero d'etudiant : ";
+		toString+=numEtu+"\n";
+		toString+="Origine : ";
+		toString+=origine+"\n";
+		toString+="Filiere : ";
+		toString+=filiere.getNom()+"\n";
+		toString+="Groupe : ";
+		toString+=groupe+"\n";
+		toString+="Inscriptions :\n";
+		
+		for(Inscription i : listeInscriptions){
+			toString+=i.getAnnee()+" - "+i.getCours().getNom()+" - "+i.getMoyenne()+"\n";
+		}
+		
+		return toString;
+		
 	}
 }

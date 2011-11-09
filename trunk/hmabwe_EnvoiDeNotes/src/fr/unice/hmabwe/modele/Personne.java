@@ -129,4 +129,20 @@ public boolean setMail(String m){
 	return res;
 }
 
+/**Description d'une personne
+ * @return description de la personne*/
+public String toString(){
+	String toString;
+	toString ="Id : ";
+	toString+=id+"\n";
+	toString+="Nom : ";
+	toString+=nom+"\n";
+	toString+="Prenom : ";
+	toString+=prenom+"\n";
+	toString+="Mail : ";
+	toString+=mail+"\n";
+	
+	return toString;
+}
+
 }

@@ -70,5 +70,21 @@ public class Coefficient {
 	public Integer getCoefficient() {
 		return coefficient;
 	}
+	
+	/**Description d'un coefficient
+	 * @return description du coefficient*/
+	public String toString(){
+		String toString;
+		toString ="Id : ";
+		toString+=id+"\n";
+		toString+="Cours : ";
+		toString+=cours.getNom()+"\n";
+		toString+="Filiere : ";
+		toString+=filiere.getNom()+"\n";
+		toString+="Coefficient : ";
+		toString+=coefficient+"\n";
+		
+		return toString;
+	}
 
 }
