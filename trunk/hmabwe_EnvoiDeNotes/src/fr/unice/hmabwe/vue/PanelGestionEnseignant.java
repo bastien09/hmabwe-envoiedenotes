@@ -43,7 +43,7 @@ public class PanelGestionEnseignant extends JPanel {
 	
 	private JLabel nom, prenom, email, filiere, cours;
 	private JTextField txtNom, txtPrenom, txtEmail;
-	private JList listEnseignant, listFiliere, listCours;
+	public JList listEnseignant, listFiliere, listCours;
 	
 	
 	

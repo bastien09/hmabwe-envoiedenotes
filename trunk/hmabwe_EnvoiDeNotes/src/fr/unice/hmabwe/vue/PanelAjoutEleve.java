@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.modele.Filiere;
 
 /**
  * 
@@ -30,9 +31,9 @@ public class PanelAjoutEleve extends JPanel{
     
     public JScrollPane scrollPane;
     
-    private JPanel panel, panelIdentite, panelNom, panelPrenom, panelGroupe, panelEmail, panelFiliere, panelOrigine, top, labels, saisie, lignePanel;
+    public JPanel panel, panelIdentite, panelNom, panelPrenom, panelGroupe, panelEmail, panelFiliere, panelOrigine, top, labels, saisie, lignePanel;
     
-    private ArrayList<ObjetLigneInscription> listeLigne = new ArrayList<ObjetLigneInscription>();
+    public ArrayList<ObjetLigneInscription> listeLigne = new ArrayList<ObjetLigneInscription>();
     
     private JComboBox combo1 = new JComboBox();
     
@@ -140,7 +141,7 @@ public class PanelAjoutEleve extends JPanel{
 		return Integer.parseInt(this.jtf4.getText());
 	}
 	
-	public Object getFiliere(){
-		return this.combo1.getSelectedItem();
+	public Filiere getFiliere(){
+		return (Filiere) this.combo1.getSelectedItem();
 	}
 }

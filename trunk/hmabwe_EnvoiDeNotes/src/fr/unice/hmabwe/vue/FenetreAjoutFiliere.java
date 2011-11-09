@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.*;
 
@@ -13,6 +15,7 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoEnseignant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
+import fr.unice.hmabwe.modele.Enseignant;
 import fr.unice.hmabwe.modele.Filiere;
 
 /**
@@ -30,6 +33,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 	public DaoFiliere daoFiliere;
 	public DaoEnseignant daoEnseignant;
 	public EcouteurFiliere l;
+	public Collection<Enseignant> listEns = new ArrayList<Enseignant>();
 	
 	/**Constructeur permettant l'ajout d'une nouvelle filière
 	 *@param df Daofabrique
@@ -42,10 +46,18 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		daoFiliere = df.getDaoFiliere();
 		daoEnseignant = df.getDaoEnseignant();
 		
-		l = new EcouteurFiliere();
+		try {
+			listEns = daoEnseignant.findAll();
+			panelFiliere.tabEnseignant.addItem(listEns);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		l = new EcouteurFiliere();
 		boutonOK.addMouseListener(l);
 		boutonAnnuler.addMouseListener(l);
+		
 		
 		
 		this.setResizable(false);
@@ -67,6 +79,14 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		
 		daoFiliere = df.getDaoFiliere();
 		daoEnseignant = df.getDaoEnseignant();
+		
+		try {
+			listEns = daoEnseignant.findAll();
+			panelFiliere.tabEnseignant.addItem(listEns);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		panelFiliere.textNom.setText(f.getNom());
 		panelFiliere.tabEnseignant.setSelectedItem(f.getResponsable());

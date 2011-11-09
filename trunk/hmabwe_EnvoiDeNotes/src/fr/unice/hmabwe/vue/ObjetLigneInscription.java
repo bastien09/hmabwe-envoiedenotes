@@ -4,6 +4,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import fr.unice.hmabwe.modele.Cours;
+
 /**
  * 
  * @author M'RAH Mehdi
@@ -13,13 +15,14 @@ import javax.swing.*;
  */
 
 public class ObjetLigneInscription{
-	protected JLabel nomCours;
-	protected JLabel annee;
-	protected JLabel note;
-	protected JComboBox comboFiliere;
-	protected JTextField textAnnee;
-	protected JTextField textNote;
-	protected JPanel panelLigne, panelBoutonV,panelBoutonN , panelField;
+	private JLabel nomCours;
+	private JLabel annee;
+	private JLabel note;
+	public JComboBox comboCours;
+	public JTextField textAnnee;
+	public JTextField textNote;
+	public JPanel panelLigne;
+	private JPanel panelBoutonV, panelBoutonN, panelField;
 	
 	private JButton boutonMoins, boutonPlus, boutonValide;
 	private boolean isNewLine;
@@ -33,14 +36,14 @@ public class ObjetLigneInscription{
 		nomCours = new JLabel("Cours");
 		annee = new JLabel("Année");
 		note= new JLabel("Note");
-		comboFiliere = new JComboBox();
+		comboCours = new JComboBox();
 		textAnnee = new JTextField();
 		textNote = new JTextField();
 		
 		
 		panelLigne.setLayout(new FlowLayout());
 		
-		comboFiliere.setMaximumSize(new Dimension(30, 30));
+		comboCours.setMaximumSize(new Dimension(30, 30));
 		textAnnee.setPreferredSize(new Dimension(50,25));
 		textAnnee.setColumns(4);
 		textNote.setMaximumSize(new Dimension(50, 25));
@@ -48,7 +51,7 @@ public class ObjetLigneInscription{
 		
 		panelField = new JPanel(new FlowLayout());
 		panelField.add(nomCours);
-		panelField.add(comboFiliere);
+		panelField.add(comboCours);
 		panelField.add(annee);
 		panelField.add(textAnnee);
 		panelField.add(note);
@@ -83,6 +86,18 @@ public class ObjetLigneInscription{
 	
 	public void setIsNew(boolean nouveau){
 		this.isNewLine = nouveau;
+	}
+	
+	public Cours getCoursSelected(){
+		return (Cours) this.comboCours.getSelectedItem();
+	}
+	
+	public Integer getAnnee(){
+		return Integer.parseInt(this.textAnnee.getText());
+	}
+	
+	public Double getMoyenne(){
+		return Double.parseDouble(this.textNote.getText());
 	}
 
 }

@@ -13,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
+import fr.unice.hmabwe.modele.Filiere;
 
 /**
  * 
@@ -34,7 +36,7 @@ public class PanelStatistiqueFiliere extends JPanel{
 	
 	private JScrollPane scrollList;
 	
-	public PanelStatistiqueFiliere(){
+	public PanelStatistiqueFiliere(Filiere f, DaoFiliere daofiliere){
 		//TODO Dans le constructeur ajouter la connexion a la base.
 		//TODO Remplacer les moyennes dans le constructeur, par les moyennes recus de la database.
 		
@@ -48,20 +50,21 @@ public class PanelStatistiqueFiliere extends JPanel{
 		moyenneGr12 = new JLabel("Moyenne Groupe 1 	:");
 		moyenneGr22 = new JLabel("Moyenne Groupe 2 	:");
 		
+		//TODO A remplacer par la fonction de note qui va arriver ( j'espere )
 		this.notemoyenneG = new JLabel();
-		this.notemoyenneG.setText(String.valueOf(notemoyenneG));
+		this.notemoyenneG.setText(String.valueOf(daofiliere.getMoyenne(f)));
 		this.notemoyenneGr1 = new JLabel();
-		this.notemoyenneGr1.setText(String.valueOf(notemoyenneGr1));
+		this.notemoyenneGr1.setText(null);
 		this.notemoyenneGr2 = new JLabel();
-		this.notemoyenneGr2.setText(String.valueOf(notemoyenneGr2));
+		this.notemoyenneGr2.setText(null);
 		this.noteEcartType = new JLabel();
-		this.noteEcartType.setText(String.valueOf(noteEcartType));
+		this.noteEcartType.setText(null);
 		this.notemoyenneG2 = new JLabel();
-		this.notemoyenneG2.setText(String.valueOf(notemoyenneG2));
+		this.notemoyenneG2.setText(null);
 		this.notemoyenneGr12 = new JLabel();
-		this.notemoyenneGr12.setText(String.valueOf(notemoyenneGr12));
+		this.notemoyenneGr12.setText(null);
 		this.notemoyenneGr22 = new JLabel();
-		this.notemoyenneGr22.setText(String.valueOf(notemoyenneGr22));
+		this.notemoyenneGr22.setText(null);
 		
 		panelmoyenneG = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		panelmoyenneG.add(moyenneG);

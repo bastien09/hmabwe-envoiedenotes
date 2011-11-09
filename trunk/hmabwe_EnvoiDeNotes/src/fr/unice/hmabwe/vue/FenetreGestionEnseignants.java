@@ -130,6 +130,16 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 							if(boutSelected.equals(panelEnseignant.bMoins)){
 								//TODO methode de suppression...
 							}
+							else{
+								if(boutSelected.equals(panelEnseignant.bModif1)){
+									new FenetreAjoutFiliere(df, panelEnseignant.getFiliereSelect());
+								}
+								else{
+									if(boutSelected.equals(panelEnseignant.bModif2)){
+										new FenetreAjoutCours(df, panelEnseignant.getCoursSelect());
+									}
+								}
+							}
 						}
 					}
 				}

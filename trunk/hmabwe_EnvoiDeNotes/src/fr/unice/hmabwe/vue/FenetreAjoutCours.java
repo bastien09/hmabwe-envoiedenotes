@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.*;
@@ -29,7 +30,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 	public PanelAjoutCours panelCours;
 	public DaoCours daocours;
 	public DaoEnseignant daoenseignant;
-	public Collection<Enseignant> listeEnseign;
+	public Collection<Enseignant> listeEnseign = new ArrayList<Enseignant>();
 	
 	public EcouteurCours l;
 	
