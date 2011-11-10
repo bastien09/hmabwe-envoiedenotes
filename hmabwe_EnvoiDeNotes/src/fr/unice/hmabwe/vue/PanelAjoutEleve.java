@@ -45,7 +45,11 @@ public class PanelAjoutEleve extends JPanel{
 		panel = new JPanel();
 		lignePanel = new JPanel();
 		
+		ObjetLigneInscription o1 = new ObjetLigneInscription(true);
+		ObjetLigneInscription o2 = new ObjetLigneInscription(false);
 		
+		listeLigne.add(o1);
+		listeLigne.add(o2);
 		lignePanel.setLayout(new BoxLayout(lignePanel, BoxLayout.Y_AXIS));
 		for(ObjetLigneInscription objl : listeLigne){
 			lignePanel.add(objl.panelLigne);
