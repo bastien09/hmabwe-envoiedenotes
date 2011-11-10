@@ -28,6 +28,9 @@ public class ObjetLigneInscription{
 	private boolean isNewLine;
 	
 	public ObjetLigneInscription(){
+		
+	}
+	public ObjetLigneInscription(boolean newline){
 		// TODO Gestion d'ajout de ligne 
 		// TODO Ajout d'un bonton a la suite de la ligne pour valider ligne et ajouter une autre ligne
 		
@@ -39,7 +42,7 @@ public class ObjetLigneInscription{
 		comboCours = new JComboBox();
 		textAnnee = new JTextField();
 		textNote = new JTextField();
-		
+		this.isNewLine = newline;
 		
 		panelLigne.setLayout(new FlowLayout());
 		
