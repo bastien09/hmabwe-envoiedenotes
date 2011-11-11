@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,9 +28,11 @@ public class PanelAjoutFiliere extends JPanel{
 	
 	public JTextField textNom;
 	
+	public JButton bAjoutEnseignant;
+	
 	public JComboBox tabEnseignant;
 	
-	private JPanel panel, nomPanel, enseignantPanel;
+	private JPanel panel, nomPanel, enseignantPanel, panelBouton;
 	
 	private DaoFabrique df;
 	
@@ -41,7 +44,8 @@ public class PanelAjoutFiliere extends JPanel{
 		textNom.setMaximumSize(new Dimension(150, 30));
 		textNom.setColumns(25);
 		tabEnseignant = new JComboBox();
-		
+		bAjoutEnseignant = new JButton("Ajouter un enseignant");
+		panelBouton =  new JPanel(new FlowLayout(FlowLayout.LEFT));
 		
 		panel = new JPanel();
 		nomPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -53,9 +57,11 @@ public class PanelAjoutFiliere extends JPanel{
 		enseignantPanel.add(labelEnseignant);
 		enseignantPanel.add(tabEnseignant);
 		
+		panelBouton.add(bAjoutEnseignant);
+		
 		panel.add(nomPanel);
 		panel.add(enseignantPanel);
-		
+		panel.add(panelBouton);
 		
 
 	}

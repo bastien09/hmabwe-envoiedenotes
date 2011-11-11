@@ -31,7 +31,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 	public DaoCours daocours;
 	public DaoEnseignant daoenseignant;
 	public Collection<Enseignant> listeEnseign = new ArrayList<Enseignant>();
-	
+	public boolean estNouveauCours;
 	public EcouteurCours l;
 	
 	
@@ -40,10 +40,10 @@ public class FenetreAjoutCours extends FenetreCommune{
 	 */
 	public FenetreAjoutCours(DaoFabrique df) {
 		super("Ajout/Edition de cours", 400, 250, df);
-		
+		estNouveauCours = true;
 		daocours = df.getDaoCours();
 		daoenseignant = df.getDaoEnseignant();
-		
+		panelCours = new PanelAjoutCours();
 		l = new EcouteurCours();
 		
 		boutonOK.addMouseListener(l);
@@ -52,11 +52,12 @@ public class FenetreAjoutCours extends FenetreCommune{
 		
 		try {
 			listeEnseign = daoenseignant.findAll();
+			panelCours.tabEnseignant.addItem(listeEnseign);
 		} catch (DaoException e) {
 			e.printStackTrace();
 		}
 		
-		panelCours = new PanelAjoutCours();
+		
 		
 		//Remplissage de la comboBox Enseignant
 		panelCours.getComboEnseignant().addItem(listeEnseign);
@@ -75,7 +76,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 	 */
 	public FenetreAjoutCours(DaoFabrique df, Cours c){
 		super("Ajout/Edition de cours", 400, 250, df);
-		
+		estNouveauCours = false;
 		daocours = df.getDaoCours();
 		daoenseignant = df.getDaoEnseignant();
 		panelCours = new PanelAjoutCours();
@@ -89,6 +90,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 		
 		try {
 			listeEnseign = daoenseignant.findAll();
+			panelCours.tabEnseignant.addItem(listeEnseign);
 		} catch (DaoException e) {
 			e.printStackTrace();
 		}
@@ -115,35 +117,69 @@ public class FenetreAjoutCours extends FenetreCommune{
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			Object boutonSelected = arg0.getSource();
-			if(boutonSelected.equals(boutonOK)){
-				Cours c = new Cours(panelCours.getNom(), panelCours.getEnseignantChoisi());
-				try {
-					conn.beginTransaction();
-					daocours.create(c);
-					conn.commitTransaction();
-				} catch (DaoException e) {
-					
+			if(boutonSelected.equals(boutonOK)){//Debut bouton OK
+				if(estNouveauCours){//Si nouveau Cours
+					Cours c = new Cours(panelCours.getNom(), panelCours.getEnseignantChoisi());
 					try {
-						conn.rollbackTransaction();
-					} catch (DaoException e1) {
+						conn.beginTransaction();
+						daocours.create(c);
+						conn.commitTransaction();
+					} catch (DaoException e) {
 						
-						e1.printStackTrace();
-					}
-					e.printStackTrace();
-				}
-				finally {
-					if(conn.estOuverte()) {
 						try {
-							conn.fermer();
-							//TODO Faire disparaitre la fenetre a la fin de la transaction
+							conn.rollbackTransaction();
+						} catch (DaoException e1) {
+							
+							e1.printStackTrace();
 						}
-						catch(DaoException e) {
+						e.printStackTrace();
+					}
+					finally {
+						if(conn.estOuverte()) {
+							try {
+								conn.fermer();
+								//TODO Faire disparaitre la fenetre a la fin de la transaction
+							}
+							catch(DaoException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}//Fin si nouveau Cours
+				
+				else{
+					if(!estNouveauCours){
+						Cours c = new Cours(panelCours.getNom(), panelCours.getEnseignantChoisi());
+						try {
+							conn.beginTransaction();
+							daocours.update(c);
+							conn.commitTransaction();
+						} catch (DaoException e) {
+							
+							try {
+								conn.rollbackTransaction();
+							} catch (DaoException e1) {
+								
+								e1.printStackTrace();
+							}
 							e.printStackTrace();
 						}
+						finally {
+							if(conn.estOuverte()) {
+								try {
+									conn.fermer();
+									//TODO Faire disparaitre la fenetre a la fin de la transaction
+								}
+								catch(DaoException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+						
 					}
 				}
 				
-			}
+			}//Fin boutn OK
 			else{
 				if(boutonSelected.equals(boutonAnnuler)){
 					//TODO Fermer la fenetre sans rien faire d'autre

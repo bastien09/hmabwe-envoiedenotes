@@ -72,6 +72,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	    panelEleve.jtf3.setText(e.getMail());
 	    panelEleve.jtf4.setText((e.getGroupe()));
 	    panelEleve.jtf5.setText(e.getOrigine());
+	    panelEleve.jtfNumetud.setText(e.getNumEtu());
 	    for(Inscription i : e.getInscriptions()){
 	    	ObjetLigneInscription ob = new ObjetLigneInscription(); // Un constructeur eut été préférable
 	    	ob.textAnnee.setText(String.valueOf(i.getAnnee()));
@@ -95,7 +96,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 			Object boutSelected = e.getSource();
 			
 			if(boutSelected.equals(boutonOK)){ //Si on click sur le bouton OK
-				Etudiant etu = new Etudiant("123456", panelEleve.getNom(), panelEleve.getPrenom(), panelEleve.getEmail(), panelEleve.getOrigine(),panelEleve.getFiliere() , panelEleve.getOrigine());
+				Etudiant etu = new Etudiant(panelEleve.getNumEtudiant(), panelEleve.getNom(), panelEleve.getPrenom(), panelEleve.getEmail(), panelEleve.getOrigine(),panelEleve.getFiliere() , panelEleve.getOrigine());
 				Inscription insc;
 				// On recupere toutes les inscriptions de l'etudiants et on les ajoute à etu
 				

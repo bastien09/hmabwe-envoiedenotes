@@ -39,10 +39,10 @@ public class PanelGestionEnseignant extends JPanel {
 	
 	private JScrollPane panscrollEnseig, panscrollFili, panscrollCours;
 	private JScrollBar essaiScroll = new JScrollBar();
-	public JButton bAjout1, bAjout2, bSuppress1, bSuppress2, bModif1, bModif2, bPlus, bMoins;
+	public JButton bAjout1, bAjout2, bSuppress1, bSuppress2, bModif1, bModif2,bModifEns, bPlus, bMoins;
 	
 	private JLabel nom, prenom, email, filiere, cours;
-	private JTextField txtNom, txtPrenom, txtEmail;
+	public JTextField txtNom, txtPrenom, txtEmail;
 	public JList listEnseignant, listFiliere, listCours;
 	
 	
@@ -91,11 +91,13 @@ public class PanelGestionEnseignant extends JPanel {
 		listEnseignant.setFixedCellWidth(100);
 		panscrollEnseig = new JScrollPane(listEnseignant, panscrollEnseig.VERTICAL_SCROLLBAR_AS_NEEDED, panscrollEnseig.HORIZONTAL_SCROLLBAR_NEVER );
 		
-		panelBoutPlusMoins = new JPanel(new BorderLayout());
+		panelBoutPlusMoins = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		bPlus = new JButton(new ImageIcon(this.getClass().getResource("/resource/plus-circle.png")));
 		bMoins = new JButton(new ImageIcon(this.getClass().getResource("/resource/minus-circle.png")));
-		panelBoutPlusMoins.add(bPlus, BorderLayout.WEST);
-		panelBoutPlusMoins.add(bMoins, BorderLayout.EAST);
+		bModifEns = new JButton(new ImageIcon(this.getClass().getResource("/resource/pencil.png")));
+		panelBoutPlusMoins.add(bPlus);
+		panelBoutPlusMoins.add(bMoins);
+		panelBoutPlusMoins.add(bModifEns);
 		
 		panelGauche = new JPanel(new BorderLayout());
 		panelGauche.add(panscrollEnseig, BorderLayout.CENTER);
@@ -180,5 +182,7 @@ public class PanelGestionEnseignant extends JPanel {
 	public Cours getCoursSelect(){
 		return (Cours) this.listCours.getSelectedValue();
 	}
+	
+	
 	
 }
