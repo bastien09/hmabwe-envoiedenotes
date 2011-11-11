@@ -99,12 +99,12 @@ public class FenetreMail extends JFrame {
 			if(source.equals(aide)) {
 				String tagDispo = "<html><p>Les emplacements spéciaux utilisables sont :" +
 						"<ul>" +
-						"<li>#{nom} : Le nom de l'étudiant</li>" +
-						"#{prenom} : Le prénom de l'étudiant</li>" +
-						"<li>#{note} : La note de l'étudiant pour le cours/ la filière selectionné(e)</li>" +
-						"#{moyenne} : La moyenne de la classe pour le cours/ la filière selectionné(e)</li>" +
-						"#{cours} : Le noms du cours/de la filière sélectionné(e)</li>" +
-						"<li>#{prenom_enseignant}, #{nom_enseignant} et #{email_enseignant} : Les coordonnées de l'enseignant responsable du cours/de la filière selectionné(e)</li>" +
+						"<li>#nom : Le nom de l'étudiant</li>" +
+						"<li>#prenom : Le prénom de l'étudiant</li>" +
+						"<li>#note : La note de l'étudiant pour le cours/ la filière selectionné(e)</li>" +
+						"<li>#moyenne : La moyenne de la classe pour le cours/ la filière selectionné(e)</li>" +
+						"<li>#cours : Le noms du cours/de la filière sélectionné(e)</li>" +
+						"<li>#prenom_enseignant, #nom_enseignant et #email_enseignant : Les coordonnées de l'enseignant responsable du cours/de la filière selectionné(e)</li>" +
 						"</ul>" +
 						"</p></html>";
 				JLabel textAide = new JLabel(tagDispo);

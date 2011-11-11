@@ -39,9 +39,8 @@ public class PanneauListeEtudiants extends JPanel {
 
 	private ActionListener l = new BoutonsListener();
 
-	private final String  colonnes[] = {"Numéro", "Nom", "Prénom", "e-mail", "Filière", "Groupe" , "Origine"};
-	private Object data[][]; // les données de la JTable
-	private JTable tableEtudiants = new JTable();
+	private EtudiantTableModel tableModel = new EtudiantTableModel();
+	private JTable tableEtudiants = new JTable(tableModel);
 
 
 	private JPanel boutons = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -72,7 +71,7 @@ public class PanneauListeEtudiants extends JPanel {
 		boutons.add(add);
 		add.addActionListener(l);
 
-		this.add(boutons);
+		this.add(boutons,BorderLayout.SOUTH);
 	}
 
 	/**
@@ -80,47 +79,31 @@ public class PanneauListeEtudiants extends JPanel {
 	 * @param etudiants
 	 */
 	public void setListeEtudiants(Collection<Etudiant> etudiants) {
-		//TODO debug [Ljava.lang.Object; cannot be cast to [[Ljava.lang.Object;
-		Collection<Object[]> tmpdata = new ArrayList<Object[]>();
-		for(Etudiant e : etudiants) {
-			tmpdata.add(etudiantToRow(e));
-		}
-		data = (Object[][]) tmpdata.toArray();
-		this.tableEtudiants = new JTable(data,colonnes);
+		this.tableModel.setEtudiants(etudiants);
+		
 	}
 
 	/**
-	 * Transforme un objet Etudiant en ligne pour la JTable
-	 * @param e
-	 * @return
+	 * Ouvre la fenêtre d'envoie d'email personnalisé aux étudiants sélectionnés.
 	 */
-	private Object[] etudiantToRow(Etudiant e) {
-		Object row[] = new Object[7];
-		row[0] = e.getNumEtu();
-		row[1] = e.getNom();
-		row[2] = e.getPrenom();
-		row[3] = e.getMail();
-		Object[] filieres;
-		try {
-			filieres = daoFiliere.findAll().toArray();
-
-			JComboBox jc = new JComboBox(filieres);
-			jc.setSelectedItem(e.getFiliere());
-			row[4] = jc;
-		} catch (DaoException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		//TODO row[5] = e.getGroupe();
-		row[6] = e.getOrigine();
-		return row;
+	public void sendMail() {
+//		Collection<Etudiant> etudiants = new ArrayList<Etudiant>();
+//		int selectedRows[] = tableEtudiants.getSelectedRows();
+//		for(int i : selectedRows) {
+//			Object row[] = new Object[7];
+//			for(int j = 0; j < 7; j++) {
+//				row[j] = tableEtudiants.getValueAt(i, j);
+//			}
+//			etudiants.add(rowToEtudiant(row));
+//		}
+//		new FenetreMail(df, etudiants, ((FenetrePrincipale) PanneauListeEtudiants.this.getTopLevelAncestor()).getSelectedItem());
 	}
-
-	private Etudiant rowToEtudiant(Object[] row) {
-		Etudiant e = new Etudiant((String)row[0],(String) row[1],(String) row[2], (String)row[3], (String)row[6]);
-		e.setFiliere((Filiere) ((JComboBox)row[4]).getSelectedItem());
-
-		return e;
+	
+	/**
+	 * Selectionne tout les étudiants de la table
+	 */
+	public void selectAllEtudiants() {
+		tableEtudiants.selectAll();
 	}
 
 	private class BoutonsListener implements ActionListener {
@@ -130,32 +113,23 @@ public class PanneauListeEtudiants extends JPanel {
 			Object source = e.getSource();
 
 			if(source.equals(mail)) {
-				Collection<Etudiant> etudiants = new ArrayList<Etudiant>();
-				int selectedRows[] = tableEtudiants.getSelectedRows();
-				for(int i : selectedRows) {
-					Object row[] = new Object[7];
-					for(int j = 0; j < 7; j++) {
-						row[j] = tableEtudiants.getValueAt(i, j);
-					}
-					etudiants.add(rowToEtudiant(row));
-				}
-				new FenetreMail(df, etudiants, ((FenetrePrincipale) PanneauListeEtudiants.this.getTopLevelAncestor()).getSelectedItem());
+				sendMail();
 			}
 			if(source.equals(stats)) {
-				//TODO afficher stats
+				new FenetreAjoutEleve(df);
 			}
 			if(source.equals(edit)) {
-				//TODO fenetre edition etudiant
+				//TODO 				new FenetreAjoutEleve(df, )
 			}
 			if(source.equals(remove)) {
 				Object row[] = new Object[7];
 				for(int j = 0; j < 7; j++) {
 					row[j] = tableEtudiants.getValueAt(tableEtudiants.getSelectedRow(), j);
 				}
-				Etudiant etu = rowToEtudiant(row);
+				//TODO Etudiant etu = rowToEtudiant(row);
 				try {
 					conn.beginTransaction();
-					daoEtudiant.delete(etu);
+					// TODO daoEtudiant.delete(etu);
 					int reponse = JOptionPane.showConfirmDialog(PanneauListeEtudiants.this, "Êtes vous certain de vouloir supprimer cet étudiant ?");
 					if(reponse == JOptionPane.OK_OPTION) {
 						conn.commitTransaction();
@@ -172,7 +146,7 @@ public class PanneauListeEtudiants extends JPanel {
 			}
 
 		}
-		
+
 		//TODO class JTable listener pour éditer des étudiants à la volée
 
 	}

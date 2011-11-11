@@ -66,6 +66,7 @@ public class FenetrePremiere extends JFrame {
 	 * Lance le programme.
 	 */
 	private void launch() {
+		//TODO retirer ouverture connexion
 		DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
 
 		DaoFabrique df = DaoFabrique.getDaoFabrique();

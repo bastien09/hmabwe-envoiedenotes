@@ -96,15 +96,12 @@ public class PanneauGauchePrincipal extends JPanel {
 	 */
 	public void refreshList() {
 		try {
-			conn.beginTransaction();
 			if(choix.getSelectedItem().equals("Filière")) {
 				liste.setListData(daoFiliere.findAll().toArray());
-				System.out.println("nb Filieres = " + daoFiliere.findAll().size());
 			} else {
 				liste.setListData(daoCours.findAll().toArray());
 			}
 			liste.setSelectedIndex(0);
-			conn.commitTransaction();
 		} catch (DaoException e) {
 			//TODO error message
 			e.printStackTrace();
@@ -186,6 +183,9 @@ public class PanneauGauchePrincipal extends JPanel {
 
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
+			if(liste.getSelectedValue() == null) {
+				return;
+			}
 			Collection<Etudiant> etudiants = new ArrayList<Etudiant>();
 			if(choix.getSelectedItem().equals("Cours")) {
 				Cours c = (Cours) liste.getSelectedValue();
