@@ -25,13 +25,13 @@ import fr.unice.hmabwe.modele.Filiere;
 
 public class PanelAjoutEleve extends JPanel{
 	
-	public JTextField jtf, jtf2, jtf3, jtf4, jtf5 ;
+	public JTextField jtf, jtf2, jtf3, jtf4, jtf5, jtfNumetud ;
 	
-    private JLabel label, label2, label3, label4, label5, label6;
+    private JLabel label, label2, label3, label4, label5, label6, labelNumetud;
     
     public JScrollPane scrollPane;
     
-    public JPanel panel, panelIdentite, panelNom, panelPrenom, panelGroupe, panelEmail, panelFiliere, panelOrigine, top, labels, saisie, lignePanel;
+    public JPanel panel, panelIdentite, panelNom, panelPrenom, panelGroupe, panelEmail, panelFiliere, panelOrigine, top, labels, saisie, lignePanel, panelNumetud;
     
     public ArrayList<ObjetLigneInscription> listeLigne = new ArrayList<ObjetLigneInscription>();
     
@@ -63,6 +63,7 @@ public class PanelAjoutEleve extends JPanel{
 		jtf3 = new JTextField("");
 		jtf4 = new JTextField("");
 		jtf5 = new JTextField("");
+		jtfNumetud = new JTextField("");
 	    
 	    jtf.setPreferredSize(new Dimension(150, 25));
 	    jtf.setColumns(25);
@@ -70,6 +71,8 @@ public class PanelAjoutEleve extends JPanel{
 	    jtf2.setColumns(25);
 	    jtf3.setPreferredSize(new Dimension(150, 25));
 	    jtf3.setColumns(25);
+	    jtfNumetud.setPreferredSize(new Dimension(250, 25));
+	    jtfNumetud.setColumns(25);
 	    jtf5.setPreferredSize(new Dimension(150, 25));
 	    jtf5.setColumns(25);
 	    jtf4.setPreferredSize(new Dimension(150, 25));
@@ -81,6 +84,7 @@ public class PanelAjoutEleve extends JPanel{
 	    label4 = new JLabel("Groupe :");
 	    label5 = new JLabel("Filière :");
 	    label6 = new JLabel("Origine :");
+	    labelNumetud = new JLabel("Numero etudiant :");
 	    
 	    panelNom = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	    panelNom.add(label);
@@ -98,6 +102,10 @@ public class PanelAjoutEleve extends JPanel{
 	    panelOrigine.add(label6);
 	    panelOrigine.add(jtf5);
 	    
+	    panelNumetud = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	    panelNumetud.add(labelNumetud);
+	    panelNumetud.add(jtfNumetud);
+	    
 	    panelGroupe = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	    panelGroupe.add(label4);
 	    panelGroupe.add(jtf4);
@@ -112,6 +120,7 @@ public class PanelAjoutEleve extends JPanel{
 		panelIdentite.add(panelPrenom);
 		panelIdentite.add(panelEmail);
 		panelIdentite.add(panelOrigine);
+		panelIdentite.add(panelNumetud);
 		panelIdentite.add(panelGroupe);
 		panelIdentite.add(panelFiliere);
 		
@@ -147,5 +156,9 @@ public class PanelAjoutEleve extends JPanel{
 	
 	public Filiere getFiliere(){
 		return (Filiere) this.combo1.getSelectedItem();
+	}
+	
+	public String getNumEtudiant(){
+		return this.jtfNumetud.getText();
 	}
 }

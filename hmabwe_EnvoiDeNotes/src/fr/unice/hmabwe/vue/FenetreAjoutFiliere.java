@@ -34,12 +34,14 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 	public DaoEnseignant daoEnseignant;
 	public EcouteurFiliere l;
 	public Collection<Enseignant> listEns = new ArrayList<Enseignant>();
+	public boolean estNouvelleFiliere;
 	
 	/**Constructeur permettant l'ajout d'une nouvelle filière
 	 *@param df Daofabrique
 	 */
 	public FenetreAjoutFiliere(DaoFabrique df) {
 		super("Ajout/Edition d'une filière", 500, 300, df);
+		estNouvelleFiliere = true;
 		
 		panelFiliere = new PanelAjoutFiliere();
 		
@@ -74,6 +76,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 	public FenetreAjoutFiliere(DaoFabrique df, Filiere f){
 		
 		super("Ajout/Edition d'une filière", 500, 300, df);
+		estNouvelleFiliere = false;
 		
 		panelFiliere = new PanelAjoutFiliere();
 		
@@ -95,6 +98,8 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		l = new EcouteurFiliere();		
 		boutonOK.addMouseListener(l);
 		boutonAnnuler.addMouseListener(l);
+		panelFiliere.bAjoutEnseignant.addMouseListener(l);
+		
 		
 		
 		this.setResizable(false);
@@ -110,40 +115,79 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		public void mouseClicked(MouseEvent arg0) {
 			
 			Object boutSelected = arg0.getSource();
-			if(boutSelected.equals(boutonOK)){
-				Filiere f = new Filiere(panelFiliere.getNom(), panelFiliere.getEnseignant());
-				
-				try {
-					conn.beginTransaction();
-					daoFiliere.create(f);
-					conn.commitTransaction();
-				} 
-				catch (DaoException e) {
+			if(boutSelected.equals(boutonOK)){//Debut bouton OK
+				if(estNouvelleFiliere){//Si nouvelle Filiere
+					Filiere f = new Filiere(panelFiliere.getNom(), panelFiliere.getEnseignant());
+					
 					try {
-						conn.rollbackTransaction();
-					}
-					catch(DaoException ee) {
-						ee.printStackTrace();
-					}
-					e.printStackTrace();
-				}
-				
-				finally {
-					if(conn.estOuverte()) {
+						conn.beginTransaction();
+						daoFiliere.create(f);
+						conn.commitTransaction();
+					} 
+					catch (DaoException e) {
 						try {
-							conn.fermer();
-							//TODO Faire disparaitre la fenetre a la fin de la transaction
+							conn.rollbackTransaction();
 						}
-						catch(DaoException e) {
+						catch(DaoException ee) {
+							ee.printStackTrace();
+						}
+						e.printStackTrace();
+					}
+					
+					finally {
+						if(conn.estOuverte()) {
+							try {
+								conn.fermer();
+								//TODO Faire disparaitre la fenetre a la fin de la transaction
+							}
+							catch(DaoException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				}//Fin nouvelle FIliere
+				else{
+					if(!estNouvelleFiliere){
+						Filiere f = new Filiere(panelFiliere.getNom(), panelFiliere.getEnseignant());
+						
+						try {
+							conn.beginTransaction();
+							daoFiliere.update(f);
+							conn.commitTransaction();
+						} 
+						catch (DaoException e) {
+							try {
+								conn.rollbackTransaction();
+							}
+							catch(DaoException ee) {
+								ee.printStackTrace();
+							}
 							e.printStackTrace();
 						}
+						
+						finally {
+							if(conn.estOuverte()) {
+								try {
+									conn.fermer();
+									//TODO Faire disparaitre la fenetre a la fin de la transaction
+								}
+								catch(DaoException e) {
+									e.printStackTrace();
+								}
+							}
+						}
 					}
 				}
-			}
+			}//Fin Bouton OK
 			else{
-				if(boutSelected.equals(boutonAnnuler)){
-					//TODO Fermer la fenetre sans rien faire de special
+				if(boutSelected.equals(panelFiliere.bAjoutEnseignant)){
+					new FenetreGestionEnseignants(df);
 					
+				}
+				else{
+					if(boutSelected.equals(boutonAnnuler)){
+						//TODO Ne rien faire et fermer la fenetre
+					}
 				}
 			}
 		}
