@@ -147,7 +147,7 @@ public class MailSSL {
 						InternetAddress.parse(e.getMail()));
 
 				message.setSubject(subject);
-				setTags(e.getNom(), e.getPrenom(),Double.toString(etu.getMoyenne(e.getNumEtu())),cours.getNom(),"moyenne du cours", enseignant.getPrenom(), enseignant.getNom(), enseignant.getMail());	
+				setTags(e.getNom(), e.getPrenom(),Double.toString(etu.inscriptionEtu(e.getNumEtu(), cours.getNom(),annee).getMoyenne()),cours.getNom(),"moyenne du cours", enseignant.getPrenom(), enseignant.getNom(), enseignant.getMail());	
 				//setTags(e.getNom(), e.getPrenom(),"12",cours.getNom(),"moyenne du cours", enseignant.getPrenom(), enseignant.getNom(), enseignant.getMail());
 				text1 = replaceBalises(text1);
 				message.setText(text1);
