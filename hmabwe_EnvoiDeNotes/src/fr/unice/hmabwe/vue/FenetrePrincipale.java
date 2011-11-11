@@ -121,10 +121,10 @@ public class FenetrePrincipale extends JFrame {
 		fichier.add(quitter);
 		quitter.addActionListener(l);
 
-		edition.add(copier);
-		copier.addActionListener(l);
-		edition.add(coller);
-		coller.addActionListener(l);
+//		edition.add(copier);
+//		copier.addActionListener(l);
+//		edition.add(coller);
+//		coller.addActionListener(l);
 		edition.add(selectAll);
 		selectAll.addActionListener(l);
 		edition.add(prefs);
@@ -226,9 +226,28 @@ public class FenetrePrincipale extends JFrame {
 			if(source.equals(quitter)) {
 				close();
 			}
+			if(source.equals(addCours)) {
+				new FenetreAjoutCours(df);
+			}
+			if(source.equals(addEnseignant)) {
+				new FenetreGestionEnseignants(df);
+			}
+			if(source.equals(addEtudiant)) {
+				new FenetreAjoutEleve(df);
+			}
+			if(source.equals(addFiliere)) {
+				new FenetreAjoutFiliere(df);
+			}
+			if(source.equals(email)) {
+				panneauDroite.sendMail();
+			}
+			
 			// edition
 			if(source.equals(prefs)) {
 				new FenetrePreferences();
+			}
+			if(source.equals(selectAll)) {
+				panneauDroite.selectAllEtudiants();
 			}
 			
 			// aide
