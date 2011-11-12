@@ -99,7 +99,7 @@ public boolean setPrenom(String pn){
 	boolean res = false;
 	
 	if(pn != null && !pn.equalsIgnoreCase("")){
-		nom=pn;
+		prenom=pn;
 		res=true;
 	}
 	
