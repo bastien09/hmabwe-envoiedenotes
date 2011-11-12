@@ -19,31 +19,31 @@ import javax.persistence.OneToMany;
 @Entity
 @DiscriminatorValue("etudiant")
 public class Etudiant extends Personne{
-	
+
 	/**En plus de son id, chaque étudiant dispose d'un numéro unique qui l'identifie au sein de l'université*/
 	private String numEtu;
-	
+
 	/**Un étudiant a une filière d'origine, elle est de type String car elle n'est pas forcemment 
 	 * dans la base de données de l'application.*/
 	private String origine;
-	
+
 	/**Un étudiant est associé à une filière.*/
 	@ManyToOne
 	private Filiere filiere;
-	
+
 	/**Un étudiant est associé à un groupe.*/
 	private String groupe;
-	
+
 	/**Un étudiant est inscrit à un ou plusieurs cours.*/
 	@OneToMany(mappedBy="etudiant", cascade=CascadeType.ALL)
 	private Collection<Inscription> listeInscriptions;
-	
+
 	/**Un étudiant peut avoir une photo*/
 	private byte[] photo;
-	
+
 	/**Constructeur par défaut*/
 	public Etudiant(){
-		
+
 	}
 
 	/**Constructeur associant à un étudiant un nom, un prénom et une adresse e-mail
@@ -56,7 +56,7 @@ public class Etudiant extends Personne{
 		numEtu=num;
 		listeInscriptions=new ArrayList<Inscription>();
 	}
-	
+
 	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail et une origine
 	 * @param num numéro de l'étudiant à créer
 	 * @param n nom de l'étudiant à créer
@@ -68,7 +68,7 @@ public class Etudiant extends Personne{
 		origine=o;
 		listeInscriptions=new ArrayList<Inscription>();
 	}
-	
+
 	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail, une origine 
 	 * et une filière
 	 * @param num numéro de l'étudiant à créer
@@ -82,8 +82,8 @@ public class Etudiant extends Personne{
 		filiere=f;
 		listeInscriptions=new ArrayList<Inscription>();
 	}
-	
-	
+
+
 	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail, une origine 
 	 * , une filière et un groupe
 	 * @param num numéro de l'étudiant à créer
@@ -98,7 +98,7 @@ public class Etudiant extends Personne{
 		groupe=g;
 		listeInscriptions=new ArrayList<Inscription>();
 	}
-	
+
 	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail, une origine 
 	 * , une filière, un groupe et une photo
 	 * @param num numéro de l'étudiant à créer
@@ -112,7 +112,7 @@ public class Etudiant extends Personne{
 		this(num, n, pn, m, o, f, g);
 		photo=p;
 	}
-	
+
 	//Accesseurs pour l'attribut numEtu
 
 	/**Retourne le numéro de l'étudiant.
@@ -127,16 +127,16 @@ public class Etudiant extends Personne{
 	 * @return modification effectuée ou non*/
 	public boolean setNumEtu(String num){
 		boolean res = false;
-		
+
 		if(num != null && !num.equalsIgnoreCase("")){
 			numEtu=num;
 			res=true;
 		}
-		
+
 		return res;
 	}
-	
-	
+
+
 	//Accesseurs pour l'attribut origine
 
 	/**Retourne l'origine de l'étudiant.
@@ -151,15 +151,15 @@ public class Etudiant extends Personne{
 	 * @return modification effectuée ou non*/
 	public boolean setOrigine(String o){
 		boolean res = false;
-		
+
 		if(o != null && !o.equalsIgnoreCase("")){
 			origine=o;
 			res=true;
 		}
-		
+
 		return res;
 	}
-	
+
 	//Accesseurs pour l'attribut filliere
 
 	/**Retourne la filière de l'étudiant.
@@ -174,40 +174,42 @@ public class Etudiant extends Personne{
 	 * @return modification effectuée ou non*/
 	public boolean setFiliere(Filiere f){
 		boolean res = false;
-		
+
 		if(f != null){
-			filiere.removeEtudiant(this);
+			if(filiere != null) {
+				filiere.removeEtudiant(this);
+			}
 			filiere=f;
 			filiere.addEtudiant(this);
 			res=true;
 		}
-		
+
 		return res;
 	}
-	
+
 	//Accesseurs pour l'attribut listeInscriptions
-	
+
 	/**Retourne toutes les inscriptions de l'étudiant.
 	 * @return liste des inscriptions de l'étudiant*/
 	public Collection<Inscription> getInscriptions(){
 		return listeInscriptions;
 	}
-	
+
 	/**Associe une nouvelle inscription à un étudiant si celle passée en paramètre est différente de null
 	 * (retourne vrai si la modification s'est bien passée, faux sinon).
 	 * @param i nouvelle inscription à associer à l'étudiant
 	 * @return modification effectuée ou non*/
 	public boolean addInscription(Inscription i){
 		boolean res = false;
-		
+
 		if(i != null){
 			listeInscriptions.add(i);
 			res=true;
 		}
-		
+
 		return res;
 	}
-	
+
 	/**Retire l'inscription passée en paramètre de la liste des inscriptions associées à un étudiant
 	 * (retourne vrai si la modification s'est bien passée, faux sinon).
 	 * @param i inscription à retirer à l'étudiant
@@ -219,42 +221,42 @@ public class Etudiant extends Personne{
 		}
 		return res;
 	}
-	
+
 	/**Vide la liste des inscriptions associées à un étudiant.*/
 	public void removeAllInscriptions(){
 		listeInscriptions.clear();
 	}
 
 	//Accesseurs pour l'attribut groupe
-	
+
 	/**Retourne le groupe associé à l'étudiant.
 	 * @return groupe de l'étudiant*/
 	public String getGroupe() {
 		return groupe;
 	}
-	
+
 	/**Modifie le groupe associé à l'étudiant.
 	 * @param groupe nouveau groupe associé à l'étudiant
 	 */
 	public void setGroupe(String groupe) {
 		this.groupe = groupe;
 	}
-	
+
 	//Accesseurs pour l'attribut photo
-	
+
 	/**Retourne la photo de l'étudiant.
 	 * @return photo de l'étudiant*/
 	public byte[] getPhoto() {
 		return photo;
 	}
-	
+
 	/**Modifie la photo de l'étudiant.
 	 * @param p nouvelle photo de l'étudiant
 	 */
 	public void setPhoto(byte[] p) {
 		photo = p;
 	}
-	
+
 	/**Description d'un étudiant
 	 * @return description de l'étudiant*/
 	public String toString(){
@@ -269,12 +271,12 @@ public class Etudiant extends Personne{
 		toString+="Groupe : ";
 		toString+=groupe+"\n";
 		toString+="Inscriptions :\n";
-		
+
 		for(Inscription i : listeInscriptions){
 			toString+=i.getAnnee()+" - "+i.getCours().getNom()+" - "+i.getMoyenne()+"\n";
 		}
-		
+
 		return toString;
-		
+
 	}
 }
