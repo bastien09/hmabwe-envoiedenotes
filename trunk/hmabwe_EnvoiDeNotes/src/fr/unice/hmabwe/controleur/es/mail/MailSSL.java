@@ -11,7 +11,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
+import fr.unice.hmabwe.controleur.bd.dao.DaoException;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoEtudiant;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Enseignant;
@@ -134,11 +137,15 @@ public class MailSSL {
 						return new PasswordAuthentication(login, password);
 					}
 				});
-		JpaDaoEtudiant etu = new JpaDaoEtudiant();
+
+		DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
+		DaoFabrique df = DaoFabrique.getDaoFabrique();
+		Connexion conn = df.getConnexion();
+		DaoEtudiant etu = df.getDaoEtudiant();
 
 		try {
-			
 
+			conn.beginTransaction();
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
 			for (Etudiant e : to) {
@@ -147,17 +154,27 @@ public class MailSSL {
 						InternetAddress.parse(e.getMail()));
 
 				message.setSubject(subject);
-				setTags(e.getNom(), e.getPrenom(),Double.toString(etu.inscriptionEtu(e.getNumEtu(), cours.getNom(),annee).getMoyenne()),cours.getNom(),"moyenne du cours", enseignant.getPrenom(), enseignant.getNom(), enseignant.getMail());	
-				//setTags(e.getNom(), e.getPrenom(),"12",cours.getNom(),"moyenne du cours", enseignant.getPrenom(), enseignant.getNom(), enseignant.getMail());
+				setTags(e.getNom(),
+						e.getPrenom(),
+						Double.toString(etu.inscriptionEtu(e.getNumEtu(),
+								cours.getNom(), annee).getMoyenne()),
+						cours.getNom(), "moyenne du cours",
+						enseignant.getPrenom(), enseignant.getNom(),
+						enseignant.getMail());
+				// setTags(e.getNom(),
+				// e.getPrenom(),"12",cours.getNom(),"moyenne du cours",
+				// enseignant.getPrenom(), enseignant.getNom(),
+				// enseignant.getMail());
 				text1 = replaceBalises(text1);
 				message.setText(text1);
-				
 
 				Transport.send(message);
 				System.out.println("Done");
 			}
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
+		} catch (DaoException e) {
+			e.printStackTrace();
 		}
 	}
 
