@@ -8,21 +8,18 @@ import java.util.Collection;
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.modele.*;
 
+
 /**
  * @author Paraita Wohler
  * 
- * <b>ATTENTION</b> cette classe est en cours d'écrire,
- * elle ne fonctionne surement pas encore !
- * 
- * Cette classe permet de tester le code des DAO
- * en particulier pour se faire une idée de comment
- * l'application doit utiliser les DAO et les objets métier
- * (les objets métier sont des entités en fait mais chut ne
- * le dites à personne !)
+ *
  *
  */
 public class TestDao {
 
+	//TODO changer toutes les requetes en requetes nommées
+	//TODO pouvoir rendre persistant une configuration (modifier persistence.xml en fait)
+	
 	/**
 	 * @param args
 	 */
@@ -218,7 +215,10 @@ public class TestDao {
 
 			System.out.println("recherche prof par nom: \n " + daoEnseignant.getEnseignantsByName("Grin"));
 
-			System.out.println("moyen de filiere info = " + daoFiliere.getMoyenne(daoFiliere.findById(5)));
+			System.out.println("moyenne de la filiere info = " + daoFiliere.getMoyenne(daoFiliere.findById(5)));
+			
+			System.out.println("moyenne de Paraita en POO =" + daoEtudiant.inscriptionEtu("wp803469", "POO", 2010).getMoyenne());
+			
 			conn.commitTransaction();
 		}
 		catch(DaoException e) {
@@ -245,7 +245,6 @@ public class TestDao {
 
 	public static void main(String[] args) {
 
-		// TODO tester les DAO
 		//remplissage();
 		recupererDonnees();
 
