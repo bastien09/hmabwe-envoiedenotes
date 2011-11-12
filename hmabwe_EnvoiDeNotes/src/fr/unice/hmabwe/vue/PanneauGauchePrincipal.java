@@ -75,8 +75,11 @@ public class PanneauGauchePrincipal extends JPanel {
 		this.add(choix, BorderLayout.NORTH);
 		this.add(new JScrollPane(liste), BorderLayout.CENTER);
 		liste.addListSelectionListener(pcl);
-		refreshList();
-
+		try {
+			liste.setListData(daoFiliere.findAll().toArray());
+		} catch (DaoException e) {
+			e.printStackTrace();
+		}
 
 		boutons.add(stats);
 		stats.addActionListener(l);
