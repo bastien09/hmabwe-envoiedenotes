@@ -123,4 +123,7 @@ public abstract class DaoFabrique {
 				return null; // oups...
 		}
 	}
+		
+	public abstract void setProprietes(String serveur, String port, String username, String mdp, String SID);
+	
 }

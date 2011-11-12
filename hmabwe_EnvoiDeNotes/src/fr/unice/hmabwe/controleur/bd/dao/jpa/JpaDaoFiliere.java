@@ -39,8 +39,6 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoFiliere#getMoyenne()
 	 */
-	
-	//TODO debugger la méthode
 	public double getMoyenne(Filiere filiere) {
 		Collection<Etudiant> listeEtudiant = getEtudiantsInscrits(filiere);
 		double somme = 0;

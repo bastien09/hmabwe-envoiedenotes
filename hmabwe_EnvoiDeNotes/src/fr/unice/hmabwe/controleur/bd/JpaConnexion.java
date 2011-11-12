@@ -16,8 +16,6 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoException;
  * @author Paraita Wohler
  * 
  * Implémentation d'une Connexion pour le type de persistance JPA
- * 
- * TODO on fait quoi avec les exceptions pas contrôlées ?
  *
  */
 public class JpaConnexion implements Connexion {
@@ -39,8 +37,7 @@ public class JpaConnexion implements Connexion {
 	 */
 	@Override
 	public void ouvrir() throws DaoException {
-		// TODO ici c'est lié avec l'IHM configuration de la persistance
-		this.em = Persistence.createEntityManagerFactory("persistance").createEntityManager();
+		/* conceptuellement nécessaire mais l'ouverture est implicite avec JPA */
 	}
 
 	/**

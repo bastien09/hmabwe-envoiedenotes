@@ -28,7 +28,6 @@ public class JpaDaoFabrique extends DaoFabrique {
 	
 	public JpaDaoFabrique() {
 		super();
-		// TODO ici c'est lié avec l'IHM configuration de la persistance
 		this.conn = new JpaConnexion(Persistence.createEntityManagerFactory("persistance").createEntityManager());
 	}
 
@@ -77,6 +76,11 @@ public class JpaDaoFabrique extends DaoFabrique {
 	@Override
 	public Connexion getConnexion() {
 		return (Connexion)conn;
+	}
+	
+	@Override
+	public void setProprietes(String serveur, String port, String username, String mdp, String SID) {
+		//TODO voir eclipselink-javadocs/javax/persistence/EntityManagerFactory.html
 	}
 
 }
