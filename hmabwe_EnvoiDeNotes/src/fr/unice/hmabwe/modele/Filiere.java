@@ -203,23 +203,7 @@ public class Filiere {
 	/**Description d'une filiere
 	 * @return description de la filiere*/
 	public String toString(){
-		String toString;
-		toString ="Id : ";
-		toString+=id+"\n";
-		toString+="Nom : ";
-		toString+=nom+"\n";
-		toString+="Responsable : ";
-		toString+=responsable.getNom()+"\n";
-		toString+="Etudiants :\n";
-		for(Etudiant e : listeEtudiants){
-			toString+=e.getNumEtu()+" - "+e.getNom()+"\n";
-		}
-		toString+="Coefficients :\n";
-		for(Coefficient c : this.listeCoeffCours){
-			toString+=c.getCours().getNom()+" - "+c.getCoefficient()+"\n";
-		}
-		
-		return toString;
+		return "Filière : " + nom;
 	}
 
 }
