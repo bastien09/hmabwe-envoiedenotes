@@ -43,7 +43,7 @@ public class Etudiant extends Personne{
 
 	/**Constructeur par défaut*/
 	public Etudiant(){
-
+		listeInscriptions=new ArrayList<Inscription>();
 	}
 
 	/**Constructeur associant à un étudiant un nom, un prénom et une adresse e-mail
@@ -257,26 +257,5 @@ public class Etudiant extends Personne{
 		photo = p;
 	}
 
-	/**Description d'un étudiant
-	 * @return description de l'étudiant*/
-	public String toString(){
-		String toString;
-		toString =super.toString();
-		toString+="Numero d'etudiant : ";
-		toString+=numEtu+"\n";
-		toString+="Origine : ";
-		toString+=origine+"\n";
-		toString+="Filiere : ";
-		toString+=filiere.getNom()+"\n";
-		toString+="Groupe : ";
-		toString+=groupe+"\n";
-		toString+="Inscriptions :\n";
 
-		for(Inscription i : listeInscriptions){
-			toString+=i.getAnnee()+" - "+i.getCours().getNom()+" - "+i.getMoyenne()+"\n";
-		}
-
-		return toString;
-
-	}
 }

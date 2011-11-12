@@ -35,7 +35,7 @@ public class FenetrePremiere extends JFrame {
 		this.setTitle("Choix du type de persistance");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		choix.addItem("SGBD relationnel");
+		choix.addItem("SGBD relationnel - JPA");
 		choix.addItem("Autre type de persistance");
 		choix.addActionListener(l);
 		config.addActionListener(l);
@@ -70,7 +70,7 @@ public class FenetrePremiere extends JFrame {
 		DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
 
 		DaoFabrique df = DaoFabrique.getDaoFabrique();
-
+		
 		new FenetrePrincipale(df);
 		
 		this.dispose();
@@ -88,7 +88,7 @@ public class FenetrePremiere extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			Object source = e.getSource();
 			if(source.equals(choix)) {
-				if(choix.getSelectedItem().equals("SGBD relationnel")) {
+				if(choix.getSelectedItem().equals("SGBD relationnel - JPA")) {
 					config.setEnabled(true);
 					ok.setEnabled(true);
 				} else {
