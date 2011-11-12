@@ -202,23 +202,7 @@ public class Cours {
 	/**Description d'un cours
 	 * @return description du cours*/
 	public String toString(){
-		String toString;
-		toString ="Id : ";
-		toString+=id+"\n";
-		toString+="Nom : ";
-		toString+=nom+"\n";
-		toString+="Enseignant : ";
-		toString+=enseignant.getNom()+"\n";
-		toString+="Inscriptions :\n";
-		for(Inscription i : listeInscriptions){
-			toString+=i.getAnnee()+" - "+i.getEtudiant().getNumEtu()+" - "+i.getEtudiant().getNom()+" - "+i.getMoyenne()+"\n";
-		}
-		toString+="Coefficients :\n";
-		for(Coefficient c : this.listeCoeffFilieres){
-			toString+=c.getFiliere().getNom()+" - "+c.getCoefficient()+"\n";
-		}
-		
-		return toString;
+		return "Cours : " + nom;
 	}
 
 }

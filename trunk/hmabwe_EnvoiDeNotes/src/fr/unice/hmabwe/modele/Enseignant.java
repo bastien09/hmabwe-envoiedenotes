@@ -131,17 +131,7 @@ public class Enseignant extends Personne{
 	/**Description d'un enseignant
 	 * @return description de l'étudiant*/
 	public String toString(){
-		String toString;
-		toString =super.toString();
-		toString+="Filieres :\n";
-		for(Filiere f : listeFilieres){
-			toString+=f.getNom()+"\n";
-		}
-		toString+="Cours :\n";
-		for(Cours c : listeCours){
-			toString+=c.getNom()+"\n";
-		}
-		return toString;
+		return "" + this.prenom + " " + this.nom;
 		
 	}
 }
