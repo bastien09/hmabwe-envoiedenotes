@@ -35,25 +35,32 @@ public class PanelAjoutEleve extends JPanel{
     
     public ArrayList<ObjetLigneInscription> listeLigne = new ArrayList<ObjetLigneInscription>();
     
-    private JComboBox combo1 = new JComboBox();
+    public int nbLigneInscription = 0;
     
-	public PanelAjoutEleve() {
+    public DaoFabrique df;
+    
+    public JComboBox combo1 = new JComboBox();
+    
+	public PanelAjoutEleve(DaoFabrique df) {
 	
-		
+		this.df = df;
 		
 		
 		panel = new JPanel();
 		lignePanel = new JPanel();
 		
-		ObjetLigneInscription o1 = new ObjetLigneInscription(true);
-		ObjetLigneInscription o2 = new ObjetLigneInscription(false);
+		ObjetLigneInscription o1 = new ObjetLigneInscription(true, this, df);
+		ObjetLigneInscription o2 = new ObjetLigneInscription(false, this, df);
 		
-		listeLigne.add(o1);
-		listeLigne.add(o2);
 		lignePanel.setLayout(new BoxLayout(lignePanel, BoxLayout.Y_AXIS));
 		for(ObjetLigneInscription objl : listeLigne){
 			lignePanel.add(objl.panelLigne);
 		}
+		listeLigne.add(o1);
+		listeLigne.add(o2);
+		lignePanel.add(o1.panelLigne);
+		lignePanel.add(o2.panelLigne);
+		
 		
 		scrollPane = new JScrollPane(lignePanel);
 		scrollPane.setBorder(BorderFactory.createTitledBorder("Inscriptions"));

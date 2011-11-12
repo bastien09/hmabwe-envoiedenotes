@@ -1,9 +1,16 @@
 package fr.unice.hmabwe.vue;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Collection;
 
 import javax.swing.*;
 
+
+import fr.unice.hmabwe.controleur.bd.dao.DaoCours;
+import fr.unice.hmabwe.controleur.bd.dao.DaoException;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.modele.Cours;
 
 /**
@@ -23,16 +30,27 @@ public class ObjetLigneInscription{
 	public JTextField textNote;
 	public JPanel panelLigne;
 	private JPanel panelBoutonV, panelBoutonN, panelField;
-	
 	private JButton boutonMoins, boutonPlus, boutonValide;
+
+	public Collection<Cours> listCours;
+	public DaoCours dc;
+	public DaoFabrique df;
+	public PanelAjoutEleve f;
+	public EcouteurObjetLigne l;
 	private boolean isNewLine;
+	public int numLigne;
 	
 	public ObjetLigneInscription(){
 		
 	}
-	public ObjetLigneInscription(boolean newline){
+	public ObjetLigneInscription(boolean newline, PanelAjoutEleve f, DaoFabrique df){
 		// TODO Gestion d'ajout de ligne 
 		// TODO Ajout d'un bonton a la suite de la ligne pour valider ligne et ajouter une autre ligne
+		this.df = df;
+		dc = this.df.getDaoCours();
+		l = new EcouteurObjetLigne();
+		this.f = f;
+		
 		
 		panelLigne = new JPanel();
 		
@@ -43,6 +61,14 @@ public class ObjetLigneInscription{
 		textAnnee = new JTextField();
 		textNote = new JTextField();
 		this.isNewLine = newline;
+		
+		try {
+			listCours = dc.findAll();
+			comboCours.addItem(listCours);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		panelLigne.setLayout(new FlowLayout());
 		
@@ -62,6 +88,7 @@ public class ObjetLigneInscription{
 		
 		boutonMoins = new JButton((new ImageIcon(this.getClass().getResource("/resource/minus-circle.png"))));
 		boutonPlus =  new JButton((new ImageIcon(this.getClass().getResource("/resource/plus.png"))));
+		this.boutonPlus.addMouseListener(l);
 		boutonValide =  new JButton((new ImageIcon(this.getClass().getResource("/resource/tick-circle.png"))));
 		
 		panelBoutonV = new JPanel(new FlowLayout());
@@ -76,10 +103,12 @@ public class ObjetLigneInscription{
 		if(!this.isNewLine){
 			panelLigne.add(panelField);
 			panelLigne.add(panelBoutonV);
+			numLigne = f.nbLigneInscription;
 		}
 		else{
 			panelLigne.add(panelField);
 			panelLigne.add(panelBoutonN);
+			numLigne = f.nbLigneInscription + 1;
 			
 		}
 		
@@ -102,5 +131,61 @@ public class ObjetLigneInscription{
 	public Double getMoyenne(){
 		return Double.parseDouble(this.textNote.getText());
 	}
+	
+	public void ajoutLigneInscription(){
+    	ObjetLigneInscription o1 = new ObjetLigneInscription(false, this.f, df);
+    	ObjetLigneInscription o = new ObjetLigneInscription(true, this.f, df);
+    	this.f.listeLigne.remove(this.f.listeLigne.size() - 1);
+    	this.f.lignePanel.remove(this.panelLigne);
+    	this.f.listeLigne.add(o1);
+    	this.f.lignePanel.add(o1.panelLigne);
+    	this.f.lignePanel.validate();
+    	System.out.println("Ligne numero :" + o1.numLigne + " est ajouté a la liste de la fenetre " + this.f);
+    	
+    	this.f.listeLigne.add(o);
+    	this.f.lignePanel.add(o.panelLigne);
+    	this.f.lignePanel.validate();
+    	System.out.println("La nouvelle ligne numero :" + o.numLigne + " est ajouté a la liste de la fenetre " + this.f);
+    	this.f.panel.validate();
+    	this.f.nbLigneInscription++;
+    }
+	 class EcouteurObjetLigne implements MouseListener{
+			
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Object boutSelected = arg0.getSource();
+				if(boutSelected.equals(boutonPlus)){
+					ajoutLigneInscription();
+					
+				}
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		}
+
 
 }
