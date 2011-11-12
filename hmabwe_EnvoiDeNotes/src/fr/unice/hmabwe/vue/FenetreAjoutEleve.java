@@ -6,13 +6,16 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.*;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
 import fr.unice.hmabwe.modele.Etudiant;
+import fr.unice.hmabwe.modele.Filiere;
 import fr.unice.hmabwe.modele.Inscription;
 
 /**
@@ -28,6 +31,8 @@ public class FenetreAjoutEleve extends FenetreCommune{
     
     private DaoEtudiant daoetudiant;
     
+    private DaoFiliere daofiliere;
+    
     public boolean nouvelEtudiant;
     
     public EcouteurEtudiant l = new EcouteurEtudiant();
@@ -41,8 +46,17 @@ public class FenetreAjoutEleve extends FenetreCommune{
 		this.nouvelEtudiant = true;
 		
 		
-		panelEleve = new PanelAjoutEleve();
+		panelEleve = new PanelAjoutEleve(df);
 	    daoetudiant = df.getDaoEtudiant();
+        daofiliere = df.getDaoFiliere();
+        Collection<Filiere> listFili;
+		try {
+			listFili = daofiliere.findAll();
+			panelEleve.combo1.addItem(listFili);
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
 	    boutonOK.addMouseListener(l);
 	    boutonAnnuler.addMouseListener(l);
@@ -63,7 +77,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 		//C'est une edition d'etudiant;
 		this.nouvelEtudiant = false;
 		
-		panelEleve = new PanelAjoutEleve();
+		panelEleve = new PanelAjoutEleve(df);
 	    daoetudiant = df.getDaoEtudiant();
         
 	    //On remplit les champs avec les anciennes valeurs
