@@ -17,21 +17,21 @@ import fr.unice.hmabwe.modele.Etudiant;
 
 public class ExportExcel {
 
-	private static String URL_FICHIER = new File("").getAbsolutePath()
-			+ File.separator + "moyenneEtu.xls";
+	/*private static String URL_FICHIER = new File("").getAbsolutePath()
+			+ File.separator + "moyenneEtu.xls";*/
 
 
 	public boolean createXls(HashMap<Etudiant, String> map, Cours cours,
-			int annee) {
+			int annee, String urlFile) {
 		// on créé le fichier qu'on va remplir
 
-		if (new File(URL_FICHIER).exists()) {
-			new File(URL_FICHIER).delete();
+		if (new File(urlFile).exists()) {
+			new File(urlFile).delete();
 		}
 
 		WritableWorkbook workbook = null;
 		try {
-			workbook = Workbook.createWorkbook(new File(URL_FICHIER));
+			workbook = Workbook.createWorkbook(new File(urlFile));
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;

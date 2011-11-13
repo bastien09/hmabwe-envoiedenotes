@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.io.File;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion;
@@ -28,6 +29,8 @@ public class TestExportExcel {
 
 		ExportExcel eex = new ExportExcel();
 		Cours cours = new Cours("POO");
+		String urlFile = new File("").getAbsolutePath()
+				+ File.separator + "moyenneEtu.xls";
 
 		int annee = 2010;
 		
@@ -44,7 +47,7 @@ public class TestExportExcel {
 
 			ed = insc.listeInscrit(cours.getNom(), annee);
 	
-			eex.createXls(ed, cours, annee);
+			eex.createXls(ed, cours, annee, urlFile);
 			
 			conn.commitTransaction();
 		}
