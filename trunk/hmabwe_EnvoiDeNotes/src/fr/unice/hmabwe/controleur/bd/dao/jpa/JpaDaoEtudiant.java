@@ -10,6 +10,7 @@ import java.util.HashMap;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
+import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.modele.Coefficient;
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Filiere;
@@ -137,7 +138,7 @@ implements DaoEtudiant{
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#getMoyenne()
 	 */
 
-	public double getMoyenne(String numEtu, int annee) {
+	public double getMoyenne(String numEtu, int annee) throws DaoException {
 		HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
 		EntityManager em = getEntityManager();
 		Etudiant e = findByNumeroEtudiant(numEtu);
@@ -149,6 +150,8 @@ implements DaoEtudiant{
 			if(inscr.getAnnee()==annee){
 				l_inscr.add(inscr);
 			}
+			if(l_inscr.isEmpty())
+				throw new DaoException("aucun etudiant avec le numéro " + numEtu + " en " + annee);
 		}
 		double somme_notes = 0;
 		int somme_coef = 0;

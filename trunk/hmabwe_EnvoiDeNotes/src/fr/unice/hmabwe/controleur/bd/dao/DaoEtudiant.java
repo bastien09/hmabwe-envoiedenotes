@@ -51,5 +51,5 @@ public interface DaoEtudiant extends DaoGenerique<Etudiant, Integer> {
 	 * @return la moyenne de l'étudiant
 	 * 
 	 */
-	public double getMoyenne(String numEtu, int annee);
+	public double getMoyenne(String numEtu, int annee) throws DaoException;
 }
