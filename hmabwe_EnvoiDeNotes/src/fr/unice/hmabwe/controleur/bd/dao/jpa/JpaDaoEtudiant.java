@@ -112,8 +112,8 @@ implements DaoEtudiant{
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#getMoyenne()
 	 */
-
-	public double getMoyenne_old(String numEtu) {
+	
+	public double getMoyenne(String numEtu) {
 		HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
 		EntityManager em = getEntityManager();
 		Etudiant e = findByNumeroEtudiant(numEtu);
@@ -163,12 +163,5 @@ implements DaoEtudiant{
 		return somme_notes / somme_coef;
 	}
 
-	@Override
-	/**
-	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#getMoyenne()
-	 */
-	public double getMoyenne(String numEtu) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+
 }

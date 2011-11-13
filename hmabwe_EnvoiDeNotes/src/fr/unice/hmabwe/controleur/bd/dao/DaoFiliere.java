@@ -20,14 +20,6 @@ public interface DaoFiliere extends DaoGenerique<Filiere, Integer> {
 	public Collection<Etudiant> getEtudiantsInscrits(Filiere filiere);
 	
 	/**
-	 * cette methode renvoie la moyenne d'une filière donnée
-	 * 
-	 * @param nomFiliere le nom de la filière dont on veut la moyenne
-	 * @return la moyenne de la filière donnée
-	 */
-	public double getMoyenne(Filiere filiere);
-	
-	/**
 	 * cette methode renvoie la moyenne d'une filière donnée une année donnée
 	 * 
 	 * @param nomFiliere le nom de la filière dont on veut la moyenne
