@@ -87,8 +87,8 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		try {
 			listFil = daofiliere.findAll();
 			listC = daocours.findAll();
-			panelEnseignant.listCours.setModel((ListModel) listC);
-			panelEnseignant.listFiliere.setModel((ListModel) listFil);
+			//panelEnseignant.listCours.setModel((ListModel) listC);
+			//panelEnseignant.listFiliere.setModel((ListModel) listFil);
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

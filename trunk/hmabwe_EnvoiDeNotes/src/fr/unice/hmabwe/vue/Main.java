@@ -1,5 +1,7 @@
 package fr.unice.hmabwe.vue;
 
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion;
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion.TypePersistance;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.modele.Etudiant;
 
@@ -13,16 +15,16 @@ import fr.unice.hmabwe.modele.Etudiant;
 
 public class Main {
 	public static void main(String[] args){
-		DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
+		ConfigConnexion.setTypePersistance(TypePersistance.JPA);
 
 		/* je demande une fabrique */
 		DaoFabrique df = DaoFabrique.getDaoFabrique();
 		Etudiant e = new Etudiant();
-		FenetreAjoutEleve fenetre = new FenetreAjoutEleve(df);
-		FenetreAjoutFiliere fenetre1 = new FenetreAjoutFiliere(df);
-		FenetreAjoutCours fenetre2 = new FenetreAjoutCours(df);
+		//FenetreAjoutEleve fenetre = new FenetreAjoutEleve(df);
+		//FenetreAjoutFiliere fenetre1 = new FenetreAjoutFiliere(df);
+		//FenetreAjoutCours fenetre2 = new FenetreAjoutCours(df);
 		FenetreGestionEnseignants fenetre3 = new FenetreGestionEnseignants(df);
 		//FenetreStatistiqueFiliere fenetre4 = new FenetreStatistiqueFiliere(df);
-		FenetreStatistiqueEtudiant fenetre5 = new FenetreStatistiqueEtudiant(df, e);
+		//FenetreStatistiqueEtudiant fenetre5 = new FenetreStatistiqueEtudiant(df, e);
 	}
 }

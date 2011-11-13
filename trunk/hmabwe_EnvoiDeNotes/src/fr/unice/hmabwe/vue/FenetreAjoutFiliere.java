@@ -43,24 +43,15 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		super("Ajout/Edition d'une filière", 500, 300, df);
 		estNouvelleFiliere = true;
 		
-		panelFiliere = new PanelAjoutFiliere();
+		panelFiliere = new PanelAjoutFiliere(df);
 		
 		daoFiliere = df.getDaoFiliere();
 		daoEnseignant = df.getDaoEnseignant();
-		
-		try {
-			listEns = daoEnseignant.findAll();
-			panelFiliere.tabEnseignant.addItem(listEns);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		l = new EcouteurFiliere();
+			
+		l = new EcouteurFiliere(this);
 		boutonOK.addMouseListener(l);
 		boutonAnnuler.addMouseListener(l);
-		
-		
+		panelFiliere.bAjoutEnseignant.addMouseListener(l);
 		
 		this.setResizable(false);
 		this.container.add(panelFiliere.getPanelPrincipal(), BorderLayout.NORTH);
@@ -78,24 +69,16 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		super("Ajout/Edition d'une filière", 500, 300, df);
 		estNouvelleFiliere = false;
 		
-		panelFiliere = new PanelAjoutFiliere();
+		panelFiliere = new PanelAjoutFiliere(df);
 		
 		daoFiliere = df.getDaoFiliere();
 		daoEnseignant = df.getDaoEnseignant();
-		
-		try {
-			listEns = daoEnseignant.findAll();
-			panelFiliere.tabEnseignant.addItem(listEns);
-		} catch (DaoException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
 		panelFiliere.textNom.setText(f.getNom());
 		panelFiliere.tabEnseignant.setSelectedItem(f.getResponsable());
 		
 		
-		l = new EcouteurFiliere();		
+		l = new EcouteurFiliere(this);		
 		boutonOK.addMouseListener(l);
 		boutonAnnuler.addMouseListener(l);
 		panelFiliere.bAjoutEnseignant.addMouseListener(l);
@@ -110,7 +93,11 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 	
 	
 	private class EcouteurFiliere implements MouseListener{
-
+		public FenetreAjoutFiliere faf;
+		
+		public EcouteurFiliere(FenetreAjoutFiliere faf){
+			this.faf = faf;
+		}
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			
@@ -138,6 +125,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 						if(conn.estOuverte()) {
 							try {
 								conn.fermer();
+								this.faf.setVisible(false);
 								//TODO Faire disparaitre la fenetre a la fin de la transaction
 							}
 							catch(DaoException e) {
@@ -169,6 +157,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 							if(conn.estOuverte()) {
 								try {
 									conn.fermer();
+									this.faf.setVisible(false);
 									//TODO Faire disparaitre la fenetre a la fin de la transaction
 								}
 								catch(DaoException e) {
@@ -186,6 +175,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 				}
 				else{
 					if(boutSelected.equals(boutonAnnuler)){
+						this.faf.setVisible(false);
 						//TODO Ne rien faire et fermer la fenetre
 					}
 				}
