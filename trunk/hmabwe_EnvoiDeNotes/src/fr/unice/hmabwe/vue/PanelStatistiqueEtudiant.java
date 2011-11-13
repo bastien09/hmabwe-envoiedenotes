@@ -6,11 +6,13 @@ import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Inscription;
@@ -31,14 +33,18 @@ public class PanelStatistiqueEtudiant extends JPanel{
 	private JLabel annee, moyenne, noteMoyenne, changeAnne;
 	
 	private JComboBox comboAnnee;
+	private DefaultComboBoxModel comboModel;
 	
 	private JScrollPane scrollCours
 	;
 	//Simple essai pour l'interface
-	public ArrayList<ObjetLigneMoyenneEtudiant> ligneMoyenne;
+	public ArrayList<ObjetLigneMoyenneEtudiant> ligneMoyenne = new ArrayList<ObjetLigneMoyenneEtudiant>();
 	
-	public PanelStatistiqueEtudiant(Etudiant e){
+	public PanelStatistiqueEtudiant(Etudiant e, DaoFabrique df){
 		// Methode de remplissage de diverse liste.
+		DaoEtudiant de;
+		de = df.getDaoEtudiant();
+		comboModel = new DefaultComboBoxModel();
 		
 		Collection<Inscription> listInscription = new ArrayList<Inscription>();
 		ArrayList<Integer> listannee = new ArrayList<Integer>();
@@ -47,7 +53,7 @@ public class PanelStatistiqueEtudiant extends JPanel{
 		for(Inscription insc : listInscription){
 			ObjetLigneMoyenneEtudiant o = new ObjetLigneMoyenneEtudiant(insc);
 			this.ligneMoyenne.add(o); // Remplissage de la liste de moyenne
-			listannee.add(insc.getAnnee()); // Remplissage de la liste Annee
+			comboModel.addElement(insc.getAnnee()); // Remplissage de la liste Annee
 		}
 		
 		
@@ -59,15 +65,16 @@ public class PanelStatistiqueEtudiant extends JPanel{
 		
 		annee = new JLabel("Année :");
 		moyenne = new JLabel("Moyenne :");
+		noteMoyenne = new JLabel(String.valueOf(de.getMoyenne(e.getNumEtu())));
+		comboAnnee = new JComboBox(comboModel);
 		
-		comboAnnee = new JComboBox();
-		comboAnnee.addItem(listannee);
 		
 		
 		panelAnnee.add(annee);
 		panelAnnee.add(comboAnnee);
 		
 		panelMoyenne.add(moyenne);
+		panelMoyenne.add(noteMoyenne);
 		
 		panelCours.setLayout(new BoxLayout(panelCours, BoxLayout.Y_AXIS));
 		scrollCours = new JScrollPane(panelCours);

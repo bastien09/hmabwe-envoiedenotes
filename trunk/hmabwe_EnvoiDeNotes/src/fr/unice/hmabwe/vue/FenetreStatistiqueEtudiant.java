@@ -34,10 +34,10 @@ public class FenetreStatistiqueEtudiant extends JFrame{
 	
 	public FenetreStatistiqueEtudiant(DaoFabrique df, Etudiant e){
 		
-		panelStatEtu = new PanelStatistiqueEtudiant(e);
+		
 		this.df = df;
 		this.conn = df.getConnexion();
-		
+		panelStatEtu = new PanelStatistiqueEtudiant(e, df);
 		this.setTitle("Statistiques de l'etudiant " + e.getPrenom() + " " + e.getNom());
         this.setSize(350, 350);
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
