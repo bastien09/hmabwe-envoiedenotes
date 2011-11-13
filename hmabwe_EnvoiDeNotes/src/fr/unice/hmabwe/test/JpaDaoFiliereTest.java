@@ -13,6 +13,7 @@ import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion;
 import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion.TypePersistance;
 import fr.unice.hmabwe.controleur.bd.dao.DaoEnseignant;
+import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
@@ -26,6 +27,8 @@ public class JpaDaoFiliereTest {
 	static Connexion conn;
 	static DaoEnseignant daoEnseignant;
 	static DaoFiliere daoFiliere;
+	static DaoEtudiant daoEtudiant;
+	
 	static Collection<Filiere> fil;
 	static Collection<Enseignant> ens;
 	static Collection<Etudiant> etu;
@@ -39,6 +42,7 @@ public class JpaDaoFiliereTest {
 				conn = df.getConnexion();
 				daoEnseignant = df.getDaoEnseignant();
 				daoFiliere = df.getDaoFiliere();
+				daoEtudiant = df.getDaoEtudiant();
 				//Environment is ready to test
 	}
 
@@ -52,9 +56,21 @@ public class JpaDaoFiliereTest {
 				}
 	}
 
-	@Ignore
+	@Test
 	public void testGetEtudiantsInscrits() {
-		fail("Not yet implemented");
+		Collection<Etudiant> etudiants=null;
+		try{
+			Filiere f = daoFiliere.findById(5);
+			
+			 etudiants = daoFiliere.getEtudiantsInscrits(f);
+		}catch(DaoException e){
+			try{
+				conn.rollbackTransaction();
+			}catch(DaoException ex){
+				ex.printStackTrace();
+			}
+		}
+		assertTrue(etudiants.size() == 6);
 	}
 
 	@Ignore
