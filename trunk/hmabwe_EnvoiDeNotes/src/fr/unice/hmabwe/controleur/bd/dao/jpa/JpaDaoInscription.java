@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-
-import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
 import fr.unice.hmabwe.controleur.bd.dao.DaoInscription;
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Inscription;
@@ -37,7 +35,7 @@ public class JpaDaoInscription extends JpaDaoGenerique<Inscription, Integer>
 		Query q = em.createQuery(RequeteListeInscrit);
 		q.setParameter("nomCours", nomCours);
 		q.setParameter("annee", annee);
-		List<Object[]> res = q.getResultList();
+		List<Object[]> res = (List<Object[]>)q.getResultList();
 		for (Object[] o : res) {
 			map.put(((Etudiant)o[0]), ((Double)o[1]).toString());
 		}

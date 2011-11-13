@@ -1,6 +1,7 @@
 package fr.unice.hmabwe.controleur.bd.dao;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Filiere;
@@ -26,7 +27,14 @@ public interface DaoFiliere extends DaoGenerique<Filiere, Integer> {
 	 */
 	public double getMoyenne(Filiere filiere);
 	
-
+	/**
+	 * cette méthode retourne une hashmap faisant la relation entre un groupe
+	 * et sa moyenne.
+	 * 
+	 * @param filiere la filière dont on cherche la moyenne par groupe
+	 * @return une hashmap contenant la moyenne de chaque groupe mappée par son indentificateur
+	 */
+	public HashMap<String, Double> getMoyenneParGroupe(Filiere filiere);
 	
 
 }
