@@ -77,10 +77,5 @@ public class JpaDaoFabrique extends DaoFabrique {
 	public Connexion getConnexion() {
 		return (Connexion)conn;
 	}
-	
-	@Override
-	public void setProprietes(String serveur, String port, String username, String mdp, String SID) {
-		//TODO voir eclipselink-javadocs/javax/persistence/EntityManagerFactory.html
-	}
 
 }
