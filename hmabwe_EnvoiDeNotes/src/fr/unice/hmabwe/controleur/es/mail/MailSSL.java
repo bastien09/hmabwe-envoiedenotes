@@ -140,15 +140,15 @@ public class MailSSL {
 					}
 				});
 
-		/*ConfigConnexion.setTypePersistance(TypePersistance.JPA);
+		ConfigConnexion.setTypePersistance(TypePersistance.JPA);
 		DaoFabrique df = DaoFabrique.getDaoFabrique();
 		Connexion conn = df.getConnexion();
-		DaoEtudiant etu = df.getDaoEtudiant();*/
-		JpaDaoEtudiant etu = new JpaDaoEtudiant();
+		DaoEtudiant etu = df.getDaoEtudiant();
+		//JpaDaoEtudiant etu = new JpaDaoEtudiant();
 
 		try {
 
-			//conn.beginTransaction();
+			conn.beginTransaction();
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
 			for (Etudiant e : to) {
@@ -158,19 +158,19 @@ public class MailSSL {
 
 				message.setSubject(subject);
 				
-				/*setTags(e.getNom(),
+				setTags(e.getNom(),
 						e.getPrenom(),
 						Double.toString(etu.inscriptionEtu(e.getNumEtu(),
 								cours.getNom(), annee).getMoyenne()),
 						cours.getNom(), "moyenne du cours",
 						enseignant.getPrenom(), enseignant.getNom(),
-						enseignant.getMail());*/
+						enseignant.getMail());
 				
 				//passage de la moyenne en dur dans un premier temps, a terme la méthode du dessus sera appelé.
-				setTags(e.getNom(),
+				/*setTags(e.getNom(),
 				e.getPrenom(),"12",cours.getNom(),"moyenne du cours",
 				enseignant.getPrenom(), enseignant.getNom(),
-				enseignant.getMail());
+				enseignant.getMail());*/
 				
 				
 				text1 = replaceBalises(text1);
@@ -178,12 +178,14 @@ public class MailSSL {
 
 				Transport.send(message);
 				System.out.println("Done");
+				
+				conn.commitTransaction();
 			}
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
-		} /*catch (DaoException e) {
+		} catch (DaoException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 }
