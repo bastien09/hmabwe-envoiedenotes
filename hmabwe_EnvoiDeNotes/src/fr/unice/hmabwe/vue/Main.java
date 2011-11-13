@@ -23,7 +23,7 @@ public class Main {
 		//FenetreAjoutEleve fenetre = new FenetreAjoutEleve(df);
 		//FenetreAjoutFiliere fenetre1 = new FenetreAjoutFiliere(df);
 		//FenetreAjoutCours fenetre2 = new FenetreAjoutCours(df);
-		FenetreGestionEnseignants fenetre3 = new FenetreGestionEnseignants(df);
+		//FenetreGestionEnseignants fenetre3 = new FenetreGestionEnseignants(df);
 		//FenetreStatistiqueFiliere fenetre4 = new FenetreStatistiqueFiliere(df);
 		//FenetreStatistiqueEtudiant fenetre5 = new FenetreStatistiqueEtudiant(df, e);
 	}

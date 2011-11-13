@@ -68,9 +68,9 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		daoEnseignant = df.getDaoEnseignant();
 		daocours = df.getDaoCours();
 		daofiliere = df.getDaoFiliere();
-		panelEnseignant = new PanelGestionEnseignant();
+		panelEnseignant = new PanelGestionEnseignant(df);
 		
-		l = new EcouteurEnseignant();
+		l = new EcouteurEnseignant(this);
 		
 		boutonOK.addMouseListener(l);
 		boutonAnnuler.addMouseListener(l);
@@ -112,8 +112,8 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		daoEnseignant = df.getDaoEnseignant();
 		daocours = df.getDaoCours();
 		daofiliere = df.getDaoFiliere();
-		panelEnseignant = new PanelGestionEnseignant();
-		l = new EcouteurEnseignant();
+		panelEnseignant = new PanelGestionEnseignant(df);
+		l = new EcouteurEnseignant(this);
 		
 		//Pre remplissage des zones de texte
 		panelEnseignant.txtNom.setText(e.getNom());
@@ -156,7 +156,11 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 	}
 
 	private class EcouteurEnseignant implements MouseListener{
-
+		public FenetreGestionEnseignants fge;
+		
+		public EcouteurEnseignant(FenetreGestionEnseignants fge){
+			this.fge = fge;
+		}
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			// TODO Auto-generated method stub
@@ -196,6 +200,7 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 								if(conn.estOuverte()) {
 									try {
 										conn.fermer();
+										fge.setVisible(false);
 										//TODO Faire disparaitre la fenetre a la fin de la transaction
 									}
 									catch(DaoException e3) {
@@ -231,6 +236,7 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 									if(conn.estOuverte()) {
 										try {
 											conn.fermer();
+											fge.setVisible(false);
 											//TODO Faire disparaitre la fenetre a la fin de la transaction
 										}
 										catch(DaoException e3) {
@@ -245,6 +251,7 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 					else{
 						if(boutSelected.equals(boutonAnnuler)){
 							//TODO Fermer la fenetre
+							fge.setVisible(false);
 						}
 						
 						else{

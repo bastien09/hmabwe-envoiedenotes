@@ -77,45 +77,8 @@ public class FenetrePremiere extends JFrame {
 	 * Lance le programme.
 	 */
 	private void launch() {
-		chargerPrefs();
-
-		if(type_persistance.equals("jpa")) {
-			ConfigConnexion.setTypePersistance(TypePersistance.JPA);
-		}
-
-		try {
-			ConfigConnexion configuration = ConfigConnexion.newConfiguration();
-			configuration.setProprietes(serveur, port, user, mdp, sid);
-			
-			configuration.sauvegarder();
-
-			DaoFabrique df = DaoFabrique.getDaoFabrique();
-
-			new FenetrePrincipale(df);
-
-			this.dispose();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(FenetrePremiere.this,"Impossible de se connecter à la base de donnée, veuillez vérifier vos paramètres.", "Erreur de connexion" , JOptionPane.ERROR_MESSAGE);
-			this.setVisible(true);
-		}
-	}
-
-	private void chargerPrefs() {
-		Properties props = new Properties();
-		try {
-			FileInputStream file = new FileInputStream("hmabwe-properties");
-			props.load(file);
-			file.close();
-		} catch (Exception e) {
-
-		}
-		serveur = props.getProperty("pserveur");
-		port = props.getProperty("pport");
-		user = props.getProperty("puser");
-		mdp = props.getProperty("pmdp");
-		sid = props.getProperty("psid");
-		type_persistance = props.getProperty("type_persistance");
-
+		//TODO retirer ouverture connexion
+		ConfigConnexion.setTypePersistance(TypePersistance.JPA);
 
 	}
 
