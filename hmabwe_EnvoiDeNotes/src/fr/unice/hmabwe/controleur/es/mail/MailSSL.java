@@ -21,6 +21,7 @@ import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoEtudiant;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Enseignant;
 import fr.unice.hmabwe.modele.Etudiant;
+import fr.unice.hmabwe.modele.Filiere;
 import fr.unice.hmabwe.modele.Inscription;
 
 /**
@@ -124,7 +125,7 @@ public class MailSSL {
 	 *            le texte à envoyer
 	 */
 	public void SendMail(String from, Collection<Etudiant> to, String subject,
-			String text, Cours cours, Enseignant enseignant, Integer annee) {
+			String text, Cours cours, Integer annee) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
 		props.put("mail.smtp.socketFactory.port", port);
@@ -144,7 +145,7 @@ public class MailSSL {
 		DaoFabrique df = DaoFabrique.getDaoFabrique();
 		Connexion conn = df.getConnexion();
 		DaoEtudiant etu = df.getDaoEtudiant();
-		//JpaDaoEtudiant etu = new JpaDaoEtudiant();
+		// JpaDaoEtudiant etu = new JpaDaoEtudiant();
 
 		try {
 
@@ -157,28 +158,30 @@ public class MailSSL {
 						InternetAddress.parse(e.getMail()));
 
 				message.setSubject(subject);
-				
-				setTags(e.getNom(),
-						e.getPrenom(),
-						Double.toString(etu.inscriptionEtu(e.getNumEtu(),
-								cours.getNom(), annee).getMoyenne()),
-						cours.getNom(), "moyenne du cours",
-						enseignant.getPrenom(), enseignant.getNom(),
-						enseignant.getMail());
-				
-				//passage de la moyenne en dur dans un premier temps, a terme la méthode du dessus sera appelé.
-				/*setTags(e.getNom(),
-				e.getPrenom(),"12",cours.getNom(),"moyenne du cours",
-				enseignant.getPrenom(), enseignant.getNom(),
-				enseignant.getMail());*/
-				
-				
+
+				setTags(e.getNom(), e.getPrenom(), Double.toString(etu
+						.inscriptionEtu(e.getNumEtu(), cours.getNom(), annee)
+						.getMoyenne()), cours.getNom(), "moyenne du cours",
+						cours.getEnseignant().getPrenom(), cours
+								.getEnseignant().getNom(), cours
+								.getEnseignant().getMail());
+
+				// passage de la moyenne en dur dans un premier temps, a terme
+				// la méthode du dessus sera appelé.
+				/*
+				 * setTags(e.getNom(),
+				 * e.getPrenom(),"12",cours.getNom(),"moyenne du cours",
+				 * cours.getEnseignant().getPrenom(), cours
+								.getEnseignant().getNom(), cours
+								.getEnseignant().getMail());
+				 */
+
 				text1 = replaceBalises(text1);
 				message.setText(text1);
 
 				Transport.send(message);
 				System.out.println("Done");
-				
+
 				conn.commitTransaction();
 			}
 		} catch (MessagingException e) {
