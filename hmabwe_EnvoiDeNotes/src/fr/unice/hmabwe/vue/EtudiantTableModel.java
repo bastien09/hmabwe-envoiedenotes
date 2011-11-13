@@ -3,6 +3,7 @@ package fr.unice.hmabwe.vue;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Random;
 
 import javax.swing.JComboBox;
 import javax.swing.table.AbstractTableModel;
@@ -187,6 +188,8 @@ public class EtudiantTableModel extends AbstractTableModel {
 	 */
 	public void addEtudiants(Object coursFiliere) throws DaoException {
 		Etudiant e = new Etudiant();
+		e.setNumEtu(Integer.toString(new Random().nextInt(9000)+1000));
+		e.setGroupe("1");
 		if(coursFiliere.getClass() == Cours.class) {
 			e.addInscription(new Inscription(e,(Cours) coursFiliere, Calendar.getInstance().get(Calendar.YEAR)));
 		} else {

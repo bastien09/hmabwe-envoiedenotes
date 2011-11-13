@@ -17,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
-import fr.unice.hmabwe.controleur.bd.config.ConfigConnection;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.modele.Etudiant;

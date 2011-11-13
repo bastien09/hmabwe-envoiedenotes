@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -154,13 +155,19 @@ public class FenetreMail extends JFrame {
 				aide.setVisible(true);
 			}
 			if(source.equals(valider)) {
-				MailSSL mail = new MailSSL(user, mdp,
-						smtp, Integer.parseInt(port));
-				if(choixNote.getSelectedItem().getClass() == Cours.class) {
-					mail.SendMail(user, etudiants, sujet.getText(),
-							textMail.getText(), (Cours) choixNote.getSelectedItem());
-				} else {
-					//TODO send mail
+				try {
+					MailSSL mail = new MailSSL(user, mdp,
+							smtp, Integer.parseInt(port));
+
+					if(choixNote.getSelectedItem().getClass() == Cours.class) {
+						/*TODO mail.SendMail(user, etudiants, sujet.getText(),
+								textMail.getText(), (Cours) choixNote.getSelectedItem());*/
+						FenetreMail.this.dispose();
+					} else {
+						//TODO send mail
+					}
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(FenetreMail.this,"Envoi de mail impossible, veuillez vérifier vos paramètres.", "Erreur de connexion" , JOptionPane.ERROR_MESSAGE);
 				}
 			}
 
