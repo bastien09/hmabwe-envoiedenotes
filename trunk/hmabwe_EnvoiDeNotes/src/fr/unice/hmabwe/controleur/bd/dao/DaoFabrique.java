@@ -5,6 +5,8 @@ package fr.unice.hmabwe.controleur.bd.dao;
 
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion;
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion.TypePersistance;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoFabrique;
 
 /**
@@ -18,10 +20,6 @@ import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoFabrique;
  *
  */
 public abstract class DaoFabrique {
-
-	public enum TypeFabrique { JDBC, JPA };
-	
-	private static TypeFabrique typeFabrique = null;
 	
 	/**
 	 * cette méthode permet de récupérer un DAO sachant gérer les
@@ -95,14 +93,15 @@ public abstract class DaoFabrique {
 	public abstract Connexion getConnexion();
 	
 	/**
+	 * DEPRECATED on passe par ConfigConnexion maintenant pour set le type de persistance
 	 * cette méthode permet de renseigner la fabrique quel type de persistance
 	 * on compte utiliser. <b>Il est nécessaire d'indiquer à la fabrique quel est le type de persistance utilisé !</b>
 	 * 
 	 * @param tf le type de fabrique qu'on va utiliser
 	 * 
 	 */
-	public static void setTypeDao(TypeFabrique tf) {
-		typeFabrique = tf;
+	public static void setTypeDao(TypePersistance tp) {
+		//typeFabrique = tp;
 	}
 	
 	/**
@@ -114,7 +113,7 @@ public abstract class DaoFabrique {
 	 * 
 	 */
 	public static DaoFabrique getDaoFabrique() {
-		switch(typeFabrique) {
+		switch(ConfigConnexion.getTypePersistance()) {
 			case JDBC:
 				//return new JdbcDaoFabrique();
 			case JPA:
@@ -123,7 +122,5 @@ public abstract class DaoFabrique {
 				return null; // oups...
 		}
 	}
-		
-	public abstract void setProprietes(String serveur, String port, String username, String mdp, String SID);
 	
 }

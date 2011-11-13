@@ -6,6 +6,9 @@ package fr.unice.hmabwe.controleur.bd.dao;
 import java.util.Collection;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion;
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion.TypePersistance;
+import fr.unice.hmabwe.controleur.bd.config.ConnexionException;
 import fr.unice.hmabwe.modele.*;
 
 
@@ -29,7 +32,8 @@ public class TestDao {
 		/* je renseigne la classe DaoFabrique qu'on va utiliser le
 		 * type de persistance JPA
 		 */
-		DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
+		//DaoFabrique.setTypeDao(ConfigConnexion.JPA);
+		//ConfigConnexion.setTypePersistance(TypePersistance.JPA);
 
 		/* je demande une fabrique */
 		DaoFabrique df = DaoFabrique.getDaoFabrique();
@@ -143,7 +147,8 @@ public class TestDao {
 
 	public static void recupererDonnees() {
 		
-		DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
+		//DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
+		//ConfigConnexion.setTypePersistance(TypePersistance.JPA);
 		DaoFabrique df = DaoFabrique.getDaoFabrique();
 		Connexion conn = df.getConnexion();
 		DaoEtudiant daoEtudiant = df.getDaoEtudiant();
@@ -244,9 +249,31 @@ public class TestDao {
 
 
 	public static void main(String[] args) {
-
-		//remplissage();
-		recupererDonnees();
+		
+		//TODO penser à enregistrer le type de persistance quelque part
+		/*
+		 * le type de persistance doit etre enregistré quelque part, comme ca
+		 * au lancement de l'application on aura juste a apeller setTypePersistance(prop.persitance)
+		 * avec prop le fichier de configuration
+		 */
+		
+		ConfigConnexion.setTypePersistance(TypePersistance.JPA);
+		try {
+			/* on demande à la fabrique de configuration une nouvelle configuration */
+			ConfigConnexion configuration = ConfigConnexion.newConfiguration();
+			/* on modifie cette nouvelle configuration */
+			configuration.setProprietes("euterpe.unice.fr", "1521", "M1WOHLERP", "AZERTY", "INFO");
+			//configuration.setProprietes("192.168.1.17", "1521", "paraita", "azerty", "xe");
+			/* et on sauvegarde */
+			configuration.sauvegarder();
+			
+			
+			//remplissage();
+			recupererDonnees();
+		}
+		catch(ConnexionException e) {
+			e.printStackTrace();
+		}
 
 
 	}
