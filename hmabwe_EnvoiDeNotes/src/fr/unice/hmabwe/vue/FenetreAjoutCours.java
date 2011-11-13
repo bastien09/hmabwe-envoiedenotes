@@ -43,25 +43,11 @@ public class FenetreAjoutCours extends FenetreCommune{
 		estNouveauCours = true;
 		daocours = df.getDaoCours();
 		daoenseignant = df.getDaoEnseignant();
-		panelCours = new PanelAjoutCours();
-		l = new EcouteurCours();
+		panelCours = new PanelAjoutCours(df);
+		l = new EcouteurCours(this);
 		
 		boutonOK.addMouseListener(l);
 		boutonAnnuler.addMouseListener(l);
-		
-		
-		try {
-			listeEnseign = daoenseignant.findAll();
-			panelCours.tabEnseignant.addItem(listeEnseign);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		//Remplissage de la comboBox Enseignant
-		panelCours.getComboEnseignant().addItem(listeEnseign);
-		
 		
 		this.setResizable(false);
 		this.container.add(panelCours.getPanelPrincipal(), BorderLayout.NORTH);
@@ -79,8 +65,8 @@ public class FenetreAjoutCours extends FenetreCommune{
 		estNouveauCours = false;
 		daocours = df.getDaoCours();
 		daoenseignant = df.getDaoEnseignant();
-		panelCours = new PanelAjoutCours();
-		l = new EcouteurCours();
+		panelCours = new PanelAjoutCours(df);
+		l = new EcouteurCours(this);
 		
 		boutonOK.addMouseListener(l);
 		boutonAnnuler.addMouseListener(l);
@@ -88,17 +74,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 		panelCours.txtNom.setText(c.getNom());
 		panelCours.tabEnseignant.setSelectedItem(c.getEnseignant());
 		
-		try {
-			listeEnseign = daoenseignant.findAll();
-			panelCours.tabEnseignant.addItem(listeEnseign);
-		} catch (DaoException e) {
-			e.printStackTrace();
-		}
-		
-		//Remplissage de la comboBox Enseignant
-		panelCours.getComboEnseignant().addItem(listeEnseign);
-		
-		
+				
 		this.setResizable(false);
 		this.container.add(panelCours.getPanelPrincipal(), BorderLayout.NORTH);
 		this.setVisible(true);
@@ -109,8 +85,10 @@ public class FenetreAjoutCours extends FenetreCommune{
 	
 	
 	private class EcouteurCours implements MouseListener{
-
-		public EcouteurCours() {
+		public FenetreAjoutCours fac;
+		
+		public EcouteurCours(FenetreAjoutCours fac) {
+			this.fac = fac;
 			// TODO Auto-generated constructor stub
 		}
 
@@ -138,6 +116,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 						if(conn.estOuverte()) {
 							try {
 								conn.fermer();
+								fac.setVisible(false);
 								//TODO Faire disparaitre la fenetre a la fin de la transaction
 							}
 							catch(DaoException e) {
@@ -183,6 +162,8 @@ public class FenetreAjoutCours extends FenetreCommune{
 			else{
 				if(boutonSelected.equals(boutonAnnuler)){
 					//TODO Fermer la fenetre sans rien faire d'autre
+					fac.setVisible(false);
+					
 				}
 			}
 			

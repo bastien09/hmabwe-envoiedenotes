@@ -3,16 +3,21 @@ package fr.unice.hmabwe.vue;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
 import fr.unice.hmabwe.modele.Filiere;
 
 /**
@@ -29,6 +34,8 @@ public class PanelAjoutEleve extends JPanel{
 	
     private JLabel label, label2, label3, label4, label5, label6, labelNumetud;
     
+    private DefaultComboBoxModel comboModel, comboModel2;
+    
     public JScrollPane scrollPane;
     
     public JPanel panel, panelIdentite, panelNom, panelPrenom, panelGroupe, panelEmail, panelFiliere, panelOrigine, top, labels, saisie, lignePanel, panelNumetud;
@@ -39,12 +46,15 @@ public class PanelAjoutEleve extends JPanel{
     
     public DaoFabrique df;
     
-    public JComboBox combo1 = new JComboBox();
+    public DaoFiliere dfili;
+    
+    public JComboBox combo1;
     
 	public PanelAjoutEleve(DaoFabrique df) {
 	
 		this.df = df;
 		
+		dfili = df.getDaoFiliere();
 		
 		panel = new JPanel();
 		lignePanel = new JPanel();
@@ -56,10 +66,11 @@ public class PanelAjoutEleve extends JPanel{
 		for(ObjetLigneInscription objl : listeLigne){
 			lignePanel.add(objl.panelLigne);
 		}
-		listeLigne.add(o1);
+		
 		listeLigne.add(o2);
-		lignePanel.add(o1.panelLigne);
+		listeLigne.add(o1);
 		lignePanel.add(o2.panelLigne);
+		lignePanel.add(o1.panelLigne);
 		
 		
 		scrollPane = new JScrollPane(lignePanel);
@@ -117,9 +128,30 @@ public class PanelAjoutEleve extends JPanel{
 	    panelGroupe.add(label4);
 	    panelGroupe.add(jtf4);
 	    
+	    comboModel = new DefaultComboBoxModel();
+	    comboModel2 = new DefaultComboBoxModel();
+	    
+	    comboModel2.addElement("ALLO");
+	    comboModel2.addElement("BONJOUR");
+	    comboModel2.addElement("CA VA ");
+	    Collection<Filiere> listFili = new ArrayList<Filiere>();
+	    
+	    try {
+			listFili = dfili.findAll();
+			for(Filiere f : listFili){
+				comboModel.addElement(f);
+			}
+			
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    combo1 = new JComboBox(comboModel);
+	    
 	    panelFiliere = new JPanel(new FlowLayout(FlowLayout.LEFT));
 	    panelFiliere.add(label5);
 	    panelFiliere.add(combo1);
+	    
 	    
 		panelIdentite = new JPanel();
 		panelIdentite.setLayout(new BoxLayout(panelIdentite, BoxLayout.Y_AXIS));
@@ -162,7 +194,7 @@ public class PanelAjoutEleve extends JPanel{
 	}
 	
 	public Filiere getFiliere(){
-		return (Filiere) this.combo1.getSelectedItem();
+		return  (Filiere) this.combo1.getSelectedItem();
 	}
 	
 	public String getNumEtudiant(){

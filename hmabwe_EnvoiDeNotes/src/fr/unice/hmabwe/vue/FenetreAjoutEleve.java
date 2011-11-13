@@ -35,7 +35,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
     
     public boolean nouvelEtudiant;
     
-    public EcouteurEtudiant l = new EcouteurEtudiant();
+    public EcouteurEtudiant l;
     
     /**Constructeur permettant d'afficher une fenêtre d'ajout d'un nouvel etudiant
      *@param df DaoFabrique
@@ -49,15 +49,15 @@ public class FenetreAjoutEleve extends FenetreCommune{
 		panelEleve = new PanelAjoutEleve(df);
 	    daoetudiant = df.getDaoEtudiant();
         daofiliere = df.getDaoFiliere();
-        Collection<Filiere> listFili;
+       /* Collection<Filiere> listFili = new ArrayList<Filiere>();
 		try {
 			listFili = daofiliere.findAll();
 			panelEleve.combo1.addItem(listFili);
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-        
+		}*/
+        l = new EcouteurEtudiant(this);
 	    boutonOK.addMouseListener(l);
 	    boutonAnnuler.addMouseListener(l);
 	    
@@ -95,7 +95,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	    	panelEleve.listeLigne.add(ob);
 	    	
 	    }
-	    
+	    l = new EcouteurEtudiant(this);
 	    boutonOK.addMouseListener(l);
 	    boutonAnnuler.addMouseListener(l);
 	    this.setResizable(true);
@@ -104,7 +104,11 @@ public class FenetreAjoutEleve extends FenetreCommune{
         
 	}
 	private class EcouteurEtudiant implements MouseListener{
-
+		public FenetreAjoutEleve fae;
+		
+		public EcouteurEtudiant(FenetreAjoutEleve fae){
+			this.fae = fae;
+		}
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			Object boutSelected = e.getSource();
@@ -117,12 +121,14 @@ public class FenetreAjoutEleve extends FenetreCommune{
 				for(ObjetLigneInscription objl : panelEleve.listeLigne){
 					insc = new Inscription(etu, objl.getCoursSelected(), objl.getAnnee(), objl.getMoyenne());
 					etu.addInscription(insc);
+					System.out.println("Etudiant cree");
 				}
 				if(nouvelEtudiant){
 					try {
 						conn.beginTransaction();
 						daoetudiant.create(etu);
 						conn.commitTransaction();
+						System.out.println("Ouverture de la base et commit de l'etudiant");
 					} 
 					catch (DaoException e1) {
 						
@@ -138,6 +144,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 						if(conn.estOuverte()) {
 							try {
 								conn.fermer();
+								fae.setVisible(false);
 								//TODO Faire disparaitre la fenetre a la fin de la transaction
 							}
 							catch(DaoException eee) {
@@ -168,7 +175,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 							if(conn.estOuverte()) {
 								try {
 									conn.fermer();
-							
+									fae.setVisible(false);
 								}
 								catch(DaoException eee) {
 									eee.printStackTrace();
@@ -181,6 +188,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 			}
 			else{
 				if(boutSelected.equals(boutonAnnuler)){
+					fae.setVisible(false);
 					//Fermer la fenetre
 				}
 			}

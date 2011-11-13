@@ -3,6 +3,7 @@ package fr.unice.hmabwe.vue;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.*;
@@ -31,8 +32,9 @@ public class ObjetLigneInscription{
 	public JPanel panelLigne;
 	private JPanel panelBoutonV, panelBoutonN, panelField;
 	private JButton boutonMoins, boutonPlus, boutonValide;
-
-	public Collection<Cours> listCours;
+	
+	private DefaultComboBoxModel comboModel;
+	public Collection<Cours> listCours = new ArrayList<Cours>();
 	public DaoCours dc;
 	public DaoFabrique df;
 	public PanelAjoutEleve f;
@@ -57,19 +59,22 @@ public class ObjetLigneInscription{
 		nomCours = new JLabel("Cours");
 		annee = new JLabel("Année");
 		note= new JLabel("Note");
-		comboCours = new JComboBox();
+		
 		textAnnee = new JTextField();
 		textNote = new JTextField();
 		this.isNewLine = newline;
 		
+		comboModel = new DefaultComboBoxModel();
 		try {
 			listCours = dc.findAll();
-			comboCours.addItem(listCours);
+			for(Cours c : listCours){
+				comboModel.addElement(c);
+			}
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		comboCours = new JComboBox(comboModel);
 		panelLigne.setLayout(new FlowLayout());
 		
 		comboCours.setMaximumSize(new Dimension(30, 30));
