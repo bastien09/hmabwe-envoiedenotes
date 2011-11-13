@@ -3,6 +3,7 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.HashMap;
@@ -112,7 +113,7 @@ implements DaoEtudiant{
 	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#getMoyenne()
 	 */
 
-	public double getMoyenne(String numEtu) {
+	public double getMoyenne_old(String numEtu) {
 		HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
 		EntityManager em = getEntityManager();
 		Etudiant e = findByNumeroEtudiant(numEtu);
@@ -130,5 +131,44 @@ implements DaoEtudiant{
 			somme_coef += coeffs.get(inscription.getCours().getId());
 		}
 		return somme_notes / somme_coef;
+	}
+	
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#getMoyenne()
+	 */
+
+	public double getMoyenne(String numEtu, int annee) {
+		HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
+		EntityManager em = getEntityManager();
+		Etudiant e = findByNumeroEtudiant(numEtu);
+		Filiere f = e.getFiliere();
+		Query q = em.createQuery("select c from Coefficient c join c.filiere f where f.id = " + f.getId());
+		Collection<Inscription> l_inscr_test = e.getInscriptions();
+		Collection<Inscription> l_inscr = new ArrayList<Inscription>();
+		for(Inscription inscr : l_inscr_test){
+			if(inscr.getAnnee()==annee){
+				l_inscr.add(inscr);
+			}
+		}
+		double somme_notes = 0;
+		int somme_coef = 0;
+		List<Coefficient> l_coeffs = (List<Coefficient>)q.getResultList();
+		for (Coefficient coefficient : l_coeffs) {
+			coeffs.put(coefficient.getCours().getId(), coefficient.getCoefficient());
+		}
+		for (Inscription inscription : l_inscr) {
+			somme_notes += inscription.getMoyenne() * coeffs.get(inscription.getCours().getId());
+			somme_coef += coeffs.get(inscription.getCours().getId());
+		}
+		return somme_notes / somme_coef;
+	}
+
+	@Override
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoEtudiant#getMoyenne()
+	 */
+	public double getMoyenne(String numEtu) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
