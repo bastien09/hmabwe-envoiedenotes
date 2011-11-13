@@ -4,6 +4,7 @@
 package fr.unice.hmabwe.controleur.bd.dao;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion;
@@ -62,12 +63,12 @@ public class TestDao {
 		Filiere filiere2 = new Filiere("M1 Miage", ens2);
 		Coefficient coef1 = new Coefficient(cours1, filiere1, 2);
 		Coefficient coef2 = new Coefficient(cours2, filiere1, 4);
-		Etudiant etu1 = new Etudiant("wp803469", "Wohler", "Paraita", "wp803469@etu.unice.fr", "L3I", filiere1);
-		Etudiant etu2 = new Etudiant("hi1234", "Hassala", "Iliasse", "hassala.iliasse@etu.unice.fr", "L3I", filiere1);
-		Etudiant etu3 = new Etudiant("ba1234", "Auda", "Bastien", "bastien26990@yahoo.fr", "L3I", filiere1);
-		Etudiant etu4 = new Etudiant("mm1234", "M'rah", "Mehdi", "m-rah-mehdi@etu.unice.fr", "L3I", filiere1);
-		Etudiant etu5 = new Etudiant("es1234", "Engilberge", "Swan", "engilberge-swan@etu.unice.fr", "L3I", filiere1);
-		Etudiant etu6 = new Etudiant("nc1234", "Nuon", "Channdarong", "nuonchanndarong@gmail.com", "???", filiere1);
+		Etudiant etu1 = new Etudiant("wp803469", "Wohler", "Paraita", "wp803469@etu.unice.fr", "L3I", filiere1, "1");
+		Etudiant etu2 = new Etudiant("hi1234", "Hassala", "Iliasse", "hassala.iliasse@etu.unice.fr", "L3I", filiere1, "1");
+		Etudiant etu3 = new Etudiant("ba1234", "Auda", "Bastien", "bastien26990@yahoo.fr", "L3I", filiere1, "Magenta");
+		Etudiant etu4 = new Etudiant("mm1234", "M'rah", "Mehdi", "m-rah-mehdi@etu.unice.fr", "L3I", filiere1, "Magenta");
+		Etudiant etu5 = new Etudiant("es1234", "Engilberge", "Swan", "engilberge-swan@etu.unice.fr", "L3I", filiere1, "2");
+		Etudiant etu6 = new Etudiant("nc1234", "Nuon", "Channdarong", "nuonchanndarong@gmail.com", "???", filiere1, "2");
 		Inscription inscr1 = new Inscription(etu1, cours1, 2010);
 		Inscription inscr2 = new Inscription(etu1, cours2, 2010);
 		Inscription inscr3 = new Inscription(etu2, cours1, 2010);
@@ -223,6 +224,9 @@ public class TestDao {
 			System.out.println("moyenne de la filiere info = " + daoFiliere.getMoyenne(daoFiliere.findById(5)));
 			
 			System.out.println("moyenne de Paraita en POO =" + daoEtudiant.inscriptionEtu("wp803469", "POO", 2010).getMoyenne());
+			
+			HashMap<String, Double> moy_groupes = daoFiliere.getMoyenneParGroupe(daoFiliere.findById(5));
+			System.out.println(moy_groupes);
 			
 			conn.commitTransaction();
 		}

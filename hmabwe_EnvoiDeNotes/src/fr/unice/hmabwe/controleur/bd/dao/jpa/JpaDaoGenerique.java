@@ -14,7 +14,6 @@ import javax.persistence.Query;
 import javax.persistence.TransactionRequiredException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoGenerique;
-import fr.unice.hmabwe.modele.*;
 
 /**
  * @author Paraita Wohler

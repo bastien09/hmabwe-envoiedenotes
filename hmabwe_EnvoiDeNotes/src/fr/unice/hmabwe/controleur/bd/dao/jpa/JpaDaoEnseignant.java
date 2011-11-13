@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoEnseignant;
-import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Enseignant;
 
 /**

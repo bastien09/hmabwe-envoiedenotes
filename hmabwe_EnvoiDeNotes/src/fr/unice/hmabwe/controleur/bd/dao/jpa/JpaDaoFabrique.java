@@ -7,12 +7,6 @@ import javax.persistence.Persistence;
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.JpaConnexion;
 import fr.unice.hmabwe.controleur.bd.dao.*;
-import fr.unice.hmabwe.modele.Coefficient;
-import fr.unice.hmabwe.modele.Cours;
-import fr.unice.hmabwe.modele.Enseignant;
-import fr.unice.hmabwe.modele.Etudiant;
-import fr.unice.hmabwe.modele.Filiere;
-import fr.unice.hmabwe.modele.Inscription;
 
 /**
  * @author Paraita Wohler

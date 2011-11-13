@@ -6,14 +6,10 @@ package fr.unice.hmabwe.controleur.bd.dao.jpa;
 import java.util.Collection;
 import java.util.List;
 import java.util.HashMap;
-
-import javax.persistence.Embeddable;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.modele.Coefficient;
-import fr.unice.hmabwe.modele.Cours;
-import fr.unice.hmabwe.modele.Enseignant;
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Filiere;
 import fr.unice.hmabwe.modele.Inscription;
@@ -121,11 +117,11 @@ implements DaoEtudiant{
 		EntityManager em = getEntityManager();
 		Etudiant e = findByNumeroEtudiant(numEtu);
 		Filiere f = e.getFiliere();
-		Query q = em.createQuery("select c from Coefficient c where c.filiere = " + f);
+		Query q = em.createQuery("select c from Coefficient c join c.filiere f where f.id = " + f.getId());
 		Collection<Inscription> l_inscr = e.getInscriptions();
 		double somme_notes = 0;
 		int somme_coef = 0;
-		List<Coefficient> l_coeffs = q.getResultList();
+		List<Coefficient> l_coeffs = (List<Coefficient>)q.getResultList();
 		for (Coefficient coefficient : l_coeffs) {
 			coeffs.put(coefficient.getCours().getId(), coefficient.getCoefficient());
 		}
