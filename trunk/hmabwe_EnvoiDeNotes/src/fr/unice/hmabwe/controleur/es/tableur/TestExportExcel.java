@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion;
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion.TypePersistance;
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
@@ -29,7 +31,7 @@ public class TestExportExcel {
 
 		int annee = 2010;
 		
-		DaoFabrique.setTypeDao(DaoFabrique.TypeFabrique.JPA);
+		ConfigConnexion.setTypePersistance(TypePersistance.JPA);
 		DaoFabrique df = DaoFabrique.getDaoFabrique();
 		Connexion conn = df.getConnexion();
 		
