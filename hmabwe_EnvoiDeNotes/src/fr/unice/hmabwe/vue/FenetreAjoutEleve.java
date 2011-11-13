@@ -86,15 +86,28 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	    panelEleve.jtf3.setText(e.getMail());
 	    panelEleve.jtf4.setText((e.getGroupe()));
 	    panelEleve.jtf5.setText(e.getOrigine());
+	    
 	    panelEleve.jtfNumetud.setText(e.getNumEtu());
+	    panelEleve.lignePanel.remove(0);
+	    panelEleve.lignePanel.remove(0);
+	    panelEleve.listeLigne.remove(0);
+	    panelEleve.listeLigne.remove(0);
 	    for(Inscription i : e.getInscriptions()){
-	    	ObjetLigneInscription ob = new ObjetLigneInscription(); // Un constructeur eut été préférable
+	    	ObjetLigneInscription ob = new ObjetLigneInscription(false, panelEleve, df); // Un constructeur eut été préférable
 	    	ob.textAnnee.setText(String.valueOf(i.getAnnee()));
 	    	ob.textNote.setText(String.valueOf(i.getMoyenne()));
 	    	ob.comboCours.setSelectedItem(i.getCours());
 	    	panelEleve.listeLigne.add(ob);
+	    	panelEleve.lignePanel.add(ob.panelLigne);
 	    	
 	    }
+		ObjetLigneInscription o1 = new ObjetLigneInscription(true, panelEleve, df);
+		ObjetLigneInscription o2 = new ObjetLigneInscription(false, panelEleve, df);
+		panelEleve.listeLigne.add(o2);
+		panelEleve.listeLigne.add(o1);
+		panelEleve.lignePanel.add(o2.panelLigne);
+		panelEleve.lignePanel.add(o1.panelLigne);
+		
 	    l = new EcouteurEtudiant(this);
 	    boutonOK.addMouseListener(l);
 	    boutonAnnuler.addMouseListener(l);
