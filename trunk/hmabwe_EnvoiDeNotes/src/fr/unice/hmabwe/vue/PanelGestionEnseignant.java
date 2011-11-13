@@ -6,9 +6,12 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,7 +22,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
 
+import fr.unice.hmabwe.controleur.bd.dao.DaoCours;
+import fr.unice.hmabwe.controleur.bd.dao.DaoEnseignant;
+import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Enseignant;
 import fr.unice.hmabwe.modele.Filiere;
@@ -45,15 +52,50 @@ public class PanelGestionEnseignant extends JPanel {
 	public JTextField txtNom, txtPrenom, txtEmail;
 	public JList listEnseignant, listFiliere, listCours;
 	
+	public DefaultListModel listModelCours, listModelEnseignant, listModelFili;
+	private DaoFabrique df;
+	private DaoEnseignant de;
+	private DaoCours dc;
+	private DaoFiliere dfili;
 	
+	private Collection<Enseignant> listEnse = new ArrayList<Enseignant>();
+	private Collection<Cours> listC = new ArrayList<Cours>();
+	private Collection<Filiere> listF = new ArrayList<Filiere>();
 	
-	public PanelGestionEnseignant() {
+	public PanelGestionEnseignant(DaoFabrique df) {
 		
+		this.df = df;
 		// A effacer plus tard
 		Object[] tabEnse = {"Patrick", "Louis", "Yves"};
 		Object[] tabCours = {"Math", "Anglais", "Latin"};
 		Object[] tabFili = {"L2I", "M1MASS", "Bio"};
 		//
+		de = df.getDaoEnseignant();
+		dc = df.getDaoCours();
+		dfili = df.getDaoFiliere();
+		
+		listModelCours = new DefaultListModel();
+		listModelEnseignant = new DefaultListModel();
+		listModelFili = new DefaultListModel();
+		
+		try {
+			listEnse = de.findAll();
+			listC = dc.findAll();
+			listF = dfili.findAll();
+			for(Enseignant e : listEnse){
+				listModelEnseignant.addElement(e);
+			}
+			for(Cours c : listC){
+				listModelCours.addElement(c);
+			}
+			for(Filiere f : listF){
+				listModelFili.addElement(f);
+			}
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		nom = new JLabel("Nom : ");
 		prenom = new JLabel("Prenom : ");
 		email = new JLabel("E-mail : ");
@@ -87,7 +129,7 @@ public class PanelGestionEnseignant extends JPanel {
 		panelIdentite.add(panelPrenom);
 		panelIdentite.add(panelEmail);
 		
-		listEnseignant = new JList(tabEnse);
+		listEnseignant = new JList(listModelEnseignant);
 		listEnseignant.setFixedCellWidth(100);
 		panscrollEnseig = new JScrollPane(listEnseignant, panscrollEnseig.VERTICAL_SCROLLBAR_AS_NEEDED, panscrollEnseig.HORIZONTAL_SCROLLBAR_NEVER );
 		
@@ -112,7 +154,7 @@ public class PanelGestionEnseignant extends JPanel {
 		panelBouton1.add(bModif1);
 		
 	
-		listFiliere = new JList(tabFili);
+		listFiliere = new JList(listModelFili);
 		panelFiliere = new JPanel(new BorderLayout());
 		panelFiliere.setBorder(BorderFactory.createTitledBorder("Filière"));
 		panscrollFili = new JScrollPane(listFiliere,panscrollCours.VERTICAL_SCROLLBAR_AS_NEEDED, panscrollCours.HORIZONTAL_SCROLLBAR_NEVER );
@@ -128,8 +170,7 @@ public class PanelGestionEnseignant extends JPanel {
 		panelBouton2.add(bModif2);
 		
 		
-		listCours = new JList(tabCours);
-		
+		listCours = new JList(listModelCours);
 		panscrollCours = new JScrollPane(listCours,panscrollCours.VERTICAL_SCROLLBAR_AS_NEEDED, panscrollCours.HORIZONTAL_SCROLLBAR_NEVER );
 		panelCours = new JPanel(new BorderLayout());
 		panelCours.setBorder(BorderFactory.createTitledBorder("Cours"));
