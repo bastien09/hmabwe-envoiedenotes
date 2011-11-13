@@ -164,6 +164,8 @@ public class FenetrePreferences extends JFrame {
 		props.setProperty("muser", muser.getText());
 		props.setProperty("mmdp", new String( mmdp.getPassword()));
 		
+		props.setProperty("type_persistance", "jpa");
+		
 		try {
 			FileOutputStream file = new FileOutputStream("hmabwe-properties");
 			props.store(file,"");
