@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
+import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Inscription;
@@ -65,7 +66,12 @@ public class PanelStatistiqueEtudiant extends JPanel{
 		
 		annee = new JLabel("Année :");
 		moyenne = new JLabel("Moyenne :");
-		noteMoyenne = new JLabel(String.valueOf(de.getMoyenne(e.getNumEtu())));
+		try {
+			noteMoyenne = new JLabel(String.valueOf(de.getMoyenne(e.getNumEtu(), 2010)));
+		}
+		catch(DaoException ex) {
+			ex.printStackTrace();
+		}
 		comboAnnee = new JComboBox(comboModel);
 		
 		
