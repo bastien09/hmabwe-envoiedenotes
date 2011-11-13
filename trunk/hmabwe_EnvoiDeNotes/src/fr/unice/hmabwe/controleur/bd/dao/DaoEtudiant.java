@@ -3,9 +3,7 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao;
 
-import java.util.HashMap;
 import java.util.List;
-
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Inscription;
 
@@ -38,18 +36,11 @@ public interface DaoEtudiant extends DaoGenerique<Etudiant, Integer> {
 	 */
 	public Etudiant findByNumeroEtudiant(String numEtu);
 	
+	//TODO javadoc
 	public List<Etudiant> getEtudiantByName(String nom);
 	
+	//TODO javadoc
 	public List<Etudiant> getEtudiantByName(String nom, String prenom);
-	
-	/**
-	 * calcule la moyenne d'un étudiant suivant son numéro d'étudiant
-	 * 
-	 * @param numEtu le numéro d'étudiant
-	 * @return la moyenne de l'étudiant
-	 * 
-	 */
-	public double getMoyenne(String numEtu);
 	
 	
 	/**

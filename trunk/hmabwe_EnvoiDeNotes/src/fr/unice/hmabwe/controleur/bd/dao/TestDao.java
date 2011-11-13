@@ -221,7 +221,7 @@ public class TestDao {
 
 			System.out.println("recherche prof par nom: \n " + daoEnseignant.getEnseignantsByName("Grin"));
 
-			System.out.println("moyenne de la filiere info = " + daoFiliere.getMoyenne(daoFiliere.findById(5)));
+			System.out.println("moyenne de la filiere info = " + daoFiliere.getMoyenne(daoFiliere.findById(5), 2010));
 			
 			System.out.println("moyenne de Paraita en POO =" + daoEtudiant.inscriptionEtu("wp803469", "POO", 2010).getMoyenne());
 			
@@ -266,8 +266,8 @@ public class TestDao {
 			/* on demande à la fabrique de configuration une nouvelle configuration */
 			ConfigConnexion configuration = ConfigConnexion.newConfiguration();
 			/* on modifie cette nouvelle configuration */
-			configuration.setProprietes("euterpe.unice.fr", "1521", "M1WOHLERP", "AZERTY", "INFO");
-			//configuration.setProprietes("192.168.1.17", "1521", "paraita", "azerty", "xe");
+			//configuration.setProprietes("euterpe.unice.fr", "1521", "M1WOHLERP", "AZERTY", "INFO");
+			configuration.setProprietes("192.168.1.17", "1521", "paraita", "azerty", "xe");
 			/* et on sauvegarde */
 			configuration.sauvegarder();
 			
