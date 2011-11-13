@@ -8,7 +8,16 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import fr.unice.hmabwe.controleur.bd.Connexion;
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion;
+import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion.TypePersistance;
+import fr.unice.hmabwe.controleur.bd.dao.DaoCoefficient;
+import fr.unice.hmabwe.controleur.bd.dao.DaoCours;
+import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
+import fr.unice.hmabwe.controleur.bd.dao.DaoInscription;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoCoefficient;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoCours;
 import fr.unice.hmabwe.controleur.bd.dao.jpa.JpaDaoEtudiant;
@@ -83,7 +92,8 @@ public class ImportExcel {
 			System.out.println(c_numEtu + c_nom + c_prenom + c_mail + c_moyenne
 					+ c_filiere);
 			if (c_numEtu == -1 || c_nom == -1 || c_prenom == -1 || c_mail == -1
-					|| c_filiere == -1 || c_annee == -1 || c_cours == -1)
+					|| c_origine == -1 || c_moyenne == -1 || c_filiere == -1
+					|| c_annee == -1 || c_cours == -1)
 				return null;
 
 			Cell[] numsEtu = sheet.getColumn(c_numEtu);
@@ -102,10 +112,15 @@ public class ImportExcel {
 			Coefficient coef;
 			Inscription inscription;
 			int an = Integer.parseInt(annee[0].getContents());
+			
+			ConfigConnexion.setTypePersistance(TypePersistance.JPA);
+			DaoFabrique df = DaoFabrique.getDaoFabrique();
+			Connexion conn = df.getConnexion();
 
 			for (int i = 1; i < (numsEtu.length >= noms.length ? noms.length
 					: numsEtu.length); i++) {
 				try {
+					conn.beginTransaction();
 					// String moyenne = moyennes[i].getContents();
 					Double moyenne = (double) Integer.parseInt(moyennes[i]
 							.getContents());
@@ -125,85 +140,83 @@ public class ImportExcel {
 								Integer.parseInt(annee[i].getContents()),
 								moyenne);
 					}
-					
-					JpaDaoEtudiant jpaEtudiant = new JpaDaoEtudiant();
-					JpaDaoCours jpaCours = new JpaDaoCours();
-					JpaDaoFiliere jpaFiliere = new JpaDaoFiliere();
-					JpaDaoCoefficient jpaCoef = new JpaDaoCoefficient();
-					JpaDaoInscription jpaInscr = new JpaDaoInscription();
-					
-					boolean testCoef=false;
-					boolean testEtu=false;
-					
-					try{
-						jpaEtudiant.create(e);
-					}
-					catch(DaoException daexep){
+
+					DaoEtudiant etu = df.getDaoEtudiant();
+					DaoCours course = df.getDaoCours();
+					DaoFiliere filiere = df.getDaoFiliere();
+					DaoCoefficient coefficient = df.getDaoCoefficient();
+					DaoInscription incription = df.getDaoInscription();
+
+					boolean testCoef = false;
+					boolean testEtu = false;
+
+					try {
+						etu.create(e);
+					} catch (DaoException daexep) {
 						try {
-							jpaEtudiant.update(e);
-							testEtu =true;
+							etu.update(e);
+							testEtu = true;
 						} catch (DaoException e1) {
 							e1.printStackTrace();
 						}
 					}
-					
-					try{
-						jpaCours.create(c);
-						
-					}
-					catch(DaoException daexep){
+
+					try {
+						course.create(c);
+
+					} catch (DaoException daexep) {
 						testCoef = true;
 					}
-					
-					try{
-						jpaFiliere.create(f);
+
+					try {
+						filiere.create(f);
 						testCoef = false;
-						
-					}
-					catch(DaoException daexep){
+
+					} catch (DaoException daexep) {
 						testCoef = true;
 					}
-					
-					if(testCoef == false){
-						try{
-							jpaCoef.create(coef);
-							
-						}
-						catch(DaoException daexep){
+
+					if (testCoef == false) {
+						try {
+							coefficient.create(coef);
+
+						} catch (DaoException daexep) {
 							daexep.printStackTrace();
 						}
 					}
-					
-					if(testEtu == false){
-						try{
-							jpaInscr.create(inscription);
-							
-						}
-						catch(DaoException daexep){
+
+					if (testEtu == false) {
+						try {
+							incription.create(inscription);
+
+						} catch (DaoException daexep) {
 							daexep.printStackTrace();
 						}
-					}
-					else {
-						if(jpaEtudiant.etaitInscrit(numEtu, cours.toString(),an)){
+					} else {
+						if (etu.etaitInscrit(numEtu, cours.toString(),
+								an)) {
 							try {
-								jpaInscr.update(inscription);
+								incription.update(inscription);
+							} catch (DaoException e1) {
+								e1.printStackTrace();
+							}
+						} else {
+							try {
+								incription.create(inscription);
 							} catch (DaoException e1) {
 								e1.printStackTrace();
 							}
 						}
-						else{
-							try {
-								jpaInscr.create(inscription);
-							} catch (DaoException e1) {
-								e1.printStackTrace();
-							}
-						}
-						
+
 					}
-					
+
 					moyennesEtudiants.put(e, moyenne);
+					
+					conn.commitTransaction();
 				} catch (NumberFormatException nfe) {
 					nfe.printStackTrace();
+				} catch (DaoException e1) {
+					e1.printStackTrace();
 				}
 			}
 		} catch (BiffException e) {
