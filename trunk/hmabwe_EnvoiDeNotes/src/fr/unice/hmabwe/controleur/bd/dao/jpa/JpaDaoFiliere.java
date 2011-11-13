@@ -1,5 +1,6 @@
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +40,7 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 	/**
 	 * @see fr.unice.hmabwe.controleur.dao.DaoFiliere#getMoyenne()
 	 */
-	public double getMoyenne(Filiere filiere) {
+	public double getMoyenne_old(Filiere filiere) {
 		Collection<Etudiant> listeEtudiant = getEtudiantsInscrits(filiere);
 		double somme = 0;
 		for (Etudiant etudiant : listeEtudiant) {
@@ -49,6 +50,42 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 			Query q = em.createQuery("select c from Coefficient c where c.filiere = :id");
 			Collection<Inscription> l_inscr = etudiant.getInscriptions();
 			q.setParameter("id", filiere);
+			double somme_notes = 0;
+			double somme_coef = 1;
+			List<Coefficient> l_coeffs = (List<Coefficient>)q.getResultList();
+			for (Coefficient coefficient : l_coeffs) {
+				coeffs.put(coefficient.getCours().getId(), coefficient.getCoefficient());
+			}
+			for (Inscription inscription : l_inscr) {
+				somme_notes += inscription.getMoyenne() * coeffs.get(inscription.getCours().getId());
+				somme_coef += coeffs.get(inscription.getCours().getId());
+			}
+			moyenne_totale_etu = (somme_notes / somme_coef);
+			somme += moyenne_totale_etu;
+		}
+		return somme / listeEtudiant.size();
+		
+	}
+	
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoFiliere#getMoyenne()
+	 */
+	public double getMoyenne(Filiere filiere, int annee) {
+		Collection<Etudiant> listeEtudiant = getEtudiantsInscrits(filiere);
+		double somme = 0;
+		for (Etudiant etudiant : listeEtudiant) {
+			double moyenne_totale_etu = 0;
+			HashMap<Integer, Integer> coeffs = new HashMap<Integer, Integer>();
+			EntityManager em = getEntityManager();
+			Query q = em.createQuery("select c from Coefficient c where c.filiere = :id");
+			q.setParameter("id", filiere);
+			Collection<Inscription> l_inscr_test = etudiant.getInscriptions();
+			Collection<Inscription> l_inscr = new ArrayList<Inscription>();
+			for(Inscription inscr : l_inscr_test){
+				if(inscr.getAnnee()==annee){
+					l_inscr.add(inscr);
+				}
+			}
 			double somme_notes = 0;
 			double somme_coef = 1;
 			List<Coefficient> l_coeffs = (List<Coefficient>)q.getResultList();
@@ -98,6 +135,16 @@ public class JpaDaoFiliere extends JpaDaoGenerique<Filiere, Integer>
 			nb_etu_dans_groupe = 0;
 		}
 		return resultat;
+	}
+
+
+	@Override
+	/**
+	 * @see fr.unice.hmabwe.controleur.dao.DaoFiliere#getMoyenne()
+	 */
+	public double getMoyenne(Filiere filiere) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 

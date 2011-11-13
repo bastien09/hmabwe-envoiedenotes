@@ -51,4 +51,14 @@ public interface DaoEtudiant extends DaoGenerique<Etudiant, Integer> {
 	 */
 	public double getMoyenne(String numEtu);
 	
+	
+	/**
+	 * calcule la moyenne d'un étudiant suivant son numéro d'étudiant pour une annee donnee
+	 * 
+	 * @param numEtu le numéro d'étudiant
+	 * @param annee l'annee en question
+	 * @return la moyenne de l'étudiant
+	 * 
+	 */
+	public double getMoyenne(String numEtu, int annee);
 }
