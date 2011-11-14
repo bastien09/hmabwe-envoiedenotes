@@ -22,7 +22,7 @@ public class Main {
 		DaoFabrique df = DaoFabrique.getDaoFabrique();
 		de = df.getDaoEtudiant();
 		//Etudiant e = new Etudiant("mm258963", "Alban", "Michel", "allo@msn.com");
-		Etudiant e = de.findByNumeroEtudiant("wp803469");
+		Etudiant e = de.findByNumeroEtudiant("mm1234");
 		//FenetreAjoutEleve fenetre6 = new FenetreAjoutEleve(df, e);
 		//FenetreAjoutEleve fenetre = new FenetreAjoutEleve(df);
 		//FenetreAjoutFiliere fenetre1 = new FenetreAjoutFiliere(df);
