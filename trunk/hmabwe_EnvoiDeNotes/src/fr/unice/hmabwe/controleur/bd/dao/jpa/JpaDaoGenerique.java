@@ -37,8 +37,9 @@ public class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique
 	 */
 	public void create(T objet) throws DaoException {
 		try {
-			if(em != null && em.isOpen())
+			if(em != null && em.isOpen()) {
 				em.persist(objet);
+			}
 			else
 				throw new DaoException("probleme interne au DAO", 5);
 		}
@@ -61,8 +62,10 @@ public class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique
 	 */
 	public void update(T objet) throws DaoException {
 		try {
-			if(em != null && em.isOpen())
+			if(em != null && em.isOpen()) {
 				em.merge(objet);
+				em.refresh(objet);
+			}
 			else
 				throw new DaoException("probleme interne au DAO", 5);
 		}
@@ -79,8 +82,10 @@ public class JpaDaoGenerique<T, ID extends Serializable> implements DaoGenerique
 	 */
 	public void delete(T objet) throws DaoException {
 		try {
-			if(em != null && em.isOpen())
+			if(em != null && em.isOpen()) {
 				em.remove(objet);
+				em.flush();
+			}
 			else
 				throw new DaoException("probleme interne au DAO", 5);
 		}

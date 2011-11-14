@@ -22,7 +22,7 @@ import fr.unice.hmabwe.modele.*;
 public class TestDao {
 
 	//TODO changer toutes les requetes en requetes nommées
-	//TODO pouvoir rendre persistant une configuration (modifier persistence.xml en fait)
+	//TODO rajouter un refresh dans les méthodes CRUD sinon le cache n'est plus en synchro avec la BDD
 	
 	/**
 	 * @param args

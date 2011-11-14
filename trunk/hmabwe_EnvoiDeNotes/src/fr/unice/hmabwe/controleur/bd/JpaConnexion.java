@@ -37,6 +37,7 @@ public class JpaConnexion implements Connexion {
 	@Override
 	public void ouvrir() throws DaoException {
 		/* conceptuellement nécessaire mais l'ouverture est implicite avec JPA */
+		//TODO je devrais creer une transaction ici 
 	}
 
 	/**
@@ -47,7 +48,7 @@ public class JpaConnexion implements Connexion {
 		tx = null;
 		if(em != null) {
 			em.close();
-			em = null;
+			em = null; //TODO je devrais juste fermer la transaction, pas l'entitymanager
 		}
 	}
 
