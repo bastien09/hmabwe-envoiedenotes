@@ -14,6 +14,7 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
+import fr.unice.hmabwe.controleur.bd.dao.DaoInscription;
 import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Filiere;
 import fr.unice.hmabwe.modele.Inscription;
@@ -33,6 +34,8 @@ public class FenetreAjoutEleve extends FenetreCommune{
     
     private DaoFiliere daofiliere;
     
+    private DaoInscription daoinscription;
+    
     public boolean nouvelEtudiant;
     
     public EcouteurEtudiant l;
@@ -48,6 +51,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 		
 		panelEleve = new PanelAjoutEleve(df);
 	    daoetudiant = df.getDaoEtudiant();
+	    daoinscription = df.getDaoInscription();
         daofiliere = df.getDaoFiliere();
        /* Collection<Filiere> listFili = new ArrayList<Filiere>();
 		try {
@@ -129,17 +133,22 @@ public class FenetreAjoutEleve extends FenetreCommune{
 			if(boutSelected.equals(boutonOK)){ //Si on click sur le bouton OK
 				Etudiant etu = new Etudiant(panelEleve.getNumEtudiant(), panelEleve.getNom(), panelEleve.getPrenom(), panelEleve.getEmail(), panelEleve.getOrigine(),panelEleve.getFiliere() , panelEleve.getOrigine());
 				Inscription insc;
+				Collection<Inscription> listInscr = new ArrayList<Inscription>();
 				// On recupere toutes les inscriptions de l'etudiants et on les ajoute à etu
 				
 				for(ObjetLigneInscription objl : panelEleve.listeLigne){
 					insc = new Inscription(etu, objl.getCoursSelected(), objl.getAnnee(), objl.getMoyenne());
-					etu.addInscription(insc);
+					//etu.addInscription(insc);
+					listInscr.add(insc);
 					System.out.println("Etudiant cree");
 				}
 				if(nouvelEtudiant){
 					try {
 						conn.beginTransaction();
 						daoetudiant.create(etu);
+						for(Inscription i : listInscr){
+							daoinscription.create(i);
+						}
 						conn.commitTransaction();
 						System.out.println("Ouverture de la base et commit de l'etudiant");
 					} 
