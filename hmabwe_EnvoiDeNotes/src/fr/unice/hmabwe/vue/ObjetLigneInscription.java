@@ -22,7 +22,7 @@ import fr.unice.hmabwe.modele.Cours;
  *
  */
 
-public class ObjetLigneInscription{
+public class ObjetLigneInscription extends JPanel{
 	private JLabel nomCours;
 	private JLabel annee;
 	private JLabel note;
@@ -41,16 +41,17 @@ public class ObjetLigneInscription{
 	public EcouteurObjetLigne l;
 	private boolean isNewLine;
 	public int numLigne;
-	
+	public FenetreAjoutEleve fae;
 	public ObjetLigneInscription(){
 		
 	}
-	public ObjetLigneInscription(boolean newline, PanelAjoutEleve f, DaoFabrique df){
+	public ObjetLigneInscription(boolean newline, PanelAjoutEleve f, DaoFabrique df, FenetreAjoutEleve fae){
 		// TODO Gestion d'ajout de ligne 
 		// TODO Ajout d'un bonton a la suite de la ligne pour valider ligne et ajouter une autre ligne
+		this.fae = fae;
 		this.df = df;
 		dc = this.df.getDaoCours();
-		l = new EcouteurObjetLigne();
+		l = new EcouteurObjetLigne(this);
 		this.f = f;
 		
 		
@@ -94,6 +95,7 @@ public class ObjetLigneInscription{
 		boutonMoins = new JButton((new ImageIcon(this.getClass().getResource("/resource/minus-circle.png"))));
 		boutonPlus =  new JButton((new ImageIcon(this.getClass().getResource("/resource/plus.png"))));
 		this.boutonPlus.addMouseListener(l);
+		this.boutonMoins.addMouseListener(l);
 		boutonValide =  new JButton((new ImageIcon(this.getClass().getResource("/resource/tick-circle.png"))));
 		
 		panelBoutonV = new JPanel(new FlowLayout());
@@ -137,9 +139,16 @@ public class ObjetLigneInscription{
 		return Double.parseDouble(this.textNote.getText());
 	}
 	
+	public void supprimeLigneInscription(ObjetLigneInscription obj1){
+		this.f.lignePanel.remove(obj1.panelLigne);
+		this.f.listeLigne.remove(obj1);
+		this.f.lignePanel.validate();
+		this.f.validate();
+		
+	}
 	public void ajoutLigneInscription(){
-    	ObjetLigneInscription o1 = new ObjetLigneInscription(false, this.f, df);
-    	ObjetLigneInscription o = new ObjetLigneInscription(true, this.f, df);
+    	ObjetLigneInscription o1 = new ObjetLigneInscription(false, this.f, df, fae);
+    	ObjetLigneInscription o = new ObjetLigneInscription(true, this.f, df, fae);
     	this.f.listeLigne.remove(this.f.listeLigne.size() - 1);
     	this.f.lignePanel.remove(this.panelLigne);
     	this.f.listeLigne.add(o1);
@@ -155,7 +164,11 @@ public class ObjetLigneInscription{
     	this.f.nbLigneInscription++;
     }
 	 class EcouteurObjetLigne implements MouseListener{
-			
+		 public FenetreAjoutEleve fae;
+		 public ObjetLigneInscription ob;
+		 public EcouteurObjetLigne(ObjetLigneInscription ob){
+				this.ob = ob;
+		 }
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Object boutSelected = arg0.getSource();
@@ -163,6 +176,13 @@ public class ObjetLigneInscription{
 					ajoutLigneInscription();
 					
 				}
+				else{
+					if(boutSelected.equals(boutonMoins)){
+						supprimeLigneInscription(ob);
+					}
+				}
+				
+				
 				
 			}
 
