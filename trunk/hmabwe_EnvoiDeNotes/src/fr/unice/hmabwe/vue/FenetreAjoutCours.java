@@ -102,6 +102,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 						conn.beginTransaction();
 						daocours.create(c);
 						conn.commitTransaction();
+						fac.setVisible(false);
 					} catch (DaoException e) {
 						
 						try {
@@ -112,18 +113,6 @@ public class FenetreAjoutCours extends FenetreCommune{
 						}
 						e.printStackTrace();
 					}
-					finally {
-						if(conn.estOuverte()) {
-							try {
-								conn.fermer();
-								fac.setVisible(false);
-								//TODO Faire disparaitre la fenetre a la fin de la transaction
-							}
-							catch(DaoException e) {
-								e.printStackTrace();
-							}
-						}
-					}
 				}//Fin si nouveau Cours
 				
 				else{
@@ -133,6 +122,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 							conn.beginTransaction();
 							daocours.update(c);
 							conn.commitTransaction();
+							fac.setVisible(false);
 						} catch (DaoException e) {
 							
 							try {
@@ -142,17 +132,6 @@ public class FenetreAjoutCours extends FenetreCommune{
 								e1.printStackTrace();
 							}
 							e.printStackTrace();
-						}
-						finally {
-							if(conn.estOuverte()) {
-								try {
-									conn.fermer();
-									//TODO Faire disparaitre la fenetre a la fin de la transaction
-								}
-								catch(DaoException e) {
-									e.printStackTrace();
-								}
-							}
 						}
 						
 					}

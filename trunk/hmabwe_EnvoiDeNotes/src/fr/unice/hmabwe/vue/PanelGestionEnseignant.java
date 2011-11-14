@@ -21,6 +21,8 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextField;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import fr.unice.hmabwe.controleur.bd.dao.DaoCours;
 import fr.unice.hmabwe.controleur.bd.dao.DaoEnseignant;
@@ -48,11 +50,14 @@ public class PanelGestionEnseignant extends JPanel {
 	private JScrollBar essaiScroll = new JScrollBar();
 	public JButton bAjout1, bAjout2, bSuppress1, bSuppress2, bModif1, bModif2,bModifEns, bPlus, bMoins;
 	
+	public ListEcouteur l = new ListEcouteur();
 	private JLabel nom, prenom, email, filiere, cours;
 	public JTextField txtNom, txtPrenom, txtEmail;
 	public JList listEnseignant, listFiliere, listCours;
 	
-	public DefaultListModel listModelCours, listModelEnseignant, listModelFili;
+	public DefaultListModel listModelCours = new DefaultListModel();
+	public DefaultListModel listModelFili = new DefaultListModel();
+	public DefaultListModel listModelEnseignant;
 	private DaoFabrique df;
 	private DaoEnseignant de;
 	private DaoCours dc;
@@ -71,26 +76,26 @@ public class PanelGestionEnseignant extends JPanel {
 		Object[] tabFili = {"L2I", "M1MASS", "Bio"};
 		//
 		de = df.getDaoEnseignant();
-		dc = df.getDaoCours();
-		dfili = df.getDaoFiliere();
+		//dc = df.getDaoCours();
+		//dfili = df.getDaoFiliere();
 		
-		listModelCours = new DefaultListModel();
+		
 		listModelEnseignant = new DefaultListModel();
-		listModelFili = new DefaultListModel();
+		//listModelFili = new DefaultListModel();
 		
 		try {
 			listEnse = de.findAll();
-			listC = dc.findAll();
-			listF = dfili.findAll();
+			//listC = dc.findAll();
+			//listF = dfili.findAll();
 			for(Enseignant e : listEnse){
 				listModelEnseignant.addElement(e);
 			}
-			for(Cours c : listC){
+			/*for(Cours c : listC){
 				listModelCours.addElement(c);
 			}
 			for(Filiere f : listF){
 				listModelFili.addElement(f);
-			}
+			}*/
 		} catch (DaoException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,6 +135,7 @@ public class PanelGestionEnseignant extends JPanel {
 		panelIdentite.add(panelEmail);
 		
 		listEnseignant = new JList(listModelEnseignant);
+		listEnseignant.addListSelectionListener(l);
 		listEnseignant.setFixedCellWidth(100);
 		panscrollEnseig = new JScrollPane(listEnseignant, panscrollEnseig.VERTICAL_SCROLLBAR_AS_NEEDED, panscrollEnseig.HORIZONTAL_SCROLLBAR_NEVER );
 		
@@ -224,6 +230,41 @@ public class PanelGestionEnseignant extends JPanel {
 		return (Cours) this.listCours.getSelectedValue();
 	}
 	
-	
+	private class ListEcouteur implements ListSelectionListener{
+
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			if(listEnseignant.getSelectedValue() == null) {
+				return;
+			}
+			Enseignant ens = (Enseignant) listEnseignant.getSelectedValue();
+			txtNom.setText(ens.getNom());
+			txtPrenom.setText(ens.getPrenom());
+			txtEmail.setText(ens.getMail());
+			
+			Collection<Cours> collecCours = ens.getCours();
+			Collection<Filiere> collecFiliere = ens.getFilieres();
+			listModelFili.removeAllElements();
+			listModelCours.removeAllElements();
+			for(Cours c : collecCours){
+				
+				listModelCours.addElement(c);
+			}
+			
+			for(Filiere f : collecFiliere){
+				
+				listModelFili.addElement(f);
+			}
+			
+			listCours.setModel(listModelCours);
+			listFiliere.setModel(listModelFili);
+			
+			
+			
+			
+			
+		}
+		
+	}
 	
 }

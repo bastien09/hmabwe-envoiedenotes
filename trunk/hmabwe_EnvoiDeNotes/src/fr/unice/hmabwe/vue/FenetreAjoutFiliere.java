@@ -110,6 +110,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 						conn.beginTransaction();
 						daoFiliere.create(f);
 						conn.commitTransaction();
+						this.faf.setVisible(false);
 					} 
 					catch (DaoException e) {
 						try {
@@ -121,18 +122,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 						e.printStackTrace();
 					}
 					
-					finally {
-						if(conn.estOuverte()) {
-							try {
-								conn.fermer();
-								this.faf.setVisible(false);
-								//TODO Faire disparaitre la fenetre a la fin de la transaction
-							}
-							catch(DaoException e) {
-								e.printStackTrace();
-							}
-						}
-					}
+				
 				}//Fin nouvelle FIliere
 				else{
 					if(!estNouvelleFiliere){
@@ -142,6 +132,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 							conn.beginTransaction();
 							daoFiliere.update(f);
 							conn.commitTransaction();
+							this.faf.setVisible(false);
 						} 
 						catch (DaoException e) {
 							try {
@@ -153,18 +144,6 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 							e.printStackTrace();
 						}
 						
-						finally {
-							if(conn.estOuverte()) {
-								try {
-									conn.fermer();
-									this.faf.setVisible(false);
-									//TODO Faire disparaitre la fenetre a la fin de la transaction
-								}
-								catch(DaoException e) {
-									e.printStackTrace();
-								}
-							}
-						}
 					}
 				}
 			}//Fin Bouton OK

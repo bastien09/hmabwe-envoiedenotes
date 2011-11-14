@@ -40,16 +40,18 @@ public class FenetreAjoutEleve extends FenetreCommune{
     
     public EcouteurEtudiant l;
     
+   
+    
     /**Constructeur permettant d'afficher une fenêtre d'ajout d'un nouvel etudiant
      *@param df DaoFabrique
      */
 	public FenetreAjoutEleve(DaoFabrique df) {
-		super("Ajouter un élève", 450, 400, df);
+		super("Ajouter un élève", 550, 500, df);
 		//C'est un ajout d'etudiant
 		this.nouvelEtudiant = true;
 		
 		
-		panelEleve = new PanelAjoutEleve(df);
+		panelEleve = new PanelAjoutEleve(df, this);
 	    daoetudiant = df.getDaoEtudiant();
 	    daoinscription = df.getDaoInscription();
         daofiliere = df.getDaoFiliere();
@@ -77,11 +79,11 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	 */
 	public FenetreAjoutEleve(DaoFabrique df, Etudiant e){
 		
-		super("Ajouter un élève", 450, 400, df);
+		super("Ajouter un élève", 550, 500, df);
 		//C'est une edition d'etudiant;
 		this.nouvelEtudiant = false;
 		
-		panelEleve = new PanelAjoutEleve(df);
+		panelEleve = new PanelAjoutEleve(df, this);
 	    daoetudiant = df.getDaoEtudiant();
         
 	    //On remplit les champs avec les anciennes valeurs
@@ -97,7 +99,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	    panelEleve.listeLigne.remove(0);
 	    panelEleve.listeLigne.remove(0);
 	    for(Inscription i : e.getInscriptions()){
-	    	ObjetLigneInscription ob = new ObjetLigneInscription(false, panelEleve, df); // Un constructeur eut été préférable
+	    	ObjetLigneInscription ob = new ObjetLigneInscription(false, panelEleve, df, this); // Un constructeur eut été préférable
 	    	ob.textAnnee.setText(String.valueOf(i.getAnnee()));
 	    	ob.textNote.setText(String.valueOf(i.getMoyenne()));
 	    	ob.comboCours.setSelectedItem(i.getCours());
@@ -105,11 +107,11 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	    	panelEleve.lignePanel.add(ob.panelLigne);
 	    	
 	    }
-		ObjetLigneInscription o1 = new ObjetLigneInscription(true, panelEleve, df);
-		ObjetLigneInscription o2 = new ObjetLigneInscription(false, panelEleve, df);
-		panelEleve.listeLigne.add(o2);
+		ObjetLigneInscription o1 = new ObjetLigneInscription(true, panelEleve, df, this);
+		ObjetLigneInscription o2 = new ObjetLigneInscription(false, panelEleve, df, this);
+		//panelEleve.listeLigne.add(o2);
 		panelEleve.listeLigne.add(o1);
-		panelEleve.lignePanel.add(o2.panelLigne);
+		//panelEleve.lignePanel.add(o2.panelLigne);
 		panelEleve.lignePanel.add(o1.panelLigne);
 		
 	    l = new EcouteurEtudiant(this);
@@ -151,6 +153,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 						}
 						conn.commitTransaction();
 						System.out.println("Ouverture de la base et commit de l'etudiant");
+						fae.setVisible(false);
 					} 
 					catch (DaoException e1) {
 						
@@ -162,18 +165,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 						}
 						e1.printStackTrace();
 					}
-					finally {
-						if(conn.estOuverte()) {
-							try {
-								conn.fermer();
-								fae.setVisible(false);
-								//TODO Faire disparaitre la fenetre a la fin de la transaction
-							}
-							catch(DaoException eee) {
-								eee.printStackTrace();
-							}
-						}
-					}
+				
 				} // Fin nouvel etudiant
 				
 				else{
@@ -182,6 +174,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 							conn.beginTransaction();
 							daoetudiant.update(etu);
 							conn.commitTransaction();
+							fae.setVisible(false);
 						} 
 						catch (DaoException e1) {
 							
@@ -192,17 +185,6 @@ public class FenetreAjoutEleve extends FenetreCommune{
 								e2.printStackTrace();
 							}
 							e1.printStackTrace();
-						}
-						finally {
-							if(conn.estOuverte()) {
-								try {
-									conn.fermer();
-									fae.setVisible(false);
-								}
-								catch(DaoException eee) {
-									eee.printStackTrace();
-								}
-							}
 						}
 					}
 				} // Fin mis a jour etudiant

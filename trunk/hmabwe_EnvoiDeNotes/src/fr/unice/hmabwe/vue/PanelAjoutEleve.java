@@ -29,6 +29,7 @@ import fr.unice.hmabwe.modele.Filiere;
  */
 
 public class PanelAjoutEleve extends JPanel{
+	public FenetreAjoutEleve fae;
 	
 	public JTextField jtf, jtf2, jtf3, jtf4, jtf5, jtfNumetud ;
 	
@@ -42,7 +43,7 @@ public class PanelAjoutEleve extends JPanel{
     
     public ArrayList<ObjetLigneInscription> listeLigne = new ArrayList<ObjetLigneInscription>();
     
-    public int nbLigneInscription = 0;
+    public int nbLigneInscription = 1;
     
     public DaoFabrique df;
     
@@ -50,8 +51,8 @@ public class PanelAjoutEleve extends JPanel{
     
     public JComboBox combo1;
     
-	public PanelAjoutEleve(DaoFabrique df) {
-	
+	public PanelAjoutEleve(DaoFabrique df, FenetreAjoutEleve fae) {
+		this.fae = fae;
 		this.df = df;
 		
 		dfili = df.getDaoFiliere();
@@ -59,8 +60,8 @@ public class PanelAjoutEleve extends JPanel{
 		panel = new JPanel();
 		lignePanel = new JPanel();
 		
-		ObjetLigneInscription o1 = new ObjetLigneInscription(true, this, df);
-		ObjetLigneInscription o2 = new ObjetLigneInscription(false, this, df);
+		ObjetLigneInscription o1 = new ObjetLigneInscription(true, this, df, fae);
+		ObjetLigneInscription o2 = new ObjetLigneInscription(false, this, df, fae);
 		
 		lignePanel.setLayout(new BoxLayout(lignePanel, BoxLayout.Y_AXIS));
 		for(ObjetLigneInscription objl : listeLigne){
