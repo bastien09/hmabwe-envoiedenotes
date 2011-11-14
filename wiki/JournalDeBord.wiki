@@ -38,6 +38,13 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
   * Nouveau membre : Chandarong. Tâche affecté : JUnit Test. Deadline 04 Nov 2011
   * Édition et gestion des tags dans les mails. 
 
+
+== 13 Nov 2011 ==
+
+  * Fin des gros œuvres et début des finitions
+  * *Réunion prévue demain à 20h30 sur Skype.*
+  * Finition de la Doc.
+
        ==On se motive les gars ;) == 
 
 == Diagramme de Classes ==
