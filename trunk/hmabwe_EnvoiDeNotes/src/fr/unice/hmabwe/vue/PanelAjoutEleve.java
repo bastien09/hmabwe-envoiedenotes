@@ -190,8 +190,8 @@ public class PanelAjoutEleve extends JPanel{
 		return this.jtf5.getText();
 	}
 	
-	public int getGroupe(){
-		return Integer.parseInt(this.jtf4.getText());
+	public String getGroupe(){
+		return this.jtf4.getText();
 	}
 	
 	public Filiere getFiliere(){

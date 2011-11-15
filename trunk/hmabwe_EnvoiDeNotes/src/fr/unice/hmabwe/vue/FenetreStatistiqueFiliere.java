@@ -46,7 +46,7 @@ public class FenetreStatistiqueFiliere extends JFrame{
 		
 				
 		this.setTitle("Statistique Flière : " + f.getNom());
-        this.setSize(350, 350);
+        this.setSize(500, 500);
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 		this.setContentPane(panelStatFili.getPanelPrincipal());
