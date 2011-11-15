@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -39,6 +40,7 @@ public class Etudiant extends Personne{
 	private Collection<Inscription> listeInscriptions;
 
 	/**Un étudiant peut avoir une photo*/
+	@Lob
 	private byte[] photo;
 
 	/**Constructeur par défaut*/
