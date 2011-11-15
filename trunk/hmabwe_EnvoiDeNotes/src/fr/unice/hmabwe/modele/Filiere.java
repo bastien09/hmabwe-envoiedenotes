@@ -37,7 +37,7 @@ public class Filiere {
 	private Enseignant responsable;
 	
 	/**Une filière peut contenir plusieurs étudiants.*/
-	@OneToMany(mappedBy="filiere", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="filiere")
 	private Collection<Etudiant> listeEtudiants;
 	
 	/**Une filière peut avoir plusieurs cours ayant chacun un coefficient.*/
