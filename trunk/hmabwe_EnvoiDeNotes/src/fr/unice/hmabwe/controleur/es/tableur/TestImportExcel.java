@@ -16,7 +16,7 @@ public class TestImportExcel {
 	 */
 	public static void main(String[] args) {
 		
-		ImportExcel ie = new ImportExcel("/home/titrit/workspace/EnvoiDeNotes/moyenneEtu.xls", "a", "b", "c", "d", "e", "f","g", "h", "i");
+		ImportExcel ie = new ImportExcel("/Users/bastien/Downloads/poo.xls", "a", "b", "c", "d", "e", "f","g", "h", "i");
 		
 		HashMap<Etudiant, Double> ed = ie.lectureListEtudiants();
 		

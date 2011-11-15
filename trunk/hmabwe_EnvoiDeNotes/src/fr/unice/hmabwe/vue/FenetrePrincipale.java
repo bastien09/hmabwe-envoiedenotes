@@ -244,6 +244,9 @@ public class FenetrePrincipale extends JFrame {
 			if(source.equals(exportToXls)) {
 				new FenetreExportExcel(df);
 			}
+			if(source.equals(importFromXls)) {
+				new FenetreImportExcel(df);
+			}
 			
 			// edition
 			if(source.equals(prefs)) {
