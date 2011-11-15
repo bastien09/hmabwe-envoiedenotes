@@ -77,7 +77,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	 *@param df DaoFabrique
 	 *@param e Etudiant à modifier
 	 */
-	public FenetreAjoutEleve(DaoFabrique df, Etudiant e){
+	public FenetreAjoutEleve(DaoFabrique df, Etudiant etumodif){
 		
 		super("Ajouter un élève", 550, 500, df);
 		//C'est une edition d'etudiant;
@@ -87,18 +87,19 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	    daoetudiant = df.getDaoEtudiant();
         
 	    //On remplit les champs avec les anciennes valeurs
-	    panelEleve.jtf.setText(e.getNom());
-	    panelEleve.jtf2.setText(e.getPrenom());
-	    panelEleve.jtf3.setText(e.getMail());
-	    panelEleve.jtf4.setText((e.getGroupe()));
-	    panelEleve.jtf5.setText(e.getOrigine());
+	    panelEleve.jtf.setText(etumodif.getNom());
+	    panelEleve.jtf2.setText(etumodif.getPrenom());
+	    panelEleve.jtf3.setText(etumodif.getMail());
+	    panelEleve.jtf4.setText((etumodif.getGroupe()));
+	    panelEleve.jtf5.setText(etumodif.getOrigine());	    
+	    panelEleve.jtfNumetud.setText(etumodif.getNumEtu());
+	    panelEleve.combo1.setSelectedItem(etumodif.getFiliere());
 	    
-	    panelEleve.jtfNumetud.setText(e.getNumEtu());
 	    panelEleve.lignePanel.remove(0);
 	    panelEleve.lignePanel.remove(0);
 	    panelEleve.listeLigne.remove(0);
 	    panelEleve.listeLigne.remove(0);
-	    for(Inscription i : e.getInscriptions()){
+	    for(Inscription i : etumodif.getInscriptions()){
 	    	ObjetLigneInscription ob = new ObjetLigneInscription(false, panelEleve, df, this); // Un constructeur eut été préférable
 	    	ob.textAnnee.setText(String.valueOf(i.getAnnee()));
 	    	ob.textNote.setText(String.valueOf(i.getMoyenne()));
@@ -114,7 +115,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 		//panelEleve.lignePanel.add(o2.panelLigne);
 		panelEleve.lignePanel.add(o1.panelLigne);
 		
-	    l = new EcouteurEtudiant(this);
+	    l = new EcouteurEtudiant(this, etumodif);
 	    boutonOK.addMouseListener(l);
 	    boutonAnnuler.addMouseListener(l);
 	    this.setResizable(true);
@@ -124,27 +125,35 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	}
 	private class EcouteurEtudiant implements MouseListener{
 		public FenetreAjoutEleve fae;
-		
+		public Etudiant etumodif;
 		public EcouteurEtudiant(FenetreAjoutEleve fae){
 			this.fae = fae;
+		}
+		
+		public EcouteurEtudiant(FenetreAjoutEleve fae, Etudiant etu){
+			this.fae = fae;
+			this.etumodif = etu;
 		}
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			Object boutSelected = e.getSource();
 			
 			if(boutSelected.equals(boutonOK)){ //Si on click sur le bouton OK
-				Etudiant etu = new Etudiant(panelEleve.getNumEtudiant(), panelEleve.getNom(), panelEleve.getPrenom(), panelEleve.getEmail(), panelEleve.getOrigine(),panelEleve.getFiliere() , panelEleve.getOrigine());
-				Inscription insc;
-				Collection<Inscription> listInscr = new ArrayList<Inscription>();
-				// On recupere toutes les inscriptions de l'etudiants et on les ajoute à etu
 				
-				for(ObjetLigneInscription objl : panelEleve.listeLigne){
-					insc = new Inscription(etu, objl.getCoursSelected(), objl.getAnnee(), objl.getMoyenne());
-					//etu.addInscription(insc);
-					listInscr.add(insc);
-					System.out.println("Etudiant cree");
-				}
 				if(nouvelEtudiant){
+					Etudiant etu = new Etudiant(panelEleve.getNumEtudiant(), panelEleve.getNom(), panelEleve.getPrenom(), panelEleve.getEmail(), panelEleve.getOrigine(),panelEleve.getFiliere() , panelEleve.getGroupe());
+					Inscription insc;
+					Collection<Inscription> listInscr = new ArrayList<Inscription>();
+					// On recupere toutes les inscriptions de l'etudiants et on les ajoute à etu
+					
+					for(ObjetLigneInscription objl : panelEleve.listeLigne){
+						if(!objl.isNewLine){
+							insc = new Inscription(etu, objl.getCoursSelected(), objl.getAnnee(), objl.getMoyenne());
+							//etu.addInscription(insc);
+							listInscr.add(insc);
+							System.out.println("Etudiant cree");
+						}
+					}
 					try {
 						conn.beginTransaction();
 						daoetudiant.create(etu);
@@ -170,9 +179,36 @@ public class FenetreAjoutEleve extends FenetreCommune{
 				
 				else{
 					if(!nouvelEtudiant){
+						etumodif.setNom(panelEleve.getNom());
+						etumodif.setPrenom(panelEleve.getPrenom());
+						etumodif.setMail(panelEleve.getEmail());
+						etumodif.setGroupe(panelEleve.getGroupe());
+						etumodif.setNumEtu(panelEleve.getNumEtudiant());
+						etumodif.setOrigine(panelEleve.getOrigine());
+						etumodif.setFiliere(panelEleve.getFiliere());
+						
+						
+						/*Collection<Inscription> listInscr = etumodif.getInscriptions();
+						for(int i = 0; i < listInscr.size(); i++){
+							if(!panelEleve.listeLigne.get(i).isNewLine){
+								listInscr.get(i).setCours(panelEleve.listeLigne.get(i).getCoursSelected());
+								listInscr.get(i).setMoyenne(panelEleve.listeLigne.get(i).getMoyenne());
+								
+								 //insc = new Inscription(etumodif, objl.getCoursSelected(), objl.getAnnee(), objl.getMoyenne());
+								//etu.addInscription(insc);
+								//listInscr.add(insc);
+								//System.out.println("Etudiant cree");
+							}
+						}*/
+						
+						
 						try {
 							conn.beginTransaction();
-							daoetudiant.update(etu);
+							daoetudiant.update(etumodif);
+							/*for(Inscription i : listInscr){
+								daoinscription.update(i);
+							}*/
+							
 							conn.commitTransaction();
 							fae.setVisible(false);
 						} 

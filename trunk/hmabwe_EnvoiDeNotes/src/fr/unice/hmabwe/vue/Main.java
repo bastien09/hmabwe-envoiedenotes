@@ -22,13 +22,14 @@ public class Main {
 		DaoFabrique df = DaoFabrique.getDaoFabrique();
 		de = df.getDaoEtudiant();
 		//Etudiant e = new Etudiant("mm258963", "Alban", "Michel", "allo@msn.com");
-		Etudiant e = de.findByNumeroEtudiant("mm1234");
-		FenetreAjoutEleve fenetre6 = new FenetreAjoutEleve(df, e);
+		Etudiant e = de.findByNumeroEtudiant("bc123456");
+		Etudiant e1 = de.findByNumeroEtudiant("ba1234");
+		FenetreAjoutEleve fenetre6 = new FenetreAjoutEleve(df, e1);
 		//FenetreAjoutEleve fenetre = new FenetreAjoutEleve(df);
 		//FenetreAjoutFiliere fenetre1 = new FenetreAjoutFiliere(df);
 		//FenetreAjoutCours fenetre2 = new FenetreAjoutCours(df);
 		//FenetreGestionEnseignants fenetre3 = new FenetreGestionEnseignants(df);
 		//FenetreStatistiqueFiliere fenetre4 = new FenetreStatistiqueFiliere(df);
-		//FenetreStatistiqueEtudiant fenetre5 = new FenetreStatistiqueEtudiant(df, e);
+		//FenetreStatistiqueEtudiant fenetre5 = new FenetreStatistiqueEtudiant(df, e1);
 	}
 }
