@@ -45,6 +45,12 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
   * *Réunion prévue demain à 20h30 sur Skype.*
   * Finition de la Doc.
 
+== 15 Nov 2011 ==
+
+  * Réunion de pré-rendu
+  * Compte rendu des Bogues, ce qui marche/ne marche pas
+  * dispatching des tâches pour les livrables..
+
        ==On se motive les gars ;) == 
 
 == Diagramme de Classes ==
