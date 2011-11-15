@@ -1,14 +1,22 @@
 package fr.unice.hmabwe.modele;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.swing.ImageIcon;
 
 /**@author Anthony Biga
  * 
@@ -251,13 +259,56 @@ public class Etudiant extends Personne{
 	public byte[] getPhoto() {
 		return photo;
 	}
+	
+	/**Retourne la photo de l'étudiant.
+	 * @param photo de l'étudiant*/
+	public void setPhoto(byte[] p) {
+		photo=p;
+	}
 
 	/**Modifie la photo de l'étudiant.
 	 * @param p nouvelle photo de l'étudiant
+	 * @throws IOException 
 	 */
-	public void setPhoto(byte[] p) {
-		photo = p;
+	public void setPhoto(File file) throws IOException {
+		File imageFile = file;
+        
+        byte[] imageData = new byte[(int) imageFile.length()];
+     
+     FileInputStream imageInput;
+     
+     try 
+     {
+         imageInput = new FileInputStream(imageFile);
+        imageInput.read(imageData);
+        imageInput.close();
+    }
+    
+    catch (FileNotFoundException e1) 
+    {
+        e1.printStackTrace();
+    } 
+    
+    catch (IOException e2)
+    {
+        e2.printStackTrace();
+    }
+
 	}
 
-
+	/**Retourne la photo de l'étudiant.
+	 * @return photo de l'étudiant*/
+	public ImageIcon getPhoto2() {
+		InputStream in = new ByteArrayInputStream(photo);
+		BufferedImage bi=null;
+		try{
+			bi = javax.imageio.ImageIO.read(in);
+		}catch(IOException io)
+		{
+		}
+		Image img= bi.getScaledInstance(140,190,Image.SCALE_DEFAULT);
+		ImageIcon ic = new ImageIcon(img, "photo");
+		
+		return ic;
+	}
 }
