@@ -84,8 +84,8 @@ public class PanelAjoutFiliere extends JPanel{
 		panelBouton.add(bAjoutEnseignant);
 		
 		panel.add(nomPanel);
-		panel.add(enseignantPanel);
-		panel.add(panelBouton);
+		//panel.add(enseignantPanel);
+		//panel.add(panelBouton);
 		
 
 	}

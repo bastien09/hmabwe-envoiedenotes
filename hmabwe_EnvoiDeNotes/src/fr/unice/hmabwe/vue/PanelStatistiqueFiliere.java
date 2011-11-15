@@ -3,6 +3,8 @@ package fr.unice.hmabwe.vue;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -26,7 +28,7 @@ import fr.unice.hmabwe.modele.Filiere;
 
 public class PanelStatistiqueFiliere extends JPanel{
 	
-	private JPanel panel, panelGeneral, panelSpecD, panelmoyenneG, panelmoyenneGr1, panelmoyenneGr2, panelmoyenneG2, panelmoyenneGr12, panelmoyenneGr22, panelEcartType;
+	private JPanel panel, panelGeneral, panelSpecD, panelmoyenneG, panelmoyenneGr1, panelmoyenneGr2, panelmoyenneG2, panelmoyenneGr12, panelmoyenneGr22, panelEcartType, panelTotMoyenne, panelGroupe, panelNote;
 	
 	private JLabel moyenneG, moyenneGr1, moyenneGr2, ecartType,moyenneG2, moyenneGr12, moyenneGr22, notemoyenneG, notemoyenneGr1, notemoyenneGr2, noteEcartType, notemoyenneG2, notemoyenneGr12, notemoyenneGr22;
 	
@@ -39,8 +41,39 @@ public class PanelStatistiqueFiliere extends JPanel{
 	public PanelStatistiqueFiliere(Filiere f, DaoFiliere daofiliere){
 		//TODO Dans le constructeur ajouter la connexion a la base.
 		//TODO Remplacer les moyennes dans le constructeur, par les moyennes recus de la database.
+		HashMap<String, Double> hash = daofiliere.getMoyenneParGroupe(f);
 		
+		 panelTotMoyenne = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		 
+		 
+		 panelGroupe = new JPanel();
+		 panelGroupe.setLayout(new BoxLayout(panelGroupe, BoxLayout.Y_AXIS));
+		 panelNote = new JPanel();
+		 panelNote.setLayout(new BoxLayout(panelNote, BoxLayout.Y_AXIS));
+
+		for (Iterator<String> i = hash.keySet().iterator() ; i.hasNext() ; ){
+			JPanel petitPanelGroupe  = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		    JLabel k = new JLabel("Groupe : ");
+		    JLabel u = new JLabel(i.next());
+		    petitPanelGroupe.add(k);
+		    petitPanelGroupe.add(u);
+		    panelGroupe.add(petitPanelGroupe);
+		    System.out.println("#############<<<<<<<<<#############");
+		}
 		
+
+		for (Iterator<Double> i = hash.values().iterator() ; i.hasNext() ;){
+			JPanel petitPanelNote  = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		    JLabel a = new JLabel("Note : ");
+		    JLabel b = new JLabel(String.valueOf(i.next()));
+		    petitPanelNote.add(a);
+		    petitPanelNote.add(b);
+		    panelNote.add(petitPanelNote);
+		    System.out.println("#############<<<<<<<<<#############");
+		}
+		
+		panelTotMoyenne.add(panelGroupe);
+		panelTotMoyenne.add(panelNote);
 		
 		moyenneG = new JLabel("Moyenne General :	");
 		moyenneGr1 = new JLabel("Moyenne Groupe 1 :	");
@@ -52,7 +85,7 @@ public class PanelStatistiqueFiliere extends JPanel{
 		
 		//TODO A remplacer par la fonction de note qui va arriver ( j'espere )
 		this.notemoyenneG = new JLabel();
-		this.notemoyenneG.setText(String.valueOf(daofiliere.getMoyenne(f)));
+		this.notemoyenneG.setText(String.valueOf(daofiliere.getMoyenne(f, 2010)));
 		this.notemoyenneGr1 = new JLabel();
 		this.notemoyenneGr1.setText(null);
 		this.notemoyenneGr2 = new JLabel();
@@ -116,7 +149,7 @@ public class PanelStatistiqueFiliere extends JPanel{
 		
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-		panel.add(panelGeneral, BorderLayout.NORTH);
+		panel.add(panelTotMoyenne, BorderLayout.NORTH);
 		panel.add(panelSpec, BorderLayout.CENTER);
 	}
 	

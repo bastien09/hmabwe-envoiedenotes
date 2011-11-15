@@ -17,7 +17,7 @@ import fr.unice.hmabwe.modele.Inscription;
 
 public class ObjetLigneMoyenneEtudiant extends JPanel{
 	
-	public JLabel moyenne, cours, note;
+	public JLabel moyenne, cours, note, annee;
 	
 	public JPanel panelMoyenne;
 	
@@ -26,10 +26,10 @@ public class ObjetLigneMoyenneEtudiant extends JPanel{
 		panelMoyenne = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		moyenne = new JLabel("Moyenne en ");
 		this.cours = new JLabel();
-		this.cours.setText(insc.getCours().getNom());
+		this.cours.setText(insc.getCours().getNom() + "( " + String.valueOf(insc.getAnnee()) + " )" );
 		this.note = new JLabel();
 		this.note.setText(": " + String.valueOf(insc.getMoyenne()));
-		
+		this.annee = new JLabel(String.valueOf(insc.getAnnee()));
 		panelMoyenne.add(moyenne);
 		panelMoyenne.add(this.cours);
 		panelMoyenne.add(this.note);

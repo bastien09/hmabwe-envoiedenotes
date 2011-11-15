@@ -30,9 +30,11 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 	
 	public PanelAjoutFiliere panelFiliere;
 	
+	public Enseignant ens;
 	public DaoFiliere daoFiliere;
 	public DaoEnseignant daoEnseignant;
 	public EcouteurFiliere l;
+	public EcouteurFiliereEnseignant l2;
 	public Collection<Enseignant> listEns = new ArrayList<Enseignant>();
 	public boolean estNouvelleFiliere;
 	
@@ -78,7 +80,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		panelFiliere.tabEnseignant.setSelectedItem(f.getResponsable());
 		
 		
-		l = new EcouteurFiliere(this);		
+		l = new EcouteurFiliere(this, f);		
 		boutonOK.addMouseListener(l);
 		boutonAnnuler.addMouseListener(l);
 		panelFiliere.bAjoutEnseignant.addMouseListener(l);
@@ -92,11 +94,92 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 	}
 	
 	
+	public FenetreAjoutFiliere(DaoFabrique df, Enseignant e){
+		super("Ajout de cours pour l'enseignant" + e.getPrenom() + " " + e.getNom(), 300, 200, df);
+		this.ens = e;
+		daoFiliere = df.getDaoFiliere();
+		
+		panelFiliere = new PanelAjoutFiliere(df);
+		l2 = new EcouteurFiliereEnseignant(this, panelFiliere);
+		
+		this.boutonOK.addMouseListener(l2);
+		this.setResizable(true);
+		this.container.add(panelFiliere.getPanelPrincipal(), BorderLayout.NORTH);
+		this.setVisible(true);
+		
+	}
+	
+	
+	
+	private class EcouteurFiliereEnseignant implements MouseListener{
+		FenetreAjoutFiliere fac;
+		PanelAjoutFiliere pac;
+		
+		public EcouteurFiliereEnseignant(FenetreAjoutFiliere fac, PanelAjoutFiliere pac){
+			this.fac = fac;
+			this.pac = pac;
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			Object boutonSelected = arg0.getSource();
+			if(boutonSelected.equals(boutonOK)){
+				Filiere f = new Filiere(pac.getNom(), ens);
+				daoFiliere = df.getDaoFiliere();
+				
+				try {
+					conn.beginTransaction();
+					daoFiliere.create(f);
+					conn.commitTransaction();
+					JOptionPane.showMessageDialog(fac,
+						    "Filière ajoutée à la base");
+					fac.setVisible(false);
+				} catch (DaoException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	}
+	
 	private class EcouteurFiliere implements MouseListener{
 		public FenetreAjoutFiliere faf;
+		public Filiere filiereModif;
 		
 		public EcouteurFiliere(FenetreAjoutFiliere faf){
 			this.faf = faf;
+		}
+		
+		public EcouteurFiliere(FenetreAjoutFiliere faf, Filiere filiereModif){
+			this.faf = faf;
+			this.filiereModif = filiereModif;
 		}
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
@@ -126,11 +209,11 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 				}//Fin nouvelle FIliere
 				else{
 					if(!estNouvelleFiliere){
-						Filiere f = new Filiere(panelFiliere.getNom(), panelFiliere.getEnseignant());
 						
+						filiereModif.setNom(panelFiliere.getNom());
 						try {
 							conn.beginTransaction();
-							daoFiliere.update(f);
+							daoFiliere.update(filiereModif);
 							conn.commitTransaction();
 							this.faf.setVisible(false);
 						} 

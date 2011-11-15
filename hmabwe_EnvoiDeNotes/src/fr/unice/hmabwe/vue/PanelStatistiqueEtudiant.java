@@ -1,6 +1,11 @@
 package fr.unice.hmabwe.vue;
 
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -30,9 +35,10 @@ public class PanelStatistiqueEtudiant extends JPanel{
 	private DaoFabrique df;
 	
 	private JPanel panelAnnee, panelMoyenne, panelCours, panel;
-	
+	private EcouteurCombo l;
 	private JLabel annee, moyenne, noteMoyenne, changeAnne;
-	
+	public Etudiant e;
+	public DaoEtudiant de;
 	private JComboBox comboAnnee;
 	private DefaultComboBoxModel comboModel;
 	
@@ -43,10 +49,10 @@ public class PanelStatistiqueEtudiant extends JPanel{
 	
 	public PanelStatistiqueEtudiant(Etudiant e, DaoFabrique df){
 		// Methode de remplissage de diverse liste.
-		DaoEtudiant de;
-		de = df.getDaoEtudiant();
+		this.e = e;
+		this.de = df.getDaoEtudiant();
 		comboModel = new DefaultComboBoxModel();
-		
+		l = new EcouteurCombo();
 		Collection<Inscription> listInscription = new ArrayList<Inscription>();
 		ArrayList<Integer> listannee = new ArrayList<Integer>();
 		
@@ -66,14 +72,14 @@ public class PanelStatistiqueEtudiant extends JPanel{
 		
 		annee = new JLabel("Année :");
 		moyenne = new JLabel("Moyenne :");
-		try {
-			noteMoyenne = new JLabel(String.valueOf(de.getMoyenne(e.getNumEtu(), 2010)));
-		}
-		catch(DaoException ex) {
-			ex.printStackTrace();
-		}
-		comboAnnee = new JComboBox(comboModel);
 		
+		comboAnnee = new JComboBox(comboModel);
+		comboAnnee.addActionListener(l);
+		
+		noteMoyenne = new JLabel();
+		
+		
+
 		
 		
 		panelAnnee.add(annee);
@@ -96,6 +102,29 @@ public class PanelStatistiqueEtudiant extends JPanel{
 		panel.add(scrollCours);
 	}
 	
+	public void calculMoyenne(){
+		try {
+			noteMoyenne.setText(String.valueOf(de.getMoyenne(e.getNumEtu(), (Integer)comboAnnee.getSelectedItem())));
+			
+		} catch (DaoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	private class EcouteurCombo implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Object selection = arg0.getSource();
+			if(selection.equals(comboAnnee)){
+				calculMoyenne();
+			}
+			
+		}
+
+	
+	}
 	public JPanel getPanelPrincipal(){
 		return this.panel;
 	}

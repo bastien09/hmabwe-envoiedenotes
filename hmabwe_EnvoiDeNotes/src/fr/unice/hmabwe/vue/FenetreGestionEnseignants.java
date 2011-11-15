@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -166,11 +167,13 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 			// TODO Auto-generated method stub
 			Object boutSelected = arg0.getSource();
 			if(boutSelected.equals(panelEnseignant.bAjout1)){//Si on veut ajouter une nouvelle filière
-				new FenetreAjoutFiliere(df);
+				//new FenetreAjoutFiliere(df);
+				new FenetreAjoutFiliere(df, panelEnseignant.getEnseignantSelect());
 			}
 			else{
 				if(boutSelected.equals(panelEnseignant.bAjout2)){//Si on veut ajouter un nouveau cours
-					new FenetreAjoutCours(df);
+					//new FenetreAjoutCours(df);
+					new FenetreAjoutCours(df, panelEnseignant.getEnseignantSelect());
 				}
 				else{
 					if(boutSelected.equals(boutonOK)){//Si on clique sur le boutonOK
@@ -185,7 +188,8 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 								conn.beginTransaction();
 								daoEnseignant.create(e);
 								conn.commitTransaction();
-								
+								JOptionPane.showMessageDialog(fge,
+									    "Enseignant correctement ajouté à la base");
 							}
 							catch (DaoException e1) {
 								try {
@@ -261,6 +265,7 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 							else{
 								if(boutSelected.equals(panelEnseignant.bModif1)){
 									new FenetreAjoutFiliere(df, panelEnseignant.getFiliereSelect());
+									new FenetreStatistiqueFiliere(df, panelEnseignant.getFiliereSelect());
 								}
 								else{
 									if(boutSelected.equals(panelEnseignant.bModif2)){
