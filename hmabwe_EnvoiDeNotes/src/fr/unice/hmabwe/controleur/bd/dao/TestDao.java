@@ -11,6 +11,7 @@ import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion;
 import fr.unice.hmabwe.controleur.bd.config.ConfigConnexion.TypePersistance;
 import fr.unice.hmabwe.controleur.bd.config.ConnexionException;
 import fr.unice.hmabwe.modele.*;
+import fr.unice.hmabwe.vue.FenetrePremiere;
 
 
 /**
@@ -250,6 +251,38 @@ public class TestDao {
 			}
 		}
 	}
+	
+	public static void fantomes() {
+		DaoFabrique df = DaoFabrique.getDaoFabrique();
+		Connexion conn = df.getConnexion();
+		DaoEtudiant daoEtudiant = df.getDaoEtudiant();
+		try {
+			conn.beginTransaction();
+			System.out.println("Tout les étudiants de la BDD:");
+			Collection<Etudiant> listeEtu = daoEtudiant.findAll();
+			for (Etudiant etudiant : listeEtu) {
+				System.out.println("#######################################################################");
+				System.out.println("#################################### " + etudiant.getNom() + " " + etudiant.getPrenom());
+				System.out.println("#################################### mail: " + etudiant.getMail());
+				System.out.println("#######################################################################");
+			}
+			System.out.print("on supprime Paraita: ");
+			daoEtudiant.delete(daoEtudiant.findByNumeroEtudiant("wp803469"));
+			System.out.print("ok\n");
+			System.out.println("Tout les étudiants de la BDD:");
+			listeEtu = daoEtudiant.findAll();
+			for (Etudiant etudiant : listeEtu) {
+				System.out.println("#######################################################################");
+				System.out.println("#################################### " + etudiant.getNom() + " " + etudiant.getPrenom());
+				System.out.println("#################################### mail: " + etudiant.getMail());
+				System.out.println("#######################################################################");
+			}
+			conn.commitTransaction();
+		}
+		catch(DaoException e) {
+			e.printStackTrace();
+		}
+	}
 
 
 	public static void main(String[] args) {
@@ -267,13 +300,15 @@ public class TestDao {
 			ConfigConnexion configuration = ConfigConnexion.newConfiguration();
 			/* on modifie cette nouvelle configuration */
 			//configuration.setProprietes("euterpe.unice.fr", "1521", "M1WOHLERP", "AZERTY", "INFO");
-			configuration.setProprietes("192.168.1.17", "1521", "paraita", "azerty", "xe");
+			configuration.setProprietes("192.168.56.101", "1521", "paraita", "azerty", "xe");
 			/* et on sauvegarde */
 			configuration.sauvegarder();
 			
 			
 			//remplissage();
-			recupererDonnees();
+			//recupererDonnees();
+			fantomes();
+			//FenetrePremiere preums = new FenetrePremiere();
 		}
 		catch(ConnexionException e) {
 			e.printStackTrace();
