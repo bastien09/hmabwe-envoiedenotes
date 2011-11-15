@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Properties;
 
@@ -18,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -46,6 +48,7 @@ public class FenetreMail extends JFrame {
 	private ActionListener l = new BoutonListener();
 
 	private JComboBox choixNote;
+	private JSpinner annee = new JSpinner();
 
 	private JTextField sujet = new JTextField(20);
 	private JTextArea textMail = new JTextArea();
@@ -69,34 +72,40 @@ public class FenetreMail extends JFrame {
 
 		this.setLayout(new BorderLayout());
 		this.setLocationRelativeTo(null);
-		this.setSize(600,400);
+		this.setSize(800,400);
 		this.setTitle("Envoi de notes par email");
-
-		loadProperties(file);
 
 		Collection<Object> choixFiliereCours = new ArrayList<Object>();
 		try {
-			choixFiliereCours.addAll(daoFiliere.findAll());
+			//	choixFiliereCours.addAll(daoFiliere.findAll());
 			choixFiliereCours.addAll(daoCours.findAll());	
 		} catch (DaoException e) {
 			e.printStackTrace();
 		}
 
 		choixNote = new JComboBox(choixFiliereCours.toArray());
-		choixNote.setSelectedItem(filiereCours);
+		if(filiereCours.getClass() == Cours.class) {
+			choixNote.setSelectedItem(filiereCours);
+		}
 
 		JPanel top = new JPanel();
 
-		top.add(new JLabel("Filière/Cours :"));
+		top.add(new JLabel("Cours :"));
 		top.add(choixNote);
+		top.add(new JLabel("Année :"));
+		annee.setValue(Calendar.getInstance().get(Calendar.YEAR));
+		annee.setEditor(new JSpinner.NumberEditor(annee, "#"));
+		top.add(annee);
 		top.add(new JLabel("Sujet :"));
 		top.add(sujet);
+		sujet.setText("Votre note");
 		top.add(aide);		
 		aide.addActionListener(l);
 		aide.setBorderPainted(false);
 		this.add(top,BorderLayout.NORTH);
 
 		textMail.setBorder(BorderFactory.createTitledBorder("Texte personnalisé du mail :"));
+		textMail.setText("Bonjour #{prenom} #{nom},\nvotre note au cours de #{cours} est de #{note}.\n\n Cordialement,\n #{prenom_enseignant} #{prenom_enseignant} #{nom_enseignant}\n #{email_enseignant}");
 		this.add(textMail,BorderLayout.CENTER);
 
 		JPanel south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -138,12 +147,12 @@ public class FenetreMail extends JFrame {
 			if(source.equals(aide)) {
 				String tagDispo = "<html><p>Les emplacements spéciaux utilisables sont :" +
 				"<ul>" +
-				"<li>#nom : Le nom de l'étudiant</li>" +
-				"<li>#prenom : Le prénom de l'étudiant</li>" +
-				"<li>#note : La note de l'étudiant pour le cours/ la filière selectionné(e)</li>" +
-				"<li>#moyenne : La moyenne de la classe pour le cours/ la filière selectionné(e)</li>" +
-				"<li>#cours : Le noms du cours/de la filière sélectionné(e)</li>" +
-				"<li>#prenom_enseignant, #nom_enseignant et #email_enseignant : Les coordonnées de l'enseignant responsable du cours/de la filière selectionné(e)</li>" +
+				"<li>#{nom} : Le nom de l'étudiant</li>" +
+				"<li>#{prenom} : Le prénom de l'étudiant</li>" +
+				"<li>#{note} : La note de l'étudiant pour le cours/ la filière selectionné(e)</li>" +
+				"<li>#{moyenne} : La moyenne de la classe pour le cours/ la filière selectionné(e)</li>" +
+				"<li>#{cours} : Le noms du cours/de la filière sélectionné(e)</li>" +
+				"<li>#{prenom_enseignant}, #{nom_enseignant} et #{email_enseignant} : Les coordonnées de l'enseignant responsable du cours/de la filière selectionné(e)</li>" +
 				"</ul>" +
 				"</p></html>";
 				JLabel textAide = new JLabel(tagDispo);
@@ -156,18 +165,20 @@ public class FenetreMail extends JFrame {
 			}
 			if(source.equals(valider)) {
 				try {
+					loadProperties(file);
+					
 					MailSSL mail = new MailSSL(user, mdp,
 							smtp, Integer.parseInt(port));
 
 					if(choixNote.getSelectedItem().getClass() == Cours.class) {
-						/*TODO mail.SendMail(user, etudiants, sujet.getText(),
-								textMail.getText(), (Cours) choixNote.getSelectedItem());*/
+						mail.SendMail(((Cours)choixNote.getSelectedItem()).getEnseignant().getMail(), etudiants, sujet.getText(),
+								textMail.getText(), (Cours) choixNote.getSelectedItem(), (Integer)annee.getValue());
 						FenetreMail.this.dispose();
 					} else {
-						//TODO send mail
 					}
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(FenetreMail.this,"Envoi de mail impossible, veuillez vérifier vos paramètres.", "Erreur de connexion" , JOptionPane.ERROR_MESSAGE);
+					ex.printStackTrace();
 				}
 			}
 
