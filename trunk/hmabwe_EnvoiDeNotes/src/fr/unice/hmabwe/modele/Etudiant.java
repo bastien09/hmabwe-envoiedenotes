@@ -267,7 +267,7 @@ public class Etudiant extends Personne{
 	}
 
 	/**Modifie la photo de l'étudiant.
-	 * @param p nouvelle photo de l'étudiant
+	 * @param file nouvelle photo de l'étudiant
 	 * @throws IOException 
 	 */
 	public void setPhoto(File file) throws IOException {
