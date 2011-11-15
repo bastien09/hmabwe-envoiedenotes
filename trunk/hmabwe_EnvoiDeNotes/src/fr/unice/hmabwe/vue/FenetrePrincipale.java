@@ -241,6 +241,9 @@ public class FenetrePrincipale extends JFrame {
 			if(source.equals(email)) {
 				panneauDroite.sendMail();
 			}
+			if(source.equals(exportToXls)) {
+				new FenetreExportExcel(df);
+			}
 			
 			// edition
 			if(source.equals(prefs)) {
