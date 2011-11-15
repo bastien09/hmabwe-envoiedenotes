@@ -2,6 +2,7 @@ package fr.unice.hmabwe.test;
 
 import static org.junit.Assert.*;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.AfterClass;
@@ -16,7 +17,9 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoCours;
 import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
+import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
 import fr.unice.hmabwe.modele.Etudiant;
+import fr.unice.hmabwe.modele.Filiere;
 import fr.unice.hmabwe.modele.Inscription;
 
 public class JpaDaoEtudiantTest {
@@ -25,6 +28,7 @@ public class JpaDaoEtudiantTest {
 	static Connexion conn;
 	static DaoCours daoCours;
 	static DaoEtudiant daoEtudiant;
+	static DaoFiliere daoFiliere;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -35,6 +39,7 @@ public class JpaDaoEtudiantTest {
 				conn = df.getConnexion();
 				daoCours = df.getDaoCours();
 				daoEtudiant = df.getDaoEtudiant();
+				daoFiliere = df.getDaoFiliere();
 	}
 
 	@AfterClass
@@ -163,35 +168,121 @@ public class JpaDaoEtudiantTest {
 				ex.printStackTrace();
 			}
 		}
-		
-		//System.out.println(moyenne);
-		//assertTrue(moyenne == 12.5);
 		fail("Don't know how to calculate");
 	}
 
-	@Ignore
+	@Test
 	public void testCreate() {
-		fail("Not yet implemented");
+		Collection<Etudiant> etu = null;
+		try{
+			conn.beginTransaction();
+			Filiere f = daoFiliere.findById(6);
+			Etudiant et = new Etudiant("ab1234", "a", "b", "ab@gmail.com", "???", f, "2");
+			
+			daoEtudiant.create(et);
+			
+			etu = daoEtudiant.findAll();
+			
+			conn.commitTransaction();
+		}catch(DaoException e){
+			try{
+				conn.rollbackTransaction();
+			}catch(DaoException ex){
+				ex.printStackTrace();
+			}
+		}
+		assertTrue(etu.size() == 7);
 	}
 
-	@Ignore
+	@Test
 	public void testUpdate() {
-		fail("Not yet implemented");
+		Etudiant etudiant = null;
+		Etudiant et = null;
+		boolean isupdated = false;
+		try{
+			conn.beginTransaction();
+			
+			etudiant = daoEtudiant.findByNumeroEtudiant("ab1234");
+			etudiant.setNom("NewNom");
+			daoEtudiant.update(etudiant);
+			
+			et = daoEtudiant.findByNumeroEtudiant("ab1234");
+			if(et.getNom().compareTo("NewNom") == 0){
+				isupdated = true;
+			}
+			
+			conn.commitTransaction();
+		}catch(DaoException e){
+			try{
+				conn.rollbackTransaction();
+			}catch(DaoException ex){
+				ex.printStackTrace();
+			}
+		}
+		assertTrue(isupdated);
 	}
 
-	@Ignore
+	@Test
 	public void testDelete() {
-		fail("Not yet implemented");
+		Etudiant etudiant = null;
+		Collection<Etudiant> etu = null;
+		boolean isdeleted = false;
+		try{
+			conn.beginTransaction();
+			
+			etudiant = daoEtudiant.findByNumeroEtudiant("ab1234");
+			
+			daoEtudiant.delete(etudiant);
+			
+			etu = daoEtudiant.findAll();
+			
+			conn.commitTransaction();
+		}catch(DaoException e){
+			try{
+				conn.rollbackTransaction();
+			}catch(DaoException ex){
+				ex.printStackTrace();
+			}
+		}
+		assertTrue(etu.size() == 6);
 	}
 
-	@Ignore
+	@Test
 	public void testFindById() {
-		fail("Not yet implemented");
+		Etudiant etu=null;
+		try{
+			conn.beginTransaction();
+			
+			etu = daoEtudiant.findById(9);
+			
+			conn.commitTransaction();
+		}catch(DaoException e){
+			try{
+				conn.rollbackTransaction();
+			}catch(DaoException ex){
+				ex.printStackTrace();
+			}
+		}
+		assertNotNull(etu);
 	}
 
-	@Ignore
+	@Test
 	public void testFindAll() {
-		fail("Not yet implemented");
+		Collection<Etudiant> etu=null;
+		try{
+			conn.beginTransaction();
+			
+			etu = daoEtudiant.findAll();
+			
+			conn.commitTransaction();
+		}catch(DaoException e){
+			try{
+				conn.rollbackTransaction();
+			}catch(DaoException ex){
+				ex.printStackTrace();
+			}
+		}
+		assertTrue(etu.size() == 6);
 	}
 
 }
