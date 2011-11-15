@@ -134,7 +134,8 @@ public class PanneauListeEtudiants extends JPanel {
 				}
 			}
 			if(source.equals(remove)) {
-				Collection<Etudiant> etudiants = tableModel.getEtudiants(tableEtudiants.getSelectedRows());
+				int[] selectedRows = tableEtudiants.getSelectedRows();
+				Collection<Etudiant> etudiants = tableModel.getEtudiants(selectedRows);
 				try {
 					conn.beginTransaction();
 					for(Etudiant etu : etudiants) {
@@ -143,7 +144,7 @@ public class PanneauListeEtudiants extends JPanel {
 					int reponse = JOptionPane.showConfirmDialog(PanneauListeEtudiants.this, "Êtes vous certain de vouloir supprimer les étudiants selectionnés ?");
 					if(reponse == JOptionPane.OK_OPTION) {
 						conn.commitTransaction();
-						tableModel.deleteRows(tableEtudiants.getSelectedRows());
+						tableModel.deleteRows(selectedRows);
 					} else {
 						conn.rollbackTransaction();
 					}

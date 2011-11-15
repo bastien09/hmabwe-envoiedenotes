@@ -104,14 +104,14 @@ public class MailSSL {
 	 * @return retourne le texte à envoyer par mail pré-formaté
 	 */
 	public String replaceBalises(String text) {
-		text = text.replaceAll("#nom", tagNom);
-		text = text.replaceAll("#prenom", tagPrenom);
-		text = text.replaceAll("#note", tagNote);
-		text = text.replaceAll("#moyenne", tagMoyenne);
-		text = text.replaceAll("#cours", tagCours);
-		text = text.replaceAll("#prenom_enseignant", tagPrenomEnseignant);
-		text = text.replaceAll("#nom_enseignant", tagNomEnseignant);
-		text = text.replaceAll("#email_enseignant", tagMailEnseignant);
+		text = text.replaceAll("#\\{nom\\}", tagNom);
+		text = text.replaceAll("#\\{prenom\\}", tagPrenom);
+		text = text.replaceAll("#\\{note\\}", tagNote);
+		text = text.replaceAll("#\\{moyenne\\}", tagMoyenne);
+		text = text.replaceAll("#\\{cours\\}", tagCours);
+		text = text.replaceAll("#\\{prenom_enseignant\\}", tagPrenomEnseignant);
+		text = text.replaceAll("#\\{nom_enseignant\\}", tagNomEnseignant);
+		text = text.replaceAll("#\\{email_enseignant\\}", tagMailEnseignant);
 		return text;
 
 	}
@@ -155,10 +155,11 @@ public class MailSSL {
 
 		try {
 
-			conn.beginTransaction();
+			
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(from));
 			for (Etudiant e : to) {
+				conn.beginTransaction();
 				String text1 = text;
 				message.setRecipients(Message.RecipientType.TO,
 						InternetAddress.parse(e.getMail()));
