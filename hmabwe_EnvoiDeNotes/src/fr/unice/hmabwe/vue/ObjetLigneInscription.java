@@ -39,7 +39,7 @@ public class ObjetLigneInscription extends JPanel{
 	public DaoFabrique df;
 	public PanelAjoutEleve f;
 	public EcouteurObjetLigne l;
-	private boolean isNewLine;
+	public boolean isNewLine;
 	public int numLigne;
 	public FenetreAjoutEleve fae;
 	public ObjetLigneInscription(){
