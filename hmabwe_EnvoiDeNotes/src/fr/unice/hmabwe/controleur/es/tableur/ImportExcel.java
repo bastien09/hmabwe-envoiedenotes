@@ -59,7 +59,6 @@ public class ImportExcel {
 	}
 
 	public HashMap<Etudiant, Double> lectureListEtudiants() {
-
 		File inputWorkbook = new File(inputFile);
 
 		if (!inputWorkbook.exists()) {
@@ -87,8 +86,8 @@ public class ImportExcel {
 			int c_origine = getColonneByString(origine);
 			int c_moyenne = getColonneByString(moyenne);
 			int c_filiere = getColonneByString(filiere);
-			int c_annee = getColonneByString("annee");
-			int c_cours = getColonneByString("cours");
+			int c_annee = getColonneByString(annee);
+			int c_cours = getColonneByString(cours);
 			System.out.println(c_numEtu + c_nom + c_prenom + c_mail + c_moyenne
 					+ c_filiere);
 			if (c_numEtu == -1 || c_nom == -1 || c_prenom == -1 || c_mail == -1
@@ -111,8 +110,11 @@ public class ImportExcel {
 			Cours c;
 			Coefficient coef;
 			Inscription inscription;
-			int an = Integer.parseInt(annee[0].getContents());
-			
+
+			int an = Integer.parseInt(annee[1].getContents());
+
+
+
 			ConfigConnexion.setTypePersistance(TypePersistance.JPA);
 			DaoFabrique df = DaoFabrique.getDaoFabrique();
 			Connexion conn = df.getConnexion();
@@ -121,8 +123,8 @@ public class ImportExcel {
 					: numsEtu.length); i++) {
 				try {
 					conn.beginTransaction();
-					// String moyenne = moyennes[i].getContents();
-					Double moyenne = (double) Integer.parseInt(moyennes[i]
+
+					Double moyenne = Double.parseDouble(moyennes[i]
 							.getContents());
 					f = new Filiere(filieres[i].getContents());
 					e = new Etudiant(numsEtu[i].getContents(),
@@ -193,8 +195,7 @@ public class ImportExcel {
 							daexep.printStackTrace();
 						}
 					} else {
-						if (etu.etaitInscrit(numEtu, cours.toString(),
-								an)) {
+						if (etu.etaitInscrit(numEtu, cours.toString(), an)) {
 							try {
 								incription.update(inscription);
 							} catch (DaoException e1) {
@@ -211,7 +212,7 @@ public class ImportExcel {
 					}
 
 					moyennesEtudiants.put(e, moyenne);
-					
+
 					conn.commitTransaction();
 				} catch (NumberFormatException nfe) {
 					nfe.printStackTrace();

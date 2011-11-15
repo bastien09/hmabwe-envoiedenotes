@@ -1,5 +1,6 @@
 package fr.unice.hmabwe.modele;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -46,12 +47,13 @@ public class Filiere {
 	
 	/**Constructeur par défaut*/
 	public Filiere(){
-		
+		listeEtudiants = new ArrayList<Etudiant>();
 	}
 	
 	/**Constructeur associant un nom à une filière
 	 * @param n nom de la filière à créer*/
 	public Filiere(String n){
+		listeEtudiants = new ArrayList<Etudiant>();
 		nom=n;
 	}
 	
