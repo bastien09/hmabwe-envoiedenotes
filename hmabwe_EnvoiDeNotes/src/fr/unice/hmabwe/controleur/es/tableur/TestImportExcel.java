@@ -16,7 +16,7 @@ public class TestImportExcel {
 	 */
 	public static void main(String[] args) {
 		
-		ImportExcel ie = new ImportExcel("/home/amazigh/workspace/EnvoiDeNotes/moyenneEtu.xls", "a", "b", "c", "d", "e", "f","g", "h", "i");
+		ExcelImport ie = new ExcelImport("/home/amazigh/workspace/EnvoiDeNotes/moyenneEtu.xls", "a", "b", "c", "d", "e", "f","g", "h", "i");
 		
 		HashMap<Etudiant, Double> ed = ie.lectureListEtudiants();
 		System.out.println("Taille de la liste d'etudiants : " + ed.size());
