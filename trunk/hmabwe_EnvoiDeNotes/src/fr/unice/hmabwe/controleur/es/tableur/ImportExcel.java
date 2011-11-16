@@ -105,201 +105,110 @@ public class ImportExcel {
 			Cell[] annee = sheet.getColumn(c_annee);
 			Cell[] cours = sheet.getColumn(c_cours);
 
-			Etudiant e;
-			Filiere f;
-			Cours c;
-			Coefficient coef;
-			Inscription inscription;
+			Etudiant e = null;
+			Filiere f = null;
+			Cours c = null;
+			Coefficient coef = null;
+			Inscription inscription = null;
 
 			int an = Integer.parseInt(annee[1].getContents());
 
 			ConfigConnexion.setTypePersistance(TypePersistance.JPA);
 			DaoFabrique df = DaoFabrique.getDaoFabrique();
+			DaoCours daoCours = df.getDaoCours();
+			DaoFiliere daoFiliere = df.getDaoFiliere();
+			DaoEtudiant daoEtudiant = df.getDaoEtudiant();
 			Connexion conn = df.getConnexion();
 			conn.beginTransaction();
+
 			for (int i = 1; i < (numsEtu.length >= noms.length ? noms.length
 					: numsEtu.length); i++) {
+
 				try {
 
-					Double moyenne = Double.parseDouble(moyennes[i]
+					/* en premier les cours */
+					Collection<Cours> col_cours = daoCours.findAll();
+					int existe = -1;
+					for (Cours coucours : col_cours) {
+						if (coucours.getNom().compareTo(cours[i].getContents()) == 0) {
+							existe = i;
+						}
+					}
+					if (existe != -1) {
+						System.out
+								.println("le cours "
+										+ cours[existe].getContents()
+										+ " existe deja dans la base de données ! je n'ai pas a le recreer...");
+					} else {
+						System.out.print("le cours " + cours[i].getContents()
+								+ " n'existe pas, il faut le créer:");
+						c = new Cours(cours[i].getContents());
+						daoCours.create(c);
+						System.out.println("ok !");
+					}
+
+					/* ensuite les filieres */
+					Collection<Filiere> col_filieres = daoFiliere.findAll();
+					existe = -1;
+					for (Filiere filiere : col_filieres) {
+						if (filiere.getNom().compareTo(
+								filieres[i].getContents()) == 0) {
+							existe = i;
+							f = filiere;
+						}
+					}
+					if (existe != -1) {
+						System.out
+								.println("la filiere "
+										+ filieres[existe].getContents()
+										+ " existe deja dans la base de données ! je n'ai pas a la recreer...");
+					} else {
+						System.out.print("la filiere "
+								+ filieres[i].getContents()
+								+ " n'existe pas, il faut la créer:");
+						f = new Filiere(filieres[i].getContents());
+						daoFiliere.create(f);
+						System.out.println("ok !");
+					}
+
+					e = daoEtudiant.findByNumeroEtudiant(numsEtu[i]
 							.getContents());
-					f = new Filiere(filieres[i].getContents());
-					e = new Etudiant(numsEtu[i].getContents(),
-							noms[i].getContents(), prenoms[i].getContents(),
-							mails[i].getContents(), origines[i].getContents(),
-							f);
-					f.addEtudiant(e);
-					c = new Cours(cours[i].getContents());
-					coef = new Coefficient(c, f, 1);
-					if (c_moyenne == -1) {
-						inscription = new Inscription(e, c,
-								Integer.parseInt(annee[i].getContents()));
+					if (e == null) {
+						/* ca veut dire que l'étudiant n'existe pas dans la BDD */
+						System.out
+								.println(prenoms[i].getContents()
+										+ " "
+										+ noms[i].getContents()
+										+ " n'existe pas dans la base de données ! il faut le créer: ");
+						e = new Etudiant(numsEtu[i].getContents(),
+								noms[i].getContents(),
+								prenoms[i].getContents(),
+								mails[i].getContents(),
+								origines[i].getContents(), f);
+						daoEtudiant.create(e);
+						System.out.print("ok !\n");
 					} else {
-						inscription = new Inscription(e, c,
-								Integer.parseInt(annee[i].getContents()),
-								moyenne);
+						/*
+						 * ca veut dire que l'étudiant existe déjà, il faut
+						 * juste le mettre a jour
+						 */
+						System.out
+								.print(noms[i].getContents()
+										+ " "
+										+ prenoms[i].getContents()
+										+ " existe déjà dans la base de données ! il suffit de le mettre à jour: ");
+						e.setFiliere(f);
+						e.setMail(mails[i].getContents());
+						e.setNom(noms[i].getContents());
+						e.setPrenom(prenoms[i].getContents());
+						daoEtudiant.update(e);
+						System.out.print("ok !\n");
 					}
-
-					DaoEtudiant etu = df.getDaoEtudiant();
-					DaoCours course = df.getDaoCours();
-					DaoFiliere filiere = df.getDaoFiliere();
-					DaoCoefficient coefficient = df.getDaoCoefficient();
-					DaoInscription incriptionDao = df.getDaoInscription();
-
-					boolean testCoef = false;
-					boolean testEtu = false;
+						e.addInscription(new Inscription(e, c, an, Double.parseDouble((moyennes[i].getContents()))));
+						daoEtudiant.update(e);
 					
 					
 					
-					try {
-						boolean exist = false;
-						Collection<Cours> cTemp = course.findAll();
-						for(Cours c1 :cTemp){
-							if(c1.getNom().compareTo(c.getNom()) == 0){
-								exist = true;
-							}
-							
-						}
-						System.out.println("######exist est à " + exist);
-						if(exist){
-							
-							Cours nouveauC = course.findById(c.getId());
-							//Pas d'enseignant dans l'Excel nouveauC.setEnseignant(c.getEnseignant());
-							System.out.println("c.getNom() :" + c.getNom());
-							nouveauC.setNom(c.getNom());
-							course.update(nouveauC);
-							testCoef = true;
-						}
-						
-						else{
-							course.create(c);
-						}
-						
-
-					} catch (DaoException daexep) {
-						daexep.printStackTrace();
-						System.out.println("le course.creat() a échoué");
-					}
-					
-					
-					
-
-					try {
-						Filiere fTemp = filiere.findById(f.getId());
-						if(fTemp == null){
-
-							filiere.create(f);
-							testCoef = false;
-						}
-
-					} catch (DaoException daexep) {
-						Filiere nouveauF = filiere.findById(f.getId());
-						nouveauF.setResponsable(f.getResponsable());
-						nouveauF.setNom(f.getNom());
-						filiere.update(nouveauF);
-						testCoef = true;
-						System.out.println("filiere.create() a échoué");
-					}
-					
-					
-					
-					
-					
-
-					if (testCoef == false) {
-						try {
-							Coefficient coefTemp = coefficient.findById(coef.getId());
-							if(coefTemp == null){
-								coefficient.create(coef);
-
-							}
-
-						} catch (DaoException daexep) {
-							Coefficient nouveauC = coefficient.findById(coef.getId());
-							nouveauC.setCoefficient(coef.getCoefficient());
-							nouveauC.setCours(coef.getCours());
-							nouveauC.setFiliere(coef.getFiliere());
-							coefficient.update(nouveauC);
-							daexep.printStackTrace();
-							System.out.println("coefficient.create() a échoué");
-						}
-					}
-					
-					
-					
-					
-					
-					
-					
-
-					try {
-						Etudiant eTemp = etu.findByNumeroEtudiant(e.getNumEtu());
-						if(eTemp == null){
-							etu.create(e);
-						}
-					} catch (DaoException daexep) {
-						Etudiant nouveauE = etu.findByNumeroEtudiant(e.getNumEtu());
-						nouveauE.setFiliere(e.getFiliere());
-						nouveauE.setGroupe(e.getGroupe());
-						nouveauE.setMail(e.getMail());
-						nouveauE.setOrigine(e.getOrigine());
-						nouveauE.setNom(e.getNom());
-						nouveauE.setPrenom(e.getPrenom());
-						etu.update(nouveauE);
-						testEtu = true;
-						System.out.println("etu.create() a échoué");
-					}
-
-					
-
-
-
-					if (testEtu == false) {
-						try {
-							Inscription inscrTemp = incriptionDao.findById(inscription.getId());
-							if(inscrTemp == null){
-								incriptionDao.create(inscription);
-
-							}
-
-						} catch (DaoException daexep) {
-							Inscription nouveauI = incriptionDao.findById(inscription.getId());
-							nouveauI.setCours(inscription.getCours());
-							nouveauI.setMoyenne(inscription.getMoyenne());
-							incriptionDao.update(nouveauI);
-							daexep.printStackTrace();
-							System.out.println("le inscriptionDao.create() a échoué");
-						}
-					} else {
-						if (etu.etaitInscrit(numEtu, cours.toString(), an)) {
-							try {
-								Inscription nouveauI = incriptionDao.findById(inscription.getId());
-								nouveauI.setCours(inscription.getCours());
-								nouveauI.setMoyenne(inscription.getMoyenne());
-								incriptionDao.update(nouveauI);
-							} catch (DaoException e1) {
-								e1.printStackTrace();
-							}
-						} else {
-							try {
-								Inscription inscrTemp = incriptionDao.findById(inscription.getId());
-								if(inscrTemp == null){
-									incriptionDao.create(inscription);
-
-								}
-							} catch (DaoException daexep) {
-								Inscription nouveauI = incriptionDao.findById(inscription.getId());
-								nouveauI.setCours(inscription.getCours());
-								nouveauI.setMoyenne(inscription.getMoyenne());
-								incriptionDao.update(nouveauI);
-								daexep.printStackTrace();
-								System.out.println("le inscriptionDao.create() a échoué");
-							}
-						}
-
-					}
-
-					moyennesEtudiants.put(e, moyenne);
 
 				} catch (NumberFormatException nfe) {
 					nfe.printStackTrace();
