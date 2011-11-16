@@ -13,6 +13,7 @@ import java.util.Collection;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -45,7 +46,7 @@ import fr.unice.hmabwe.modele.Filiere;
 public class FenetreGestionEnseignants extends FenetreCommune{
 	
 	public PanelGestionEnseignant panelEnseignant;
-	
+	private DefaultListModel modelListEns, modelListFili, modelListCours;
 	public DaoEnseignant daoEnseignant;
 	public DaoFiliere daofiliere;
 	public DaoCours daocours;
@@ -61,7 +62,9 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		
 	}
 	
-	/**Constructeur pour un nouvel enseignant*/
+	/**Constructeur pour un nouvel enseignant
+	 * @param df DaoFabrique
+	 */
 	public FenetreGestionEnseignants(DaoFabrique df) {
 		super("Gestion des enseignants", 500, 500, df);
 		estNouvelleFenetre = true;
@@ -70,6 +73,9 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		daocours = df.getDaoCours();
 		daofiliere = df.getDaoFiliere();
 		panelEnseignant = new PanelGestionEnseignant(df);
+		modelListCours = new DefaultListModel();
+		modelListEns = new DefaultListModel();
+		modelListFili = new DefaultListModel();
 		
 		l = new EcouteurEnseignant(this);
 		
@@ -106,6 +112,10 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**Constructeur pour la modification d'un enseignant
+	 * @param df Daofabrique
+	 * @param e L'enseignant
+	 */
 	public FenetreGestionEnseignants(DaoFabrique df, Enseignant e) {
 		super("Gestion des enseignants", 500, 500, df);
 		estNouvelleFenetre = false;
@@ -138,8 +148,14 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		try {
 			listFil = daofiliere.findAll();
 			listC = daocours.findAll();
-			panelEnseignant.listCours.setModel((ListModel) listC);
-			panelEnseignant.listFiliere.setModel((ListModel) listFil);
+			for(Filiere f : listFil){
+				modelListFili.addElement(f);
+			}
+			for(Cours c : listC){
+				modelListCours.addElement(c);
+			}
+			panelEnseignant.listCours.setModel(modelListCours);
+			panelEnseignant.listFiliere.setModel(modelListFili);
 		} catch (DaoException ef) {
 			// TODO Auto-generated catch block
 			ef.printStackTrace();
@@ -168,20 +184,20 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 			Object boutSelected = arg0.getSource();
 			if(boutSelected.equals(panelEnseignant.bAjout1)){//Si on veut ajouter une nouvelle filière
 				//new FenetreAjoutFiliere(df);
-				new FenetreAjoutFiliere(df, panelEnseignant.getEnseignantSelect());
+				new FenetreAjoutFiliere(df, panelEnseignant.getEnseignantSelect(), fge);
 			}
 			else{
 				if(boutSelected.equals(panelEnseignant.bAjout2)){//Si on veut ajouter un nouveau cours
 					//new FenetreAjoutCours(df);
-					new FenetreAjoutCours(df, panelEnseignant.getEnseignantSelect());
+					new FenetreAjoutCours(df, panelEnseignant.getEnseignantSelect(), fge);
 				}
 				else{
 					if(boutSelected.equals(boutonOK)){//Si on clique sur le boutonOK
 						if(estNouvelleFenetre){//Si c'est une nouvelle inscription
 							Enseignant e = new Enseignant(panelEnseignant.getNom(), panelEnseignant.getPrenom(), panelEnseignant.getEmail());
 							
-							e.addFiliere(panelEnseignant.getFiliereSelect());
-							e.addCours(panelEnseignant.getCoursSelect());
+							//e.addFiliere(panelEnseignant.getFiliereSelect());
+							//e.addCours(panelEnseignant.getCoursSelect());
 							
 							
 							try {
@@ -190,6 +206,7 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 								conn.commitTransaction();
 								JOptionPane.showMessageDialog(fge,
 									    "Enseignant correctement ajouté à la base");
+								fge.setVisible(false);
 							}
 							catch (DaoException e1) {
 								try {
@@ -200,18 +217,7 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 								}
 								e1.printStackTrace();
 							}
-							finally {
-								if(conn.estOuverte()) {
-									try {
-										conn.fermer();
-										fge.setVisible(false);
-										//TODO Faire disparaitre la fenetre a la fin de la transaction
-									}
-									catch(DaoException e3) {
-										e3.printStackTrace();
-									}
-								}
-							}
+							
 						}//Fin si c'est une nouvelle Inscription
 						else{
 							if(!estNouvelleFenetre){//Mis a jour
@@ -269,7 +275,8 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 								}
 								else{
 									if(boutSelected.equals(panelEnseignant.bModif2)){
-										new FenetreAjoutCours(df, panelEnseignant.getCoursSelect());
+										//new FenetreAjoutCours(df, panelEnseignant.getCoursSelect());
+										new FenetreAjoutCours(df, panelEnseignant.getEnseignantSelect(), panelEnseignant.getCoursSelect(), fge);
 									}
 									else{
 										if(boutSelected.equals(panelEnseignant.bModifEns)){

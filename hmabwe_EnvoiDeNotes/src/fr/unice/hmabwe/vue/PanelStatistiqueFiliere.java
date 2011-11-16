@@ -64,7 +64,7 @@ public class PanelStatistiqueFiliere extends JPanel{
 
 		for (Iterator<Double> i = hash.values().iterator() ; i.hasNext() ;){
 			JPanel petitPanelNote  = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		    JLabel a = new JLabel("Note : ");
+		    JLabel a = new JLabel("Moyenne : ");
 		    JLabel b = new JLabel(String.valueOf(i.next()));
 		    petitPanelNote.add(a);
 		    petitPanelNote.add(b);
@@ -149,8 +149,8 @@ public class PanelStatistiqueFiliere extends JPanel{
 		
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
-		panel.add(panelTotMoyenne, BorderLayout.NORTH);
-		panel.add(panelSpec, BorderLayout.CENTER);
+		panel.add(panelTotMoyenne, BorderLayout.CENTER);
+		//panel.add(panelSpec, BorderLayout.CENTER);
 	}
 	
 	public JPanel getPanelPrincipal(){

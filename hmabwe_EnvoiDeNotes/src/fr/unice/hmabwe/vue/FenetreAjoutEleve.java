@@ -77,7 +77,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 	 *@param df DaoFabrique
 	 *@param e Etudiant à modifier
 	 */
-	public FenetreAjoutEleve(DaoFabrique df, Etudiant etumodif){
+	public FenetreAjoutEleve(DaoFabrique df, Etudiant etumodif1){
 		
 		super("Ajouter un élève", 550, 500, df);
 		//C'est une edition d'etudiant;
@@ -85,7 +85,7 @@ public class FenetreAjoutEleve extends FenetreCommune{
 		
 		panelEleve = new PanelAjoutEleve(df, this);
 	    daoetudiant = df.getDaoEtudiant();
-        
+        Etudiant etumodif = daoetudiant.findByNumeroEtudiant(etumodif1.getNumEtu());
 	    //On remplit les champs avec les anciennes valeurs
 	    panelEleve.jtf.setText(etumodif.getNom());
 	    panelEleve.jtf2.setText(etumodif.getPrenom());

@@ -67,6 +67,8 @@ public class PanelGestionEnseignant extends JPanel {
 	private Collection<Cours> listC = new ArrayList<Cours>();
 	private Collection<Filiere> listF = new ArrayList<Filiere>();
 	
+	/**Constructeur du Panel Principal pour la fenêtre de gestion d'enseignants
+	 */
 	public PanelGestionEnseignant(DaoFabrique df) {
 		
 		this.df = df;
@@ -149,15 +151,15 @@ public class PanelGestionEnseignant extends JPanel {
 		
 		panelGauche = new JPanel(new BorderLayout());
 		panelGauche.add(panscrollEnseig, BorderLayout.CENTER);
-		panelGauche.add(panelBoutPlusMoins, BorderLayout.SOUTH);
+		//panelGauche.add(panelBoutPlusMoins, BorderLayout.SOUTH);
 		
 		panelBouton1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		bAjout1 = new JButton(new ImageIcon(this.getClass().getResource("/resource/plus-circle.png")));
 		bSuppress1 = new JButton(new ImageIcon(this.getClass().getResource("/resource/minus-circle.png")));
 		bModif1 = new JButton(new ImageIcon(this.getClass().getResource("/resource/pencil.png")));
 		panelBouton1.add(bAjout1);
-		panelBouton1.add(bSuppress1);
-		panelBouton1.add(bModif1);
+		//panelBouton1.add(bSuppress1);
+		//panelBouton1.add(bModif1);
 		
 	
 		listFiliere = new JList(listModelFili);
@@ -172,8 +174,8 @@ public class PanelGestionEnseignant extends JPanel {
 		bSuppress2 = new JButton(new ImageIcon(this.getClass().getResource("/resource/minus-circle.png")));
 		bModif2 = new JButton(new ImageIcon(this.getClass().getResource("/resource/pencil.png")));
 		panelBouton2.add(bAjout2);
-		panelBouton2.add(bSuppress2);
-		panelBouton2.add(bModif2);
+		//panelBouton2.add(bSuppress2);
+		//panelBouton2.add(bModif2);
 		
 		
 		listCours = new JList(listModelCours);
@@ -203,29 +205,35 @@ public class PanelGestionEnseignant extends JPanel {
 	}
 	
 	//private JTextField txtNom, txtPrenom, txtEmail;
-	
+	/**Methode qui retourne le nom entré
+	 * @return le nom*/
 	public String getNom(){
 		return this.txtNom.getText();
 	}
-	
+	/**Methode qui retourne le prenom entré
+	 *  @return le prenom*/
 	public String getPrenom(){
 		return this.txtPrenom.getText();
 	}
-	
+	/**Methode qui retourne l'email entré
+	 *  @return l'email*/
 	public String getEmail(){
 		return this.txtEmail.getText();
 	}
 	
 	//private JList listEnseignant, listFiliere, listCours;
-	
+	/**Methode qui retourne l'enseigant selectionné
+	 *  @return l'enseignant*/
 	public Enseignant getEnseignantSelect(){
 		return (Enseignant) this.listEnseignant.getSelectedValue();
 	}
-	
+	/**Methode qui retourne la filière séléctionné
+	 * @return la filière*/
 	public Filiere getFiliereSelect(){
 		return (Filiere) this.listFiliere.getSelectedValue();
 	}
-	
+	/**Methode qui retourne le cours séléctionné
+	 *  @return le cours*/
 	public Cours getCoursSelect(){
 		return (Cours) this.listCours.getSelectedValue();
 	}

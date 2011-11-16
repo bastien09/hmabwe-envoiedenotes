@@ -7,6 +7,7 @@ import java.util.Collection;
 import javax.swing.*;
 
 import fr.unice.hmabwe.controleur.bd.Connexion;
+import fr.unice.hmabwe.controleur.bd.dao.DaoEtudiant;
 import fr.unice.hmabwe.controleur.bd.dao.DaoException;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.modele.Etudiant;
@@ -24,7 +25,7 @@ public class FenetreStatistiqueEtudiant extends JFrame{
 	private Connexion conn;
 	
 	private DaoFabrique df;
-	
+	private DaoEtudiant de;
 	private PanelStatistiqueEtudiant panelStatEtu;
 	
 	/** Constructeur vide*/
@@ -36,6 +37,8 @@ public class FenetreStatistiqueEtudiant extends JFrame{
 		
 		
 		this.df = df;
+		de = df.getDaoEtudiant();
+		Etudiant etumodif = de.findByNumeroEtudiant(e.getNumEtu());
 		this.conn = df.getConnexion();
 		panelStatEtu = new PanelStatistiqueEtudiant(e, df);
 		this.setTitle("Statistiques de l'etudiant " + e.getPrenom() + " " + e.getNom());
