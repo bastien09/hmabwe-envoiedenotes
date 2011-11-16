@@ -28,6 +28,11 @@ import fr.unice.hmabwe.controleur.es.tableur.ImportExcel;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Etudiant;
 
+/**
+ * Permet à l'utilisateur d'importer des étudiants depuis un fichier XLS.
+ * @author Bastien Auda
+ *
+ */
 public class FenetreImportExcel extends JFrame {
 
 	private DaoFabrique df;

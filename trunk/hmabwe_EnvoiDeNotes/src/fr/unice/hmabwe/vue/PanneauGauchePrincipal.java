@@ -111,14 +111,17 @@ public class PanneauGauchePrincipal extends JPanel {
 		}
 	}
 
+	/**
+	 * 
+	 * @return Le cours ou la filière sélectionné.
+	 */
 	public Object getSelectedItem() {
 		return liste.getSelectedValue();
 	}
 
-	/*
+	/**
 	 * Le listener des composants du panneau
 	 */
-
 	private class EcouteurGauche implements ActionListener {
 
 		@Override
@@ -155,7 +158,7 @@ public class PanneauGauchePrincipal extends JPanel {
 						conn.rollbackTransaction();
 					}
 				} catch (Exception ex) {
-					// TODO: handle exception
+					ex.printStackTrace();
 				}
 				refreshList();
 			}
@@ -171,7 +174,7 @@ public class PanneauGauchePrincipal extends JPanel {
 			if(source.equals(stats)) {
 				if(choix.getSelectedItem().equals("Cours")) {
 					Cours c = (Cours) liste.getSelectedValue();
-					//TODO stats cours
+					//TODO mehdi : stats cours
 				} else {
 					Filiere f = (Filiere) liste.getSelectedValue();
 					new FenetreStatistiqueFiliere(df, f);

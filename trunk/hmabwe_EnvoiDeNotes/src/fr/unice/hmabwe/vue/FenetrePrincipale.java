@@ -158,10 +158,18 @@ public class FenetrePrincipale extends JFrame {
 		System.exit(0);
 	}
 	
+	/**
+	 * Change la liste d'étudiants affichée.
+	 * @param etudiants
+	 */
 	public void setListeEtudiant(Collection<Etudiant> etudiants) {
 		panneauDroite.setListeEtudiants(etudiants);
 	}
 	
+	/**
+	 * 
+	 * @return Le cours ou la filière sélectionnée.
+	 */
 	public Object getSelectedItem() {
 		return panneauGauche.getSelectedItem();
 	}
@@ -169,7 +177,7 @@ public class FenetrePrincipale extends JFrame {
 
 
 	
-	/*
+	/**
 	 * Le listener de la fenêtre
 	 */
 	private class FenetrePrincipaleListener implements WindowListener {
@@ -213,7 +221,7 @@ public class FenetrePrincipale extends JFrame {
 
 	}
 
-	/*
+	/**
 	 * Le listener de la barre de menu
 	 */
 	private class MenuListener implements ActionListener {

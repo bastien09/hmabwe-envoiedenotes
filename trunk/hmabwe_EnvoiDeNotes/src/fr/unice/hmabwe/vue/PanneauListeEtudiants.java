@@ -71,7 +71,6 @@ public class PanneauListeEtudiants extends JPanel {
 			comboFiliere = new JComboBox(daoFiliere.findAll().toArray());
 			tableEtudiants.getColumn("Filière").setCellEditor(new DefaultCellEditor(comboFiliere));
 		} catch (DaoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -149,7 +148,7 @@ public class PanneauListeEtudiants extends JPanel {
 						conn.rollbackTransaction();
 					}
 				} catch (Exception ex) {
-					// TODO: handle exception
+					ex.printStackTrace();
 				}
 
 			}
@@ -157,13 +156,12 @@ public class PanneauListeEtudiants extends JPanel {
 				try {
 					tableModel.addEtudiants(((FenetrePrincipale) SwingUtilities.getRoot(PanneauListeEtudiants.this)).getSelectedItem());
 				} catch (DaoException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 			if(source.equals(valid)) {
 				if(tableModel.modifie()) {
-					//TODO update etudiants
+					//non implémenté : update etudiants
 				}
 			}
 
