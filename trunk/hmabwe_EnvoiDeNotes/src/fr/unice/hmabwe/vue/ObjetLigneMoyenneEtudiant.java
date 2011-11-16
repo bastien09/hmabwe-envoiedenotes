@@ -21,6 +21,9 @@ public class ObjetLigneMoyenneEtudiant extends JPanel{
 	
 	public JPanel panelMoyenne;
 	
+	/**COnstructeur créant un ligne de moyenne avec le nom du cours,  l'année et la note
+	 * @param insc l'inscription concerné
+	 */
 	public ObjetLigneMoyenneEtudiant(Inscription insc){
 		
 		panelMoyenne = new JPanel(new FlowLayout(FlowLayout.LEFT));

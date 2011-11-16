@@ -63,6 +63,9 @@ public class PanelAjoutCours extends JPanel{
 	
 	private Collection<Enseignant> listEns = new ArrayList<Enseignant>();
 	
+	/**Construcuteur pour le panel permettant de créer un cours
+	 * @param df Daofabrique
+	 */
 	public PanelAjoutCours(DaoFabrique df) {
 		dfili = df.getDaoFiliere();
 		comboModelFili = new DefaultComboBoxModel();
@@ -112,7 +115,11 @@ public class PanelAjoutCours extends JPanel{
 	
 	
 	
-	
+	/**COnstructeur pour le panel d'ajout d'un nouveau cours associé à un enseignant
+	 * @param df Daofabrique
+	 * @param ens L'enseignant responsable
+	 * @param fac la fenetre principal
+	 */
 	public PanelAjoutCours(DaoFabrique df, Enseignant ens, FenetreAjoutCours fac){
 		this.fac = fac;
 		dfili = df.getDaoFiliere();

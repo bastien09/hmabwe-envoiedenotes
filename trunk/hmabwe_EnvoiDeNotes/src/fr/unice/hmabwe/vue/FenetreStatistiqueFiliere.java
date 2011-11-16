@@ -41,12 +41,11 @@ public class FenetreStatistiqueFiliere extends JFrame{
 		
 		this.conn = df.getConnexion();
 		daofiliere = df.getDaoFiliere();
-		
 		panelStatFili = new PanelStatistiqueFiliere(f, daofiliere);
 		
 				
 		this.setTitle("Statistique Flière : " + f.getNom());
-        this.setSize(500, 500);
+        this.setSize(400, 400);
         //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
 		this.setContentPane(panelStatFili.getPanelPrincipal());

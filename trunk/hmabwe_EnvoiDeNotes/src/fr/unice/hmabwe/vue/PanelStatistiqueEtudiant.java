@@ -39,6 +39,7 @@ public class PanelStatistiqueEtudiant extends JPanel{
 	private JLabel annee, moyenne, noteMoyenne, changeAnne;
 	public Etudiant e;
 	public DaoEtudiant de;
+
 	private JComboBox comboAnnee;
 	private DefaultComboBoxModel comboModel;
 	
@@ -47,10 +48,16 @@ public class PanelStatistiqueEtudiant extends JPanel{
 	//Simple essai pour l'interface
 	public ArrayList<ObjetLigneMoyenneEtudiant> ligneMoyenne = new ArrayList<ObjetLigneMoyenneEtudiant>();
 	
+	/**Constructeur principal pour le Panel Etudiant Statistique
+	 * @param e l'etudiant 
+	 * @param df la Daofabrique
+	 */
 	public PanelStatistiqueEtudiant(Etudiant e, DaoFabrique df){
 		// Methode de remplissage de diverse liste.
-		this.e = e;
-		this.de = df.getDaoEtudiant();
+		this.df = df;
+		this.de = this.df.getDaoEtudiant();
+		this.e = de.findByNumeroEtudiant(e.getNumEtu());
+		
 		comboModel = new DefaultComboBoxModel();
 		l = new EcouteurCombo();
 		Collection<Inscription> listInscription = new ArrayList<Inscription>();
@@ -101,7 +108,7 @@ public class PanelStatistiqueEtudiant extends JPanel{
 		panel.add(panelMoyenne);
 		panel.add(scrollCours);
 	}
-	
+	/**Calcule la moyenne genéral d'un étudiant en fonction de l'année*/
 	public void calculMoyenne(){
 		try {
 			noteMoyenne.setText(String.valueOf(de.getMoyenne(e.getNumEtu(), (Integer)comboAnnee.getSelectedItem())));
@@ -112,6 +119,9 @@ public class PanelStatistiqueEtudiant extends JPanel{
 		}
 		
 	}
+	
+	/**Classe pour les écouteurs. En particulier tout ce qui touche à la comboBox
+	 */
 	private class EcouteurCombo implements ActionListener{
 
 		@Override

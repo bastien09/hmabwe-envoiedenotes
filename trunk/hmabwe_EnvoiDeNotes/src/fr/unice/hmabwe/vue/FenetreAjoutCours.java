@@ -89,13 +89,17 @@ public class FenetreAjoutCours extends FenetreCommune{
 		
 		
 	}
-	// OK <<<<<<<<==============
-	public FenetreAjoutCours(DaoFabrique df, Enseignant ens){
+	/**Constructeur pour la fenetre d'ajout de cours associé à un enseignant
+	 * @param df DaoFabrique
+	 * @param ens l'enseignant responsable
+	 */
+	public FenetreAjoutCours(DaoFabrique df, Enseignant ens, FenetreGestionEnseignants fge){
 		super("Ajout de cours pour l'enseignant" + ens.getPrenom() + " " + ens.getNom(), 500, 400, df);
 		estNouveauCours = true;
 		this.ens = ens;
+		FenetreGestionEnseignants fg = fge;
 		panelCours = new PanelAjoutCours(df, ens, this);
-		l1 = new EcouteurCoursEnseignant(this, panelCours);
+		l1 = new EcouteurCoursEnseignant(this, panelCours, fg);
 		daocours = df.getDaoCours();
 		daocoeff = df.getDaoCoefficient();
 		
@@ -110,6 +114,32 @@ public class FenetreAjoutCours extends FenetreCommune{
 		
 	}
 	
+	public FenetreAjoutCours(DaoFabrique df, Enseignant ens, Cours c, FenetreGestionEnseignants fge){
+		super("Modification de cours pour l'enseignant" + ens.getPrenom() + " " + ens.getNom(), 500, 400, df);
+		estNouveauCours = false;
+		this.ens = ens;
+		panelCours = new PanelAjoutCours(df, ens, this);
+		l1 = new EcouteurCoursEnseignant(this, panelCours, fge);
+		daocours = df.getDaoCours();
+		daocoeff = df.getDaoCoefficient();
+		panelCours.txtNom.setText(c.getNom());
+		
+		
+		panelCours.bAjoutCours.addMouseListener(l1);
+		this.boutonOK.addMouseListener(l1);
+		
+		this.setResizable(true);
+		this.container.add(panelCours.getPanelPrincipal(), BorderLayout.NORTH);
+		this.setVisible(true);
+		
+		
+	}
+	
+	/**Fenetre pour associer un cours à un enseignant selectionné
+	 * @param df DaoFabrique
+	 * @param ens L'enseignant selectionné
+	 * @param fac La fenetre principal
+	 */
 	public FenetreAjoutCours(DaoFabrique df, Enseignant ens, FenetreAjoutCours fac, int i){
 		super("Associer un cours à l'enseignant " + ens.getPrenom() + " " + ens.getNom(), 300, 200, df);
 		
@@ -127,10 +157,10 @@ public class FenetreAjoutCours extends FenetreCommune{
 	private class EcouteurCours implements MouseListener{
 		public FenetreAjoutCours fac;
 		
-		public EcouteurCours(FenetreAjoutCours fac) {
+		public EcouteurCours(FenetreAjoutCours fac){
 			this.fac = fac;
-			// TODO Auto-generated constructor stub
 		}
+		
 
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
@@ -147,6 +177,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 						JOptionPane.showMessageDialog(fac,
 							    "Cours ajouté à la base");
 						fac.setVisible(false);
+						
 					} catch (DaoException e) {
 						
 						try {
@@ -170,12 +201,16 @@ public class FenetreAjoutCours extends FenetreCommune{
 						} catch (DaoException e) {
 							
 							try {
+								fac.setVisible(false);
 								conn.rollbackTransaction();
 							} catch (DaoException e1) {
 								
 								e1.printStackTrace();
 							}
 							e.printStackTrace();
+						}
+						finally{
+							fac.setVisible(false);
 						}
 						
 					}
@@ -222,10 +257,13 @@ public class FenetreAjoutCours extends FenetreCommune{
 		
 		FenetreAjoutCours fac;
 		PanelAjoutCours pac;
-		public EcouteurCoursEnseignant(FenetreAjoutCours fac, PanelAjoutCours pac){
+		FenetreGestionEnseignants fge;
+		public EcouteurCoursEnseignant(FenetreAjoutCours fac, PanelAjoutCours pac, FenetreGestionEnseignants fge){
 			this.fac = fac;
 			this.pac = pac;
+			this.fge = fge;
 		}
+		
 		
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
@@ -244,6 +282,7 @@ public class FenetreAjoutCours extends FenetreCommune{
 						    "Cours ajouté à la base");
 					
 					fac.setVisible(false);
+					fge.setVisible(false);
 				} catch (DaoException e) {
 					
 					try {

@@ -55,7 +55,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		boutonAnnuler.addMouseListener(l);
 		panelFiliere.bAjoutEnseignant.addMouseListener(l);
 		
-		this.setResizable(false);
+		this.setResizable(true);
 		this.container.add(panelFiliere.getPanelPrincipal(), BorderLayout.NORTH);
 		this.setVisible(true);
 		
@@ -87,20 +87,22 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 		
 		
 		
-		this.setResizable(false);
+		this.setResizable(true);
 		this.container.add(panelFiliere.getPanelPrincipal(), BorderLayout.NORTH);
 		this.setVisible(true);
 		
 	}
 	
-	
-	public FenetreAjoutFiliere(DaoFabrique df, Enseignant e){
-		super("Ajout de cours pour l'enseignant" + e.getPrenom() + " " + e.getNom(), 300, 200, df);
+	/**Ajout d'une filière en fonction de l'enseignant selectionné
+	 * @param df La DaoFabrique
+	 * @param e l'enseignant responsable de la filière*/
+	public FenetreAjoutFiliere(DaoFabrique df, Enseignant e, FenetreGestionEnseignants fge){
+		super("Ajout d'une filière pour l'enseignant " + e.getPrenom() + " " + e.getNom(), 350, 250, df);
 		this.ens = e;
 		daoFiliere = df.getDaoFiliere();
 		
 		panelFiliere = new PanelAjoutFiliere(df);
-		l2 = new EcouteurFiliereEnseignant(this, panelFiliere);
+		l2 = new EcouteurFiliereEnseignant(this, panelFiliere, fge);
 		
 		this.boutonOK.addMouseListener(l2);
 		this.setResizable(true);
@@ -110,14 +112,19 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 	}
 	
 	
-	
+	/** Classe qui gère les écouteurs de boutons */
 	private class EcouteurFiliereEnseignant implements MouseListener{
 		FenetreAjoutFiliere fac;
 		PanelAjoutFiliere pac;
-		
-		public EcouteurFiliereEnseignant(FenetreAjoutFiliere fac, PanelAjoutFiliere pac){
+		FenetreGestionEnseignants fge;
+		/**Constructeur principal pour l'ecoute des boutons
+		 * @param fac La fenetre Principal
+		 * @param pac Le panel principal
+		 */
+		public EcouteurFiliereEnseignant(FenetreAjoutFiliere fac, PanelAjoutFiliere pac, FenetreGestionEnseignants fge){
 			this.fac = fac;
 			this.pac = pac;
+			this.fge = fge;
 		}
 		
 		@Override
@@ -135,6 +142,7 @@ public class FenetreAjoutFiliere extends FenetreCommune{
 					JOptionPane.showMessageDialog(fac,
 						    "Filière ajoutée à la base");
 					fac.setVisible(false);
+					fge.setVisible(false);
 				} catch (DaoException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
