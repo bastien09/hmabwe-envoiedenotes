@@ -21,6 +21,7 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 
 /**
  * La fenêtre affichée lors de la première utilisation.
+ * Elle s'affiche aussi lorsque la connexion à la base est impossible.
  * @author Bastien Auda
  *
  */
@@ -73,7 +74,7 @@ public class FenetrePremiere extends JFrame {
 	}
 
 	/**
-	 * Lance le programme.
+	 * Lance le programme en créant une nouvelle fenêtre principale.
 	 */
 	private void launch() {
 		chargerPrefs();
@@ -99,6 +100,9 @@ public class FenetrePremiere extends JFrame {
 		}
 	}
 
+	/**
+	 * Charge les paramètres de connexion depuis le fichier de préférence.
+	 */
 	private void chargerPrefs() {
 		Properties props = new Properties();
 		try {

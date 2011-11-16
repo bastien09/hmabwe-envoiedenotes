@@ -26,6 +26,11 @@ import fr.unice.hmabwe.controleur.es.tableur.ExportExcel;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Etudiant;
 
+/**
+ * Fenêtre qui permet à l'utilisateur d'exporter des étudiants dans un fichier XLS.
+ * @author Bastien Auda
+ *
+ */
 public class FenetreExportExcel extends JFrame {
 
 	private DaoFabrique df;

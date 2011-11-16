@@ -119,6 +119,10 @@ public class FenetreMail extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Charge les propriétés concernant le serveur smtp d'envoi de mail.
+	 * @param filename L'url du fichier de propriété.
+	 */
 	private void loadProperties(String filename) {
 		Properties props = new Properties();
 		try {

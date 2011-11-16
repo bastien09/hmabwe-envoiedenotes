@@ -18,7 +18,7 @@ import fr.unice.hmabwe.modele.Filiere;
 import fr.unice.hmabwe.modele.Inscription;
 
 /**
- * 
+ * Gestion de la JTable d'étudiants de la fenêtre principale.
  * @author Bastien Auda
  *
  */
@@ -27,9 +27,10 @@ public class EtudiantTableModel extends AbstractTableModel {
 	private DaoFabrique df;
 	private DaoEtudiant daoEtudiant;
 	private Connexion conn;
-	
+	/** La liste d'étudiants utilisée dans la table */
 	private ArrayList<Etudiant> etudiants;
 	
+	/** Permet de savoir si une modification à eu lieu */
 	private Boolean tableauModifie = false;
 	
 
@@ -111,6 +112,9 @@ public class EtudiantTableModel extends AbstractTableModel {
 		return true;
 	}
 	
+	/**
+	 * Modifie la valeur de la cellule.
+	 */
 	public void setValueAt(Object valeur, int row, int column) {
 		Etudiant e = etudiants.get(row);
 		switch (column) {
@@ -156,15 +160,27 @@ public class EtudiantTableModel extends AbstractTableModel {
 		return tableauModifie;
 	}
 	
+	/**
+	 * Remet la variable tableauModifié à faux.
+	 */
 	public void resetModif() {
 		tableauModifie = false;
 	}
 
+	/**
+	 * Charge la liste d'étudiants dans la table.
+	 * @param etudiants
+	 */
 	public void setEtudiants(Collection<Etudiant> etudiants) {
 		this.etudiants = new ArrayList<Etudiant>(etudiants);
 		this.fireTableDataChanged();
 	}
 	
+	/**
+	 * Ajoute les étudiants dans la liste.
+	 * @param etudiants
+	 * @throws DaoException
+	 */
 	public void addEtudiants(Collection<Etudiant> etudiants) throws DaoException {
 		this.etudiants.addAll(etudiants);
 		conn.beginTransaction();
@@ -175,6 +191,11 @@ public class EtudiantTableModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 	
+	/**
+	 * @see addEtudiants
+	 * @param e
+	 * @throws DaoException
+	 */
 	public void addEtudiants(Etudiant e) throws DaoException {
 		Collection<Etudiant> etudiants = new ArrayList<Etudiant>();
 		etudiants.add(e);
