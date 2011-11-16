@@ -1,5 +1,6 @@
 package fr.unice.hmabwe.modele;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -37,11 +38,11 @@ public class Cours {
 	
 	/**Un cours peut avoir une ou plusieurs inscriptions*/
 	@OneToMany(mappedBy="cours", cascade=CascadeType.ALL)
-	private Collection<Inscription> listeInscriptions;
+	private Collection<Inscription> listeInscriptions = new ArrayList<Inscription>();
 	
 	/**Un cours peut avoir plusieurs filières ayant chacune un coefficient.*/
 	@OneToMany(mappedBy="cours", cascade=CascadeType.ALL)
-	private Collection<Coefficient> listeCoeffFilieres;
+	private Collection<Coefficient> listeCoeffFilieres= new ArrayList<Coefficient>();
 	
 	/**Constructeur par défaut*/
 	public Cours(){

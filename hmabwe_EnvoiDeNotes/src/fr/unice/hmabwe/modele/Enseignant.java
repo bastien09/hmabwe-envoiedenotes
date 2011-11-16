@@ -1,5 +1,6 @@
 package fr.unice.hmabwe.modele;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.DiscriminatorValue;
@@ -19,11 +20,11 @@ public class Enseignant extends Personne{
 	
 	/**Un enseignant peut être responsable d'une ou plusieurs filières*/
 	@OneToMany(mappedBy="responsable")
-	private Collection<Filiere> listeFilieres;
+	private Collection<Filiere> listeFilieres= new ArrayList<Filiere>();
 	
 	/**Un enseignant peut présenter un ou plusieurs cours*/
 	@OneToMany(mappedBy="enseignant")
-	private Collection<Cours> listeCours;
+	private Collection<Cours> listeCours= new ArrayList<Cours>();
 	
 	/**Constructeur par défaut*/
 	public Enseignant(){

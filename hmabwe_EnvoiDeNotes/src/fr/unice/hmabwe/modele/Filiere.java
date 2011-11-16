@@ -39,11 +39,11 @@ public class Filiere {
 	
 	/**Une filière peut contenir plusieurs étudiants.*/
 	@OneToMany(mappedBy="filiere")
-	private Collection<Etudiant> listeEtudiants;
+	private Collection<Etudiant> listeEtudiants= new ArrayList<Etudiant>();
 	
 	/**Une filière peut avoir plusieurs cours ayant chacun un coefficient.*/
 	@OneToMany(mappedBy="filiere", cascade=CascadeType.ALL)
-	private Collection<Coefficient> listeCoeffCours;
+	private Collection<Coefficient> listeCoeffCours= new ArrayList<Coefficient>();
 	
 	/**Constructeur par défaut*/
 	public Filiere(){
@@ -53,7 +53,6 @@ public class Filiere {
 	/**Constructeur associant un nom à une filière
 	 * @param n nom de la filière à créer*/
 	public Filiere(String n){
-		listeEtudiants = new ArrayList<Etudiant>();
 		nom=n;
 	}
 	
