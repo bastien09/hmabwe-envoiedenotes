@@ -51,6 +51,10 @@ public class Etudiant extends Personne{
 	@Lob
 	private byte[] photo;
 
+	/**Constructeur par défaut*/
+	public Etudiant(){
+		
+	}
 
 	/**Constructeur associant à un étudiant un nom, un prénom et une adresse e-mail
 	 * @param num numéro de l'étudiant à créer
