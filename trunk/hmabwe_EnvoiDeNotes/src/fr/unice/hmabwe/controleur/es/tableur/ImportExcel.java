@@ -143,7 +143,7 @@ public class ImportExcel {
 					DaoCours course = df.getDaoCours();
 					DaoFiliere filiere = df.getDaoFiliere();
 					DaoCoefficient coefficient = df.getDaoCoefficient();
-					DaoInscription incription = df.getDaoInscription();
+					DaoInscription incriptionDao = df.getDaoInscription();
 
 					boolean testCoef = false;
 					boolean testEtu = false;
@@ -171,8 +171,10 @@ public class ImportExcel {
 
 					} catch (DaoException daexep) {
 						try {
-							
-							course.update(c);
+							Cours nouveauC = course.findById(c.getId());
+							nouveauC.setEnseignant(c.getEnseignant());
+							nouveauC.setNom(c.getNom());
+							course.update(nouveauC);
 							testCoef = true;
 						} catch (DaoException e2) {
 							e2.printStackTrace();
@@ -184,7 +186,10 @@ public class ImportExcel {
 						testCoef = false;
 
 					} catch (DaoException daexep) {
-						filiere.update(f);
+						Filiere nouveauF = filiere.findById(f.getId());
+						nouveauF.setResponsable(f.getResponsable());
+						nouveauF.setNom(f.getNom());
+						filiere.update(nouveauF);
 						testCoef = true;
 					}
 
@@ -193,27 +198,39 @@ public class ImportExcel {
 							coefficient.create(coef);
 
 						} catch (DaoException daexep) {
+							Coefficient nouveauC = coefficient.findById(coef.getId());
+							nouveauC.setCoefficient(coef.getCoefficient());
+							nouveauC.setCours(coef.getCours());
+							nouveauC.setFiliere(coef.getFiliere());
+							coefficient.update(nouveauC);
 							daexep.printStackTrace();
 						}
 					}
 
 					if (testEtu == false) {
 						try {
-							incription.create(inscription);
+							incriptionDao.create(inscription);
 
 						} catch (DaoException daexep) {
+							Inscription nouveauI = incriptionDao.findById(inscription.getId());
+							nouveauI.setCours(inscription.getCours());
+							nouveauI.setMoyenne(inscription.getMoyenne());
+							incriptionDao.update(nouveauI);
 							daexep.printStackTrace();
 						}
 					} else {
 						if (etu.etaitInscrit(numEtu, cours.toString(), an)) {
 							try {
-								incription.update(inscription);
+								Inscription nouveauI = incriptionDao.findById(inscription.getId());
+								nouveauI.setCours(inscription.getCours());
+								nouveauI.setMoyenne(inscription.getMoyenne());
+								incriptionDao.update(nouveauI);
 							} catch (DaoException e1) {
 								e1.printStackTrace();
 							}
 						} else {
 							try {
-								incription.create(inscription);
+								incriptionDao.create(inscription);
 							} catch (DaoException e1) {
 								e1.printStackTrace();
 							}
