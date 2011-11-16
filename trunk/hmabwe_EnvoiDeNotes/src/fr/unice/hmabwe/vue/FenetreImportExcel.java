@@ -118,16 +118,7 @@ public class FenetreImportExcel extends JFrame {
 				
 				HashMap<Etudiant, Double> ed = ie.lectureListEtudiants();
 				
-				for (Entry<Etudiant, Double> entry : ed.entrySet())
-				{
-				    Etudiant etu = entry.getKey();
-				    try {
-						daoEtudiant.create(etu);
-					} catch (DaoException e1) {
-						e1.printStackTrace();
-					}
-				    
-				}
+				
 				
 				FenetreImportExcel.this.dispose();
 			}
