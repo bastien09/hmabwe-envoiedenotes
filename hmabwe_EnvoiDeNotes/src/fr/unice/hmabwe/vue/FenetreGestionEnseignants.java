@@ -223,8 +223,8 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 							if(!estNouvelleFenetre){//Mis a jour
 								Enseignant e = new Enseignant(panelEnseignant.getNom(), panelEnseignant.getPrenom(), panelEnseignant.getEmail());
 								
-								e.addFiliere(panelEnseignant.getFiliereSelect());
-								e.addCours(panelEnseignant.getCoursSelect());
+								//e.addFiliere(panelEnseignant.getFiliereSelect());
+								//e.addCours(panelEnseignant.getCoursSelect());
 								
 								
 								try {
@@ -242,18 +242,7 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 									}
 									e1.printStackTrace();
 								}
-								finally {
-									if(conn.estOuverte()) {
-										try {
-											conn.fermer();
-											fge.setVisible(false);
-											//TODO Faire disparaitre la fenetre a la fin de la transaction
-										}
-										catch(DaoException e3) {
-											e3.printStackTrace();
-										}
-									}
-								}
+								
 							}//Fin si c'est une mis a jour
 						}
 						
@@ -271,7 +260,7 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 							else{
 								if(boutSelected.equals(panelEnseignant.bModif1)){
 									new FenetreAjoutFiliere(df, panelEnseignant.getFiliereSelect());
-									new FenetreStatistiqueFiliere(df, panelEnseignant.getFiliereSelect());
+									//new FenetreStatistiqueFiliere(df, panelEnseignant.getFiliereSelect());
 								}
 								else{
 									if(boutSelected.equals(panelEnseignant.bModif2)){
