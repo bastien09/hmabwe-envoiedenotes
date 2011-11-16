@@ -2,6 +2,7 @@ package fr.unice.hmabwe.controleur.es.tableur;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 
 import jxl.Cell;
@@ -168,18 +169,30 @@ public class ImportExcel {
 					}
 
 					try {
-						Cours cTemp = course.findById(c.getId());
-						if(cTemp == null){
-							course.create(c);
-
+						boolean exist = false;
+						Collection<Cours> cTemp = course.findAll();
+						for(Cours c1 :cTemp){
+							if(c1.getNom().compareTo(c.getNom()) == 0){
+								exist = true;
+							}
+							
 						}
+						
+						if(exist){
+							Cours nouveauC = course.findById(c.getId());
+							nouveauC.setEnseignant(c.getEnseignant());
+							nouveauC.setNom(c.getNom());
+							course.update(nouveauC);
+							testCoef = true;
+						}
+						
+						else{
+							course.create(c);
+						}
+						
 
 					} catch (DaoException daexep) {
-						Cours nouveauC = course.findById(c.getId());
-						nouveauC.setEnseignant(c.getEnseignant());
-						nouveauC.setNom(c.getNom());
-						course.update(nouveauC);
-						testCoef = true;
+						daexep.printStackTrace();
 						System.out.println("le course.creat() a échoué");
 					}
 
