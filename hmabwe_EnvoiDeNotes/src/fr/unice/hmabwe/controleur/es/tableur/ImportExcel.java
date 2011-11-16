@@ -152,7 +152,14 @@ public class ImportExcel {
 						etu.create(e);
 					} catch (DaoException daexep) {
 						try {
-							etu.update(e);
+							Etudiant nouveauE = etu.findByNumeroEtudiant(e.getNumEtu());
+							nouveauE.setFiliere(e.getFiliere());
+							nouveauE.setGroupe(e.getGroupe());
+							nouveauE.setMail(e.getMail());
+							nouveauE.setOrigine(e.getOrigine());
+							nouveauE.setNom(e.getNom());
+							nouveauE.setPrenom(e.getPrenom());
+							etu.update(nouveauE);
 							testEtu = true;
 						} catch (DaoException e1) {
 							e1.printStackTrace();
@@ -164,6 +171,7 @@ public class ImportExcel {
 
 					} catch (DaoException daexep) {
 						try {
+							
 							course.update(c);
 							testCoef = true;
 						} catch (DaoException e2) {

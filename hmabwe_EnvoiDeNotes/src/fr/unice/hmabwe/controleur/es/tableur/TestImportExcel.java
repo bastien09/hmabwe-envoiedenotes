@@ -20,7 +20,7 @@ public class TestImportExcel {
 		//ExcelImport ei = new ExcelImport("/home/amazigh/workspace/EnvoiDeNotes/moyenneEtu.xls", "a", "b", "c", "d", "e", "f","g", "h", "i");
 		
 		//avec Bd
-		ImportExcel ie = new ImportExcel("/home/amazigh/workspace/EnvoiDeNotes/moyenneEtu.xls", "a", "b", "c", "d", "e", "f","g", "h", "i");
+		ImportExcel ie = new ImportExcel("/Users/milkyboi/Downloads/moyenneEtu.xls", "a", "b", "c", "d", "e", "f","g", "h", "i");
 		
 		HashMap<Etudiant, Double> ed = ie.lectureListEtudiants();
 		System.out.println("Taille de la liste d'etudiants : " + ed.size());
