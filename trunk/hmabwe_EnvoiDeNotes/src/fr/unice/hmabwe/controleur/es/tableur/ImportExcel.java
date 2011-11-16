@@ -160,10 +160,12 @@ public class ImportExcel {
 							}
 							
 						}
-						
+						System.out.println("######exist est à " + exist);
 						if(exist){
+							
 							Cours nouveauC = course.findById(c.getId());
-							nouveauC.setEnseignant(c.getEnseignant());
+							//Pas d'enseignant dans l'Excel nouveauC.setEnseignant(c.getEnseignant());
+							System.out.println("c.getNom() :" + c.getNom());
 							nouveauC.setNom(c.getNom());
 							course.update(nouveauC);
 							testCoef = true;
