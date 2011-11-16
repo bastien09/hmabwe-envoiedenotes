@@ -141,10 +141,10 @@ public class ImportExcel {
 					}
 
 					DaoEtudiant etu = df.getDaoEtudiant();
-					DaoCours course = df.getDaoCours();
-					DaoFiliere filiere = df.getDaoFiliere();
-					DaoCoefficient coefficient = df.getDaoCoefficient();
-					DaoInscription incriptionDao = df.getDaoInscription();
+					//DaoCours course = df.getDaoCours();
+					//DaoFiliere filiere = df.getDaoFiliere();
+					//DaoCoefficient coefficient = df.getDaoCoefficient();
+					//DaoInscription incriptionDao = df.getDaoInscription();
 
 					boolean testCoef = false;
 					boolean testEtu = false;
@@ -167,7 +167,7 @@ public class ImportExcel {
 						testEtu = true;
 						System.out.println("etu.create() a échoué");
 					}
-
+/*
 					try {
 						boolean exist = false;
 						Collection<Cours> cTemp = course.findAll();
@@ -275,7 +275,7 @@ public class ImportExcel {
 							}
 						}
 
-					}
+					}*/
 
 					moyennesEtudiants.put(e, moyenne);
 
