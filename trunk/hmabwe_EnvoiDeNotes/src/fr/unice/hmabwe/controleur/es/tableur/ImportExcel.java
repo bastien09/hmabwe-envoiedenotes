@@ -88,8 +88,7 @@ public class ImportExcel {
 			int c_filiere = getColonneByString(filiere);
 			int c_annee = getColonneByString(annee);
 			int c_cours = getColonneByString(cours);
-			System.out.println(c_numEtu + c_nom + c_prenom + c_mail + c_moyenne
-					+ c_filiere);
+
 			if (c_numEtu == -1 || c_nom == -1 || c_prenom == -1 || c_mail == -1
 					|| c_origine == -1 || c_moyenne == -1 || c_filiere == -1
 					|| c_annee == -1 || c_cours == -1)
@@ -113,16 +112,13 @@ public class ImportExcel {
 
 			int an = Integer.parseInt(annee[1].getContents());
 
-
-
 			ConfigConnexion.setTypePersistance(TypePersistance.JPA);
 			DaoFabrique df = DaoFabrique.getDaoFabrique();
 			Connexion conn = df.getConnexion();
-
+			conn.beginTransaction();
 			for (int i = 1; i < (numsEtu.length >= noms.length ? noms.length
 					: numsEtu.length); i++) {
 				try {
-					conn.beginTransaction();
 
 					Double moyenne = Double.parseDouble(moyennes[i]
 							.getContents());
@@ -167,11 +163,10 @@ public class ImportExcel {
 						course.create(c);
 
 					} catch (DaoException daexep) {
-						try{
+						try {
 							course.update(c);
 							testCoef = true;
-						}
-						catch(DaoException e2){
+						} catch (DaoException e2) {
 							e2.printStackTrace();
 						}
 					}
@@ -220,14 +215,18 @@ public class ImportExcel {
 
 					moyennesEtudiants.put(e, moyenne);
 
-					conn.commitTransaction();
 				} catch (NumberFormatException nfe) {
 					nfe.printStackTrace();
 				} catch (DaoException e1) {
 					e1.printStackTrace();
 				}
 			}
+
+			conn.commitTransaction();
+
 		} catch (BiffException e) {
+			e.printStackTrace();
+		} catch (DaoException e) {
 			e.printStackTrace();
 		}
 		return moyennesEtudiants;
