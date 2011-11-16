@@ -45,16 +45,12 @@ public class Etudiant extends Personne{
 
 	/**Un étudiant est inscrit à un ou plusieurs cours.*/
 	@OneToMany(mappedBy="etudiant", cascade=CascadeType.ALL)
-	private Collection<Inscription> listeInscriptions;
+	private Collection<Inscription> listeInscriptions= new ArrayList<Inscription>();
 
 	/**Un étudiant peut avoir une photo*/
 	@Lob
 	private byte[] photo;
 
-	/**Constructeur par défaut*/
-	public Etudiant(){
-		listeInscriptions=new ArrayList<Inscription>();
-	}
 
 	/**Constructeur associant à un étudiant un nom, un prénom et une adresse e-mail
 	 * @param num numéro de l'étudiant à créer
@@ -64,7 +60,6 @@ public class Etudiant extends Personne{
 	public Etudiant(String num, String n, String pn, String m){
 		super(n, pn, m);
 		numEtu=num;
-		listeInscriptions=new ArrayList<Inscription>();
 	}
 
 	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail et une origine
@@ -76,7 +71,6 @@ public class Etudiant extends Personne{
 	public Etudiant(String num, String n, String pn, String m, String o){
 		this(num, n, pn, m);
 		origine=o;
-		listeInscriptions=new ArrayList<Inscription>();
 	}
 
 	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail, une origine 
@@ -90,7 +84,6 @@ public class Etudiant extends Personne{
 	public Etudiant(String num, String n, String pn, String m, String o, Filiere f){
 		this(num, n, pn, m, o);
 		filiere=f;
-		listeInscriptions=new ArrayList<Inscription>();
 	}
 
 
@@ -106,7 +99,6 @@ public class Etudiant extends Personne{
 	public Etudiant(String num, String n, String pn, String m, String o, Filiere f, String g){
 		this(num, n, pn, m, o, f);
 		groupe=g;
-		listeInscriptions=new ArrayList<Inscription>();
 	}
 
 	/**Constructeur associant à un étudiant un nom, un prénom, une adresse e-mail, une origine 
