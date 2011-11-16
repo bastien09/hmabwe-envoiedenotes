@@ -113,16 +113,9 @@ public class ExcelImport {
 
 			int an = Integer.parseInt(annee[1].getContents());
 
-
-
-			ConfigConnexion.setTypePersistance(TypePersistance.JPA);
-			DaoFabrique df = DaoFabrique.getDaoFabrique();
-			Connexion conn = df.getConnexion();
-			
 			for (int i = 1; i < (numsEtu.length >= noms.length ? noms.length
 					: numsEtu.length); i++) {
 				try {
-					
 
 					Double moyenne = Double.parseDouble(moyennes[i]
 							.getContents());
@@ -143,86 +136,14 @@ public class ExcelImport {
 								moyenne);
 					}
 
-					DaoEtudiant etu = df.getDaoEtudiant();
-					DaoCours course = df.getDaoCours();
-					DaoFiliere filiere = df.getDaoFiliere();
-					DaoCoefficient coefficient = df.getDaoCoefficient();
-					DaoInscription incription = df.getDaoInscription();
-
-					boolean testCoef = false;
-					boolean testEtu = false;
-
-					try {
-						etu.create(e);
-					} catch (DaoException daexep) {
-						try {
-							etu.update(e);
-							testEtu = true;
-						} catch (DaoException e1) {
-							e1.printStackTrace();
-						}
-					}
-
-					try {
-						course.create(c);
-
-					} catch (DaoException daexep) {
-						testCoef = true;
-					}
-
-					try {
-						filiere.create(f);
-						testCoef = false;
-
-					} catch (DaoException daexep) {
-						testCoef = true;
-					}
-
-					if (testCoef == false) {
-						try {
-							coefficient.create(coef);
-
-						} catch (DaoException daexep) {
-							daexep.printStackTrace();
-						}
-					}
-
-					if (testEtu == false) {
-						try {
-							incription.create(inscription);
-
-						} catch (DaoException daexep) {
-							daexep.printStackTrace();
-						}
-					} else {
-						if (etu.etaitInscrit(numEtu, cours.toString(), an)) {
-							try {
-								incription.update(inscription);
-							} catch (DaoException e1) {
-								e1.printStackTrace();
-							}
-						} else {
-							try {
-								incription.create(inscription);
-							} catch (DaoException e1) {
-								e1.printStackTrace();
-							}
-						}
-
-					}
-
 					moyennesEtudiants.put(e, moyenne);
 
-					
 				} catch (NumberFormatException nfe) {
 					nfe.printStackTrace();
-				} 
+				}
 			}
-			
-			conn.commitTransaction();
+
 		} catch (BiffException e) {
-			e.printStackTrace();
-		} catch (DaoException e) {
 			e.printStackTrace();
 		}
 		return moyennesEtudiants;
