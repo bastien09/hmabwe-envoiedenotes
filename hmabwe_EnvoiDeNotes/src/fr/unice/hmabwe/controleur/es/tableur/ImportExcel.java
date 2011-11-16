@@ -141,33 +141,16 @@ public class ImportExcel {
 					}
 
 					DaoEtudiant etu = df.getDaoEtudiant();
-					//DaoCours course = df.getDaoCours();
-					//DaoFiliere filiere = df.getDaoFiliere();
-					//DaoCoefficient coefficient = df.getDaoCoefficient();
-					//DaoInscription incriptionDao = df.getDaoInscription();
+					DaoCours course = df.getDaoCours();
+					DaoFiliere filiere = df.getDaoFiliere();
+					DaoCoefficient coefficient = df.getDaoCoefficient();
+					DaoInscription incriptionDao = df.getDaoInscription();
 
 					boolean testCoef = false;
 					boolean testEtu = false;
 					
-
-					try {
-						Etudiant eTemp = etu.findByNumeroEtudiant(e.getNumEtu());
-						if(eTemp == null){
-							etu.create(e);
-						}
-					} catch (DaoException daexep) {
-						Etudiant nouveauE = etu.findByNumeroEtudiant(e.getNumEtu());
-						nouveauE.setFiliere(e.getFiliere());
-						nouveauE.setGroupe(e.getGroupe());
-						nouveauE.setMail(e.getMail());
-						nouveauE.setOrigine(e.getOrigine());
-						nouveauE.setNom(e.getNom());
-						nouveauE.setPrenom(e.getPrenom());
-						etu.update(nouveauE);
-						testEtu = true;
-						System.out.println("etu.create() a échoué");
-					}
-/*
+					
+					
 					try {
 						boolean exist = false;
 						Collection<Cours> cTemp = course.findAll();
@@ -195,6 +178,9 @@ public class ImportExcel {
 						daexep.printStackTrace();
 						System.out.println("le course.creat() a échoué");
 					}
+					
+					
+					
 
 					try {
 						Filiere fTemp = filiere.findById(f.getId());
@@ -212,6 +198,11 @@ public class ImportExcel {
 						testCoef = true;
 						System.out.println("filiere.create() a échoué");
 					}
+					
+					
+					
+					
+					
 
 					if (testCoef == false) {
 						try {
@@ -231,6 +222,35 @@ public class ImportExcel {
 							System.out.println("coefficient.create() a échoué");
 						}
 					}
+					
+					
+					
+					
+					
+					
+					
+
+					try {
+						Etudiant eTemp = etu.findByNumeroEtudiant(e.getNumEtu());
+						if(eTemp == null){
+							etu.create(e);
+						}
+					} catch (DaoException daexep) {
+						Etudiant nouveauE = etu.findByNumeroEtudiant(e.getNumEtu());
+						nouveauE.setFiliere(e.getFiliere());
+						nouveauE.setGroupe(e.getGroupe());
+						nouveauE.setMail(e.getMail());
+						nouveauE.setOrigine(e.getOrigine());
+						nouveauE.setNom(e.getNom());
+						nouveauE.setPrenom(e.getPrenom());
+						etu.update(nouveauE);
+						testEtu = true;
+						System.out.println("etu.create() a échoué");
+					}
+
+					
+
+
 
 					if (testEtu == false) {
 						try {
@@ -275,7 +295,7 @@ public class ImportExcel {
 							}
 						}
 
-					}*/
+					}
 
 					moyennesEtudiants.put(e, moyenne);
 
