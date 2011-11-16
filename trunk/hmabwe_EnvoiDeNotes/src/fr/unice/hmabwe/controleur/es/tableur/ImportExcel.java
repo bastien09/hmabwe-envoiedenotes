@@ -167,7 +167,13 @@ public class ImportExcel {
 						course.create(c);
 
 					} catch (DaoException daexep) {
-						testCoef = true;
+						try{
+							course.update(c);
+							testCoef = true;
+						}
+						catch(DaoException e2){
+							e2.printStackTrace();
+						}
 					}
 
 					try {
@@ -175,6 +181,7 @@ public class ImportExcel {
 						testCoef = false;
 
 					} catch (DaoException daexep) {
+						filiere.update(f);
 						testCoef = true;
 					}
 
