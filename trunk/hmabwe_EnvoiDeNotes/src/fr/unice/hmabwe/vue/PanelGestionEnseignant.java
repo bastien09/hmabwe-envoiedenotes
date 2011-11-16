@@ -72,11 +72,6 @@ public class PanelGestionEnseignant extends JPanel {
 	public PanelGestionEnseignant(DaoFabrique df) {
 		
 		this.df = df;
-		// A effacer plus tard
-		Object[] tabEnse = {"Patrick", "Louis", "Yves"};
-		Object[] tabCours = {"Math", "Anglais", "Latin"};
-		Object[] tabFili = {"L2I", "M1MASS", "Bio"};
-		//
 		de = df.getDaoEnseignant();
 		//dc = df.getDaoCours();
 		//dfili = df.getDaoFiliere();
@@ -146,12 +141,12 @@ public class PanelGestionEnseignant extends JPanel {
 		bMoins = new JButton(new ImageIcon(this.getClass().getResource("/resource/minus-circle.png")));
 		bModifEns = new JButton(new ImageIcon(this.getClass().getResource("/resource/pencil.png")));
 		panelBoutPlusMoins.add(bPlus);
-		panelBoutPlusMoins.add(bMoins);
+		//panelBoutPlusMoins.add(bMoins);
 		panelBoutPlusMoins.add(bModifEns);
 		
 		panelGauche = new JPanel(new BorderLayout());
 		panelGauche.add(panscrollEnseig, BorderLayout.CENTER);
-		//panelGauche.add(panelBoutPlusMoins, BorderLayout.SOUTH);
+		panelGauche.add(panelBoutPlusMoins, BorderLayout.SOUTH);
 		
 		panelBouton1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		bAjout1 = new JButton(new ImageIcon(this.getClass().getResource("/resource/plus-circle.png")));
@@ -199,11 +194,53 @@ public class PanelGestionEnseignant extends JPanel {
 		
 	}
 	
+	public PanelGestionEnseignant(DaoFabrique df, int i){
+		this.df = df;
+		de = df.getDaoEnseignant();
+		
+		nom = new JLabel("Nom : ");
+		prenom = new JLabel("Prenom : ");
+		email = new JLabel("E-mail : ");
+		
+		txtNom = new JTextField();
+		txtNom.setMaximumSize(new Dimension(150, 50));
+		txtNom.setColumns(20);
+		txtPrenom = new JTextField();
+		txtPrenom.setMaximumSize(new Dimension(150, 50));
+		txtPrenom.setColumns(20);
+		txtEmail = new JTextField();
+		txtEmail.setMaximumSize(new Dimension(150, 50));
+		txtEmail.setColumns(20);
+		
+		panelNom = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panelNom.add(nom);
+		panelNom.add(txtNom);
+		
+		panelPrenom = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panelPrenom.add(prenom);
+		panelPrenom.add(txtPrenom);
+		
+		panelEmail = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		panelEmail.add(email);
+		panelEmail.add(txtEmail);
+		
+		panelIdentite = new JPanel();
+		panelIdentite.setLayout(new BoxLayout(panelIdentite, BoxLayout.Y_AXIS));
+		panelIdentite.add(panelNom);
+		panelIdentite.add(panelPrenom);
+		panelIdentite.add(panelEmail);
+		
+
+	}
+	
 	public JSplitPane getPanelPrincipal(){
 		return this.panel;
 		
 	}
 	
+	public JPanel getPanelModif(){
+		return this.panelIdentite;
+	}
 	//private JTextField txtNom, txtPrenom, txtEmail;
 	/**Methode qui retourne le nom entré
 	 * @return le nom*/

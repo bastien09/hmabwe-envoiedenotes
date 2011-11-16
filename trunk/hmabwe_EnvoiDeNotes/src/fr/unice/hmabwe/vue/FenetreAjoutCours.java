@@ -113,7 +113,10 @@ public class FenetreAjoutCours extends FenetreCommune{
 		
 		
 	}
-	
+	/**Constructeur pour la fenetre de mis à jour d'un cours associé à un enseignant
+	 * @param df DaoFabrique
+	 * @param ens l'enseignant responsable
+	 */
 	public FenetreAjoutCours(DaoFabrique df, Enseignant ens, Cours c, FenetreGestionEnseignants fge){
 		super("Modification de cours pour l'enseignant" + ens.getPrenom() + " " + ens.getNom(), 500, 400, df);
 		estNouveauCours = false;

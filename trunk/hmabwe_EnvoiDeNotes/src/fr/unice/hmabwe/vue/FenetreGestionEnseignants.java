@@ -33,6 +33,7 @@ import fr.unice.hmabwe.controleur.bd.dao.DaoFabrique;
 import fr.unice.hmabwe.controleur.bd.dao.DaoFiliere;
 import fr.unice.hmabwe.modele.Cours;
 import fr.unice.hmabwe.modele.Enseignant;
+import fr.unice.hmabwe.modele.Etudiant;
 import fr.unice.hmabwe.modele.Filiere;
 
 /**
@@ -117,23 +118,35 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 	 * @param e L'enseignant
 	 */
 	public FenetreGestionEnseignants(DaoFabrique df, Enseignant e) {
-		super("Gestion des enseignants", 500, 500, df);
+		super("Gestion des enseignants", 400, 300, df);
 		estNouvelleFenetre = false;
 		// Pas instancié ça pose un probleme !!!!!!!!!
 		daoEnseignant = df.getDaoEnseignant();
 		daocours = df.getDaoCours();
 		daofiliere = df.getDaoFiliere();
-		panelEnseignant = new PanelGestionEnseignant(df);
-		l = new EcouteurEnseignant(this);
+		panelEnseignant = new PanelGestionEnseignant(df, 0);
+		
+		
+        try {
+			Enseignant ensmodif = daoEnseignant.findById(e.getId());
+			panelEnseignant.txtNom.setText(ensmodif.getNom());
+			panelEnseignant.txtPrenom.setText(e.getPrenom());
+			panelEnseignant.txtEmail.setText(e.getMail());
+			l = new EcouteurEnseignant(this, ensmodif);
+		} catch (DaoException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 		
 		//Pre remplissage des zones de texte
-		panelEnseignant.txtNom.setText(e.getNom());
-		panelEnseignant.txtPrenom.setText(e.getPrenom());
-		panelEnseignant.txtEmail.setText(e.getMail());
+
 		
 		// Ajout des ecouteurs
 		boutonOK.addMouseListener(l);
 		boutonAnnuler.addMouseListener(l);
+		/*
 		panelEnseignant.bAjout1.addMouseListener(l);
 		panelEnseignant.bAjout2.addMouseListener(l);
 		panelEnseignant.bModif1.addMouseListener(l);
@@ -143,9 +156,9 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		panelEnseignant.bPlus.addMouseListener(l);
 		panelEnseignant.bSuppress1.addMouseListener(l);
 		panelEnseignant.bSuppress2.addMouseListener(l);
+		*/
 		
-		
-		try {
+		/*try {
 			listFil = daofiliere.findAll();
 			listC = daocours.findAll();
 			for(Filiere f : listFil){
@@ -159,11 +172,11 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 		} catch (DaoException ef) {
 			// TODO Auto-generated catch block
 			ef.printStackTrace();
-		}
+		}*/
 		
 		
 		this.setResizable(false);
-		this.container.add(panelEnseignant.getPanelPrincipal(), BorderLayout.CENTER);
+		this.container.add(panelEnseignant.getPanelModif(), BorderLayout.CENTER);
 		this.setVisible(true);
 		
 		
@@ -174,6 +187,12 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 
 	private class EcouteurEnseignant implements MouseListener{
 		public FenetreGestionEnseignants fge;
+		public Enseignant enseignmodif;
+		
+		public EcouteurEnseignant(FenetreGestionEnseignants fge, Enseignant ens){
+			this.fge = fge;
+			this.enseignmodif = ens;
+		}
 		
 		public EcouteurEnseignant(FenetreGestionEnseignants fge){
 			this.fge = fge;
@@ -222,6 +241,9 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 						else{
 							if(!estNouvelleFenetre){//Mis a jour
 								Enseignant e = new Enseignant(panelEnseignant.getNom(), panelEnseignant.getPrenom(), panelEnseignant.getEmail());
+								enseignmodif.setNom(panelEnseignant.getNom());
+								enseignmodif.setPrenom(panelEnseignant.getPrenom());
+								enseignmodif.setMail(panelEnseignant.getEmail());
 								
 								//e.addFiliere(panelEnseignant.getFiliereSelect());
 								//e.addCours(panelEnseignant.getCoursSelect());
@@ -229,8 +251,11 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 								
 								try {
 									conn.beginTransaction();
-									daoEnseignant.update(e);
+									daoEnseignant.update(enseignmodif);
 									conn.commitTransaction();
+									JOptionPane.showMessageDialog(fge,
+										    "Enseignant mis à jour dans la base la base");
+									fge.setVisible(false);
 									
 								}
 								catch (DaoException e1) {
@@ -270,6 +295,12 @@ public class FenetreGestionEnseignants extends FenetreCommune{
 									else{
 										if(boutSelected.equals(panelEnseignant.bModifEns)){
 											new FenetreGestionEnseignants(df, panelEnseignant.getEnseignantSelect());
+										}
+										else{
+											if(boutSelected.equals(panelEnseignant.bPlus)){
+												fge.setVisible(false);
+												new FenetreGestionEnseignants(df);
+											}
 										}
 									}
 								}
