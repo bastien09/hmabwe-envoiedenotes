@@ -27,13 +27,25 @@ public class Coefficient {
 	@ManyToOne
 	private Cours cours;
 	
+	public void setCours(Cours cours) {
+		this.cours = cours;
+	}
+
 	/**Un coefficient est associé à une filière*/
 	@ManyToOne
 	private Filiere filiere;
 	
+	public void setFiliere(Filiere filiere) {
+		this.filiere = filiere;
+	}
+
 	/**Coefficient pour un cours dans une filière*/
 	private Integer coefficient;
 	
+	public void setCoefficient(Integer coefficient) {
+		this.coefficient = coefficient;
+	}
+
 	/**Constructeur par défaut*/
 	public Coefficient(){
 	}
