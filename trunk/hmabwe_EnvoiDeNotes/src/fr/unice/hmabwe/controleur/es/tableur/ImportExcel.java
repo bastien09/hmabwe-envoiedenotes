@@ -151,34 +151,28 @@ public class ImportExcel {
 					try {
 						etu.create(e);
 					} catch (DaoException daexep) {
-						try {
-							Etudiant nouveauE = etu.findByNumeroEtudiant(e.getNumEtu());
-							nouveauE.setFiliere(e.getFiliere());
-							nouveauE.setGroupe(e.getGroupe());
-							nouveauE.setMail(e.getMail());
-							nouveauE.setOrigine(e.getOrigine());
-							nouveauE.setNom(e.getNom());
-							nouveauE.setPrenom(e.getPrenom());
-							etu.update(nouveauE);
-							testEtu = true;
-						} catch (DaoException e1) {
-							e1.printStackTrace();
-						}
+						/*Etudiant nouveauE = etu.findByNumeroEtudiant(e.getNumEtu());
+						nouveauE.setFiliere(e.getFiliere());
+						nouveauE.setGroupe(e.getGroupe());
+						nouveauE.setMail(e.getMail());
+						nouveauE.setOrigine(e.getOrigine());
+						nouveauE.setNom(e.getNom());
+						nouveauE.setPrenom(e.getPrenom());
+						etu.update(nouveauE);
+						testEtu = true;*/
+						System.out.println("etu.create() a échoué");
 					}
 
 					try {
 						course.create(c);
 
 					} catch (DaoException daexep) {
-						try {
-							Cours nouveauC = course.findById(c.getId());
-							nouveauC.setEnseignant(c.getEnseignant());
-							nouveauC.setNom(c.getNom());
-							course.update(nouveauC);
-							testCoef = true;
-						} catch (DaoException e2) {
-							e2.printStackTrace();
-						}
+						/*Cours nouveauC = course.findById(c.getId());
+						nouveauC.setEnseignant(c.getEnseignant());
+						nouveauC.setNom(c.getNom());
+						course.update(nouveauC);
+						testCoef = true;*/
+						System.out.println("le course.creat() a échoué");
 					}
 
 					try {
@@ -186,11 +180,12 @@ public class ImportExcel {
 						testCoef = false;
 
 					} catch (DaoException daexep) {
-						Filiere nouveauF = filiere.findById(f.getId());
+						/*Filiere nouveauF = filiere.findById(f.getId());
 						nouveauF.setResponsable(f.getResponsable());
 						nouveauF.setNom(f.getNom());
 						filiere.update(nouveauF);
-						testCoef = true;
+						testCoef = true;*/
+						System.out.println("filiere.create() a échoué");
 					}
 
 					if (testCoef == false) {
@@ -198,12 +193,13 @@ public class ImportExcel {
 							coefficient.create(coef);
 
 						} catch (DaoException daexep) {
-							Coefficient nouveauC = coefficient.findById(coef.getId());
+							/*Coefficient nouveauC = coefficient.findById(coef.getId());
 							nouveauC.setCoefficient(coef.getCoefficient());
 							nouveauC.setCours(coef.getCours());
 							nouveauC.setFiliere(coef.getFiliere());
 							coefficient.update(nouveauC);
-							daexep.printStackTrace();
+							daexep.printStackTrace();*/
+							System.out.println("coefficient.create() a échoué");
 						}
 					}
 
@@ -212,11 +208,12 @@ public class ImportExcel {
 							incriptionDao.create(inscription);
 
 						} catch (DaoException daexep) {
-							Inscription nouveauI = incriptionDao.findById(inscription.getId());
+							/*Inscription nouveauI = incriptionDao.findById(inscription.getId());
 							nouveauI.setCours(inscription.getCours());
 							nouveauI.setMoyenne(inscription.getMoyenne());
 							incriptionDao.update(nouveauI);
-							daexep.printStackTrace();
+							daexep.printStackTrace();*/
+							System.out.println("le inscriptionDao.create() a échoué");
 						}
 					} else {
 						if (etu.etaitInscrit(numEtu, cours.toString(), an)) {
@@ -242,8 +239,6 @@ public class ImportExcel {
 
 				} catch (NumberFormatException nfe) {
 					nfe.printStackTrace();
-				} catch (DaoException e1) {
-					e1.printStackTrace();
 				}
 			}
 
