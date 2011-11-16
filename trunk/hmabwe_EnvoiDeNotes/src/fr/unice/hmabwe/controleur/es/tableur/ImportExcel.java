@@ -147,11 +147,15 @@ public class ImportExcel {
 
 					boolean testCoef = false;
 					boolean testEtu = false;
+					
 
 					try {
-						etu.create(e);
+						Etudiant eTemp = etu.findByNumeroEtudiant(e.getNumEtu());
+						if(eTemp == null){
+							etu.create(e);
+						}
 					} catch (DaoException daexep) {
-						/*Etudiant nouveauE = etu.findByNumeroEtudiant(e.getNumEtu());
+						Etudiant nouveauE = etu.findByNumeroEtudiant(e.getNumEtu());
 						nouveauE.setFiliere(e.getFiliere());
 						nouveauE.setGroupe(e.getGroupe());
 						nouveauE.setMail(e.getMail());
@@ -159,60 +163,76 @@ public class ImportExcel {
 						nouveauE.setNom(e.getNom());
 						nouveauE.setPrenom(e.getPrenom());
 						etu.update(nouveauE);
-						testEtu = true;*/
+						testEtu = true;
 						System.out.println("etu.create() a échoué");
 					}
 
 					try {
-						course.create(c);
+						Cours cTemp = course.findById(c.getId());
+						if(cTemp == null){
+							course.create(c);
+
+						}
 
 					} catch (DaoException daexep) {
-						/*Cours nouveauC = course.findById(c.getId());
+						Cours nouveauC = course.findById(c.getId());
 						nouveauC.setEnseignant(c.getEnseignant());
 						nouveauC.setNom(c.getNom());
 						course.update(nouveauC);
-						testCoef = true;*/
+						testCoef = true;
 						System.out.println("le course.creat() a échoué");
 					}
 
 					try {
-						filiere.create(f);
-						testCoef = false;
+						Filiere fTemp = filiere.findById(f.getId());
+						if(fTemp == null){
+
+							filiere.create(f);
+							testCoef = false;
+						}
 
 					} catch (DaoException daexep) {
-						/*Filiere nouveauF = filiere.findById(f.getId());
+						Filiere nouveauF = filiere.findById(f.getId());
 						nouveauF.setResponsable(f.getResponsable());
 						nouveauF.setNom(f.getNom());
 						filiere.update(nouveauF);
-						testCoef = true;*/
+						testCoef = true;
 						System.out.println("filiere.create() a échoué");
 					}
 
 					if (testCoef == false) {
 						try {
-							coefficient.create(coef);
+							Coefficient coefTemp = coefficient.findById(coef.getId());
+							if(coefTemp == null){
+								coefficient.create(coef);
+
+							}
 
 						} catch (DaoException daexep) {
-							/*Coefficient nouveauC = coefficient.findById(coef.getId());
+							Coefficient nouveauC = coefficient.findById(coef.getId());
 							nouveauC.setCoefficient(coef.getCoefficient());
 							nouveauC.setCours(coef.getCours());
 							nouveauC.setFiliere(coef.getFiliere());
 							coefficient.update(nouveauC);
-							daexep.printStackTrace();*/
+							daexep.printStackTrace();
 							System.out.println("coefficient.create() a échoué");
 						}
 					}
 
 					if (testEtu == false) {
 						try {
-							incriptionDao.create(inscription);
+							Inscription inscrTemp = incriptionDao.findById(inscription.getId());
+							if(inscrTemp == null){
+								incriptionDao.create(inscription);
+
+							}
 
 						} catch (DaoException daexep) {
-							/*Inscription nouveauI = incriptionDao.findById(inscription.getId());
+							Inscription nouveauI = incriptionDao.findById(inscription.getId());
 							nouveauI.setCours(inscription.getCours());
 							nouveauI.setMoyenne(inscription.getMoyenne());
 							incriptionDao.update(nouveauI);
-							daexep.printStackTrace();*/
+							daexep.printStackTrace();
 							System.out.println("le inscriptionDao.create() a échoué");
 						}
 					} else {
@@ -227,9 +247,18 @@ public class ImportExcel {
 							}
 						} else {
 							try {
-								incriptionDao.create(inscription);
-							} catch (DaoException e1) {
-								e1.printStackTrace();
+								Inscription inscrTemp = incriptionDao.findById(inscription.getId());
+								if(inscrTemp == null){
+									incriptionDao.create(inscription);
+
+								}
+							} catch (DaoException daexep) {
+								Inscription nouveauI = incriptionDao.findById(inscription.getId());
+								nouveauI.setCours(inscription.getCours());
+								nouveauI.setMoyenne(inscription.getMoyenne());
+								incriptionDao.update(nouveauI);
+								daexep.printStackTrace();
+								System.out.println("le inscriptionDao.create() a échoué");
 							}
 						}
 
