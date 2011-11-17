@@ -51,6 +51,19 @@ Cette page relatera les différentes réunions qu'on fera dans le cadre de notre
   * Compte rendu des Bogues, ce qui marche/ne marche pas
   * dispatching des tâches pour les livrables..
 
+
+== 16 Nov 2011 ==
+
+  * Correction de Bogues dans MailSSL.java et ImportExcel.Java (Merci Paraita et Bastien).
+  * Rédaction des Livrables.
+  * Deadline le 17 Novembre à 18h00
+
+
+== 17 Nov 2011 ==
+
+  * Préparation de l'archive à rendre.
+  * Lecture/Correction des Livrables.
+
        ==On se motive les gars ;) == 
 
 == Diagramme de Classes ==
