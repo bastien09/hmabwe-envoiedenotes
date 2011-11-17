@@ -1,0 +1,12 @@
+#
+#Thu Nov 17 22:27:47 CET 2011
+mserveur=
+pport=1521
+type_persistance=jpa
+mmdp=
+puser=iliasse
+mport=
+pserveur=localhost
+pmdp=eipi+1\=0
+psid=xe
+muser=

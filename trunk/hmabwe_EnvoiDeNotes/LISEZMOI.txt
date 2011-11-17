@@ -1,0 +1,22 @@
+Bienvenue dans notre application d'envoi de notes personnalisé par mail.
+
+
+Sous Unix/Linux
+
+--Pour lancer l'application :  executer "execute.sh"
+
+--Pour recompiler : executer "compile.sh"
+
+
+
+Sous Windows 
+
+--Pour lancer l'application :  executer "execute.bat"
+
+--Pour recompiler : executer "compile.bat" //non fourni
+
+
+####IMPORTANT####
+
+Pour l'import d'étudiants depuis un tableur, le format du fichier doit être semblable au fichier
+présent dans le dossier : doc (extension .xls et champs bien renseignés)

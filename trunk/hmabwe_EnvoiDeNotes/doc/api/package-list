@@ -1,0 +1,9 @@
+fr.unice.hmabwe.controleur.bd
+fr.unice.hmabwe.controleur.bd.config
+fr.unice.hmabwe.controleur.bd.dao
+fr.unice.hmabwe.controleur.bd.dao.jpa
+fr.unice.hmabwe.controleur.es.mail
+fr.unice.hmabwe.controleur.es.tableur
+fr.unice.hmabwe.modele
+fr.unice.hmabwe.test
+fr.unice.hmabwe.vue
