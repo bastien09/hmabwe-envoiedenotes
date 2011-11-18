@@ -1,6 +1,8 @@
 package fr.unice.hmabwe.controleur.bd.config;
 
 import java.io.IOException;
+import java.util.prefs.Preferences;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,16 +30,34 @@ public class JpaConfigConnexion extends ConfigConnexion {
 	
 	public void setProprietes(String serveur, String port, String username,
 			String mdp, String SID) {
+		
 		this.serveur = serveur;
 		this.port = port;
 		this.username = username;
 		this.mdp = mdp;
 		this.SID = SID;
+		
 	}
 	
 	@Override
 	public void sauvegarder() throws ConnexionException {
+		if(serveur == null ||
+			port == null ||
+			username == null ||
+			mdp == null ||
+			SID == null) {
+			throw new ConnexionException("erreur: il faut d'abord configurer la connexion avant de l'enregistrer");
+		}
+		Preferences prefs = Preferences.userRoot().node("/hmabwe_config");
+		prefs.put("hostname", serveur);
+		prefs.put("port", port);
+		prefs.put("sid", SID);
+		prefs.put("username", username);
+		prefs.put("mdp", mdp);
 		
+		
+	}
+		/*
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder parser = null;
 		Document doc = null;
@@ -91,5 +111,6 @@ public class JpaConfigConnexion extends ConfigConnexion {
 			throw new ConnexionException("erreur à l'ouverture du fichier de configuration persistence.xml", e5);
 		}
 	}
+	*/
 
 }
