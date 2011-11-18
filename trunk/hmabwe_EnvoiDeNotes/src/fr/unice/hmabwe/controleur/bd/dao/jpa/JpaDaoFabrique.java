@@ -3,6 +3,9 @@
  */
 package fr.unice.hmabwe.controleur.bd.dao.jpa;
 
+import java.util.Hashtable;
+import java.util.prefs.Preferences;
+
 import javax.persistence.Persistence;
 import fr.unice.hmabwe.controleur.bd.Connexion;
 import fr.unice.hmabwe.controleur.bd.JpaConnexion;
@@ -22,7 +25,13 @@ public class JpaDaoFabrique extends DaoFabrique {
 	
 	public JpaDaoFabrique() {
 		super();
-		this.conn = new JpaConnexion(Persistence.createEntityManagerFactory("persistance").createEntityManager());
+		Preferences prefs = Preferences.userRoot().node("/hmabwe_config");
+		Hashtable<String, String> map = new Hashtable<String, String>();
+		map.put("javax.persistence.jdbc.driver", "oracle.jdbc.driver.OracleDriver");
+		map.put("javax.persistence.jdbc.url", "jdbc:oracle:thin:@" + prefs.get("hostname", "") + ":" + prefs.get("port", "1521") + ":" + prefs.get("sid", "xe"));
+		map.put("javax.persistence.jdbc.user", prefs.get("username", ""));
+		map.put("javax.persistence.jdbc.password", prefs.get("mdp", ""));
+		this.conn = new JpaConnexion(Persistence.createEntityManagerFactory("persistance", map).createEntityManager());
 	}
 
 	@Override
