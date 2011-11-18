@@ -1,3 +1,2 @@
 #!/bin/bash
-echo Please Wait...
-java -classpath .:./lib/eclipselink.jar:./lib/javax.persistence_2.0.3.v201010191057.jar:./lib/activation.jar:./lib/junit-4.10.jar:./lib/jxl.jar:./lib/mail.jar:./lib/ojdbc6.jar fr.unice.hmabwe.vue.FenetrePremiere
+java -jar ./dist/hmabwe.jar
